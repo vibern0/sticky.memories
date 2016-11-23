@@ -5,6 +5,8 @@
  */
 package stickymemories;
 
+import java.awt.AWTException;
+
 
 /**
  *
@@ -15,7 +17,7 @@ public class StickyMemories {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AWTException {
         // TODO code application logic here
         OsCheck.OSType ostype=OsCheck.getOperatingSystemType();
         switch (ostype) {
@@ -35,8 +37,10 @@ public class StickyMemories {
         
         new PutOnStartup(ostype);
         SystemNotifications systemNotifications = new SystemNotifications(ostype);
-        systemNotifications.showTextNotification("Uma mensagem de exemplo!",
-                "/home/bernardovieira/Imagens/prioridades.png");
+        //systemNotifications.showTextNotification("Uma mensagem de exemplo!",
+        //        "/home/bernardovieira/Imagens/prioridades.png");
+        systemNotifications.showTextNotification("Lembrete XYZ", 
+                "");
         
     }
     
