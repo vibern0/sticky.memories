@@ -5,17 +5,13 @@
  */
 package stickymemories;
 
-import static com.sun.javafx.runtime.SystemProperties.getCodebase;
-import com.sun.javafx.tk.Toolkit;
 import java.awt.*;
 import java.awt.TrayIcon.MessageType;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.rmi.CORBA.Util;
 import javax.swing.ImageIcon;
 
 /**
@@ -31,30 +27,39 @@ public class SystemNotifications
         this.ostype = ostype;
     }
     
-    public void showTextNotification(String text, String image) throws AWTException
+    public void showTextNotification(String text, String image)
     {
-        //
-        switch (ostype) {
+        switch (ostype) 
+        {
             case Windows:
-                SystemTray tray = SystemTray.getSystemTray();
+                if (SystemTray.isSupported()) 
+                {
+                    final SystemTray tray = SystemTray.getSystemTray();
 
-                Image imageDemo = null;
-                
-                if (SystemTray.isSupported()) {
-                    URL imageUrl = this.getClass().getResource("\\images\\image.png");
-                    try {
-                        imageDemo = ImageIO.read(imageUrl);
-                    } catch (IOException ex) {
-                        Logger.getLogger(SystemNotifications.class.getName()).log(Level.SEVERE, null, ex);
+                    final Image imageDemo = new ImageIcon(Resources
+                            .getResourceFile(image))
+                            .getImage();
+
+                    TrayIcon trayIcon = new TrayIcon(imageDemo);
+                    trayIcon.setImageAutoSize(true);
+
+                    try
+                    {
+                        tray.add(trayIcon);
+                    } 
+                    catch(AWTException ex) 
+                    {
+                        ex.printStackTrace();
                     }
+                    trayIcon.displayMessage(Constants.STICKY_MEMORIES_TITLE, 
+                            text, MessageType.NONE);
+                    tray.
+                } 
+                else 
+                {
+                    System.out.println("System tray not supported");
                 }
-                
-                TrayIcon trayIcon = new TrayIcon(imageDemo, "Sticky Memories");
-                trayIcon.setImageAutoSize(true);
-                
-                trayIcon.setToolTip("System tray icon demo");
-                tray.add(trayIcon);
-                trayIcon.displayMessage("Sticky Memories", text, MessageType.NONE);
+
                 break;
             case MacOS:
                 try
