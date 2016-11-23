@@ -5,9 +5,18 @@
  */
 package stickymemories;
 
+import static com.sun.javafx.runtime.SystemProperties.getCodebase;
+import com.sun.javafx.tk.Toolkit;
+import java.awt.*;
+import java.awt.TrayIcon.MessageType;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.rmi.CORBA.Util;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -22,12 +31,30 @@ public class SystemNotifications
         this.ostype = ostype;
     }
     
-    public void showTextNotification(String text, String image)
+    public void showTextNotification(String text, String image) throws AWTException
     {
         //
         switch (ostype) {
             case Windows:
-                //
+                SystemTray tray = SystemTray.getSystemTray();
+
+                Image imageDemo = null;
+                
+                if (SystemTray.isSupported()) {
+                    URL imageUrl = this.getClass().getResource("\\images\\image.png");
+                    try {
+                        imageDemo = ImageIO.read(imageUrl);
+                    } catch (IOException ex) {
+                        Logger.getLogger(SystemNotifications.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
+                TrayIcon trayIcon = new TrayIcon(imageDemo, "Sticky Memories");
+                trayIcon.setImageAutoSize(true);
+                
+                trayIcon.setToolTip("System tray icon demo");
+                tray.add(trayIcon);
+                trayIcon.displayMessage("Sticky Memories", text, MessageType.NONE);
                 break;
             case MacOS:
                 try
