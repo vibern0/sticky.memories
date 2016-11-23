@@ -5,6 +5,7 @@
  */
 package stickymemories;
 
+
 /**
  *
  * @author bernardovieira
@@ -31,6 +32,12 @@ public class StickyMemories {
                 System.out.println("Hi from Other!");
                 break;
         }
+        
+        new PutOnStartup(ostype);
+        SystemNotifications systemNotifications = new SystemNotifications(ostype);
+        systemNotifications.showTextNotification("Uma mensagem de exemplo!",
+                "/home/bernardovieira/Imagens/prioridades.png");
+        
     }
     
 }
