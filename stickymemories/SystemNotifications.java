@@ -30,7 +30,16 @@ public class SystemNotifications
                 //
                 break;
             case MacOS:
-                //
+                try
+                {
+                    ProcessBuilder pb = new ProcessBuilder("osascript",
+                            "notification.scpt", "Sticky Memories", text);
+                    Process p = pb.start();
+                }
+                catch (IOException ex)
+                {
+                    Logger.getLogger(StickyMemories.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 break;
             case Linux:
                 try
