@@ -23,7 +23,7 @@ public class PutOnStartup {
         this.ostype = ostype;
     }
     
-    public boolean doIt()
+    public boolean doIt() throws FileNotFoundException, UnsupportedEncodingException
     {
         boolean result = false;
         //
@@ -63,7 +63,6 @@ public class PutOnStartup {
     
     private boolean doItOnLinux() throws FileNotFoundException, UnsupportedEncodingException
     {
-     
         PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
         writer.println(
                 "[Desktop Entry]\n" +
