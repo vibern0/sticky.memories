@@ -4,17 +4,21 @@
  * and open the template in the editor.
  */
 
+import java.awt.AWTException;
+
 /**
  *
  * @author bernardovieira
  */
 public class StickyMemories {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws AWTException {
+
+        MainFrame mf = new MainFrame();
+        mf.setTitle(Constants.STICKY_MEMORIES_TITLE);
+        mf.setResizable(false);
+        mf.setVisible(true);
+        
         OsCheck.OSType ostype=OsCheck.getOperatingSystemType();
         switch (ostype) {
             case Windows:
@@ -33,8 +37,14 @@ public class StickyMemories {
         
         new PutOnStartup(ostype);
         SystemNotifications systemNotifications = new SystemNotifications(ostype);
-        systemNotifications.showTextNotification("Uma mensagem de exemplo!",
-                "/home/bernardovieira/Imagens/prioridades.png");
+        
+        // Linux Test
+        //systemNotifications.showTextNotification("Uma mensagem de exemplo!",
+        //        "/home/bernardovieira/Imagens/prioridades.png");
+        
+        // Windows Test
+        systemNotifications.showTextNotification("Lembrete XYZ", 
+                Constants.PATH_IMG_EXCLAMATION_SIGN);
         
     }
     
