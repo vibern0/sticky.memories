@@ -29,7 +29,7 @@ public class PutOnStartup {
         //
         switch (ostype) {
             case Windows:
-                //
+                result = doItOnWindows();
                 break;
             case MacOS:
                 result = doItOnMac();
@@ -42,6 +42,13 @@ public class PutOnStartup {
                 break;
         }
         return result;
+    }
+    
+    private boolean doItOnWindows()
+    {
+        //
+        
+        return false;
     }
     
     private boolean doItOnMac()
