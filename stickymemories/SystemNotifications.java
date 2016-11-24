@@ -89,8 +89,8 @@ public class SystemNotifications
         }
     }
     
-    public static void showImageNotification()
+    public static void showImageNotification(String filePath)
     {
-        //
+        
     }
 }
