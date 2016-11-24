@@ -9,6 +9,11 @@ public class StickyMemories {
 
     public static void main(String[] args) throws AWTException {
 
+        MainFrame mf = new MainFrame();
+        mf.setTitle(Constants.STICKY_MEMORIES_TITLE);
+        mf.setResizable(false);
+        mf.setVisible(true);
+        
         OsCheck.OSType ostype=OsCheck.getOperatingSystemType();
         switch (ostype) {
             case Windows:

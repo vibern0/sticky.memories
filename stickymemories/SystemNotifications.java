@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package stickymemories;
 
 import java.awt.*;
 import java.awt.TrayIcon.MessageType;
 import java.io.IOException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
 /**
  *
  * @author bernardovieira
@@ -36,24 +29,25 @@ public class SystemNotifications
                 {
                     final SystemTray tray = SystemTray.getSystemTray();
 
-                    final Image imageDemo = new ImageIcon(Resources
+                    final Image imageIcon = new ImageIcon(Resources
                             .getResourceFile(image))
                             .getImage();
 
-                    TrayIcon trayIcon = new TrayIcon(imageDemo);
+                    TrayIcon trayIcon = new TrayIcon(imageIcon);
                     trayIcon.setImageAutoSize(true);
+                    
+                    System.out.println("Action command: "+trayIcon.getActionCommand());
 
                     try
                     {
                         tray.add(trayIcon);
                     } 
-                    catch(AWTException ex) 
+                    catch(AWTException ex)
                     {
                         ex.printStackTrace();
                     }
                     trayIcon.displayMessage(Constants.STICKY_MEMORIES_TITLE, 
                             text, MessageType.NONE);
-                    tray.
                 } 
                 else 
                 {
