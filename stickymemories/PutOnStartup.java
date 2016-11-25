@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package stickymemories;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 /**
  *
@@ -19,7 +22,7 @@ public class PutOnStartup {
         this.ostype = ostype;
     }
     
-    public boolean doIt()
+    public boolean doIt() throws FileNotFoundException, UnsupportedEncodingException
     {
         boolean result = false;
         //
@@ -57,25 +60,21 @@ public class PutOnStartup {
         return false;
     }
     
-    private boolean doItOnLinux()
+    private boolean doItOnLinux() throws FileNotFoundException, UnsupportedEncodingException
     {
-        
-        /*
-        [Desktop Entry]
-        Name=Docky
-        Type=Application
-        Exec=docky
-        Terminal=false
-        Icon=docky
-        Comment=The finest dock no money can buy.
-        Comment[pt]=A melhor doca que nenhum dinheiro pode comprar.
-        NoDisplay=false
-        Categories=Utility;
-
-        */
-        
-        //escrever e guardar em ~/.config/autostart/
-        //com o noome stickymemories.desktop
+        PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
+        writer.println(
+                "[Desktop Entry]\n" +
+                "Name=Sticky Notes\n" +
+                "Type=Application\n" +
+                "Exec=~/.config/autostart/stickynotes.desktop\n" +
+                "Terminal=false\n" +
+                "Icon=noicon\n" +
+                "Comment=The Sticky Notes App.\n" +
+                "NoDisplay=false\n" +
+                "Categories=Utility;"
+        );
+        writer.close();
         
         return false;
     }
