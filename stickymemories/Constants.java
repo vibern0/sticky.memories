@@ -1,4 +1,3 @@
-package stickymemories;
 /**
  *
  * @author andre

@@ -1,5 +1,3 @@
-package stickymemories;
-
 import java.net.URL;
 /**
  *
