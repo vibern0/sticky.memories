@@ -18,6 +18,9 @@ public class NotificationFrame extends JFrame{
         notificationPanel.setLayout(new BorderLayout());
         add(notificationPanel, BorderLayout.CENTER);
         
+        
+        
+        
         setLayout(new BorderLayout());
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
