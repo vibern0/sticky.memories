@@ -31,8 +31,8 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="backButton" min="-2" max="-2" attributes="0"/>
-                  <Component id="jColorChooser" alignment="0" min="-2" pref="339" max="-2" attributes="0"/>
+                  <Component id="jColorChooser" min="-2" pref="339" max="-2" attributes="0"/>
+                  <Component id="backButton" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="49" max="32767" attributes="0"/>
           </Group>
