@@ -82,7 +82,7 @@ public class EditNotePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backButtonOnBackButtonClicked
 
     private void setupButtons() {
-        backButton.setIcon(Constants.getImageIcon(Constants.PATH_IMG_BACK_SIGN));
+        backButton.setIcon(Constants.getButtonImageIcon(Constants.PATH_IMG_BACK_SIGN));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
