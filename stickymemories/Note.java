@@ -16,14 +16,26 @@ import java.util.List;
 public class Note implements Serializable {
     
     private List<Reminder> reminders;
+    private final String image;
     
-    public Note(String title)
+    public Note(String image)
     {
-        reminders = new ArrayList<>();
+        this.image = image;
+        this.reminders = new ArrayList<>();
+    }
+    
+    public void setReminders(List<Reminder> reminders)
+    {
+        this.reminders = reminders;
     }
     
     public boolean addReminder(Reminder reminder)
     {
         return reminders.add(reminder);
+    }
+    
+    public List<Reminder> getReminders()
+    {
+        return reminders;
     }
 }
