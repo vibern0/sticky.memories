@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class DataNotes {
     
-    private List<Note> notes;
+    private static List<Note> notes;
     
     public DataNotes()
     {
@@ -22,9 +22,20 @@ public class DataNotes {
         notes = new ArrayList<>();
     }
     
-    public boolean add()
+    public boolean add(String path_image, List<Reminder> reminders)
     {
-        
+        if(!saveImageApllicationFolder(path_image))
+        {
+            return false;
+        }
+        Note note = new Note(path_image);
+        note.setReminders(reminders);
+        notes.add(note);
+        return true;
+    }
+    
+    private boolean saveImageApllicationFolder(String path_image)
+    {
         return false;
     }
     
