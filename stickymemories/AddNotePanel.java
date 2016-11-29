@@ -21,7 +21,7 @@ public class AddNotePanel extends javax.swing.JPanel {
         
         setupButtons();
         
-        image = Constants.getSelectedImageIcon(0, Constants.PATH_IMG_DEFFAULT_IMAGE).getImage();
+        image = Constants.getSelectedImageIcon(1, Constants.PATH_IMG_DEFFAULT_IMAGE).getImage();
         chosenImagePanel.repaint();
     }
 

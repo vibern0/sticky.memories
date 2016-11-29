@@ -1,6 +1,7 @@
 
 package stickymemories;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 /**
@@ -30,6 +31,32 @@ public class MainFrame extends javax.swing.JFrame {
         setupButtons();
         
         this.setVisible(true);
+        
+        initNotesList();
+    }
+    
+    private void initNotesList()
+    {
+        DefaultListModel model = new DefaultListModel();
+        notesList = new JList(model);
+
+        // Initialize the list with items
+        String[] items = { "A", "B", "C", "D" };
+        for (int i = 0; i < items.length; i++) {
+          model.add(i, items[i]);
+
+        }
+        
+        notesList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        notesList.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        notesList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        notesList.setAutoscrolls(false);
+        notesList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        notesList.setFixedCellHeight(100);
+        notesList.setFixedCellWidth(115);
+        notesList.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        notesList.setVisibleRowCount(-1);
+        jScrollPane1.setViewportView(notesList);
     }
 
     @SuppressWarnings("unchecked")
@@ -64,7 +91,6 @@ public class MainFrame extends javax.swing.JFrame {
         addNoteButton.setFocusable(false);
         addNoteButton.setMaximumSize(new java.awt.Dimension(25, 25));
         addNoteButton.setMinimumSize(new java.awt.Dimension(25, 25));
-        addNoteButton.setOpaque(false);
         addNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
         addNoteButton.setRequestFocusEnabled(false);
         addNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -78,7 +104,6 @@ public class MainFrame extends javax.swing.JFrame {
         removeNoteButton.setBorderPainted(false);
         removeNoteButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         removeNoteButton.setFocusPainted(false);
-        removeNoteButton.setOpaque(false);
         removeNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
 
         editNoteButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -118,11 +143,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         notesList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         notesList.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        notesList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Note 1", "Note 2", "Note 3", "Note 4", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", "Note 5", " ", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         notesList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         notesList.setAutoscrolls(false);
         notesList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -141,7 +161,6 @@ public class MainFrame extends javax.swing.JFrame {
         sortModeButton.setToolTipText("Sort orientation");
         sortModeButton.setBorderPainted(false);
         sortModeButton.setFocusPainted(false);
-        sortModeButton.setOpaque(false);
         sortModeButton.setPreferredSize(new java.awt.Dimension(30, 30));
         sortModeButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -257,7 +276,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JPanel mainPanel;
-    private javax.swing.JList<String> notesList;
+    public static javax.swing.JList<String> notesList;
     private javax.swing.JButton optionsButton;
     private javax.swing.JButton removeNoteButton;
     private javax.swing.JButton sortModeButton;
