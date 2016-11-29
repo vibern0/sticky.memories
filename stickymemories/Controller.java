@@ -20,7 +20,7 @@ public class Controller {
         
     }
     
-    public String selectImageFromDIsk()
+    public static String selectImageFromDisk()
     {
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new File("."));
