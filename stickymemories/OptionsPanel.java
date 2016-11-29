@@ -80,7 +80,7 @@ public class OptionsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void setupButtons() {
-        backButton.setIcon(Constants.getImageIcon(Constants.PATH_IMG_BACK_SIGN));
+        backButton.setIcon(Constants.getButtonImageIcon(Constants.PATH_IMG_BACK_SIGN));
     }
     
     private void backButtonOnBackButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonOnBackButtonClicked
