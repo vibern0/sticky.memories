@@ -1,9 +1,14 @@
 
 package stickymemories;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
 /**
  *
  * @author andre
@@ -57,6 +62,25 @@ public class MainFrame extends javax.swing.JFrame {
         notesList.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
         notesList.setVisibleRowCount(-1);
         jScrollPane1.setViewportView(notesList);
+        
+        notesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        notesList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    //qualquer acao com 2 cliques
+                }
+            }
+        });
+        removeNoteButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                ListSelectionModel selmodel = notesList.getSelectionModel();
+                int index = selmodel.getMinSelectionIndex();
+                if (index >= 0)
+                {
+                    System.out.println(model.get(index));
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
