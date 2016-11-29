@@ -2,6 +2,8 @@
 package stickymemories;
 
 import javax.swing.JFrame;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 /**
  *
  * @author andre
@@ -15,6 +17,23 @@ public class EditNotePanel extends javax.swing.JPanel {
         initComponents();
         
         setupButtons();
+        
+        this.addAncestorListener(new AncestorListener() {
+            @Override
+            public void ancestorAdded(AncestorEvent ae) {
+                System.out.println(MainFrame.LastSelectedEdit);
+            }
+
+            @Override
+            public void ancestorRemoved(AncestorEvent ae) {
+                //quando usar back
+            }
+
+            @Override
+            public void ancestorMoved(AncestorEvent ae) {
+                //nao mexer
+            }
+        });
     }
 
     /**
@@ -74,7 +93,7 @@ public class EditNotePanel extends javax.swing.JPanel {
                     .addContainerGap(63, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void backButtonOnBackButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonOnBackButtonClicked
         mainFrame.setContentPane(MainFrame.mainPanel);
         invalidate();
@@ -89,4 +108,5 @@ public class EditNotePanel extends javax.swing.JPanel {
     private javax.swing.JButton backButton;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
 }
