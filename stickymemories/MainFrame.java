@@ -18,6 +18,7 @@ public class MainFrame extends javax.swing.JFrame {
     public static JPanel addNotePanel;
     public static JPanel editNotePanel;
     public static JPanel optionsPanel;
+    public static String LastSelectedEdit;
 
     private String sortMode = Constants.DOWN_TEXT; // FEITO À TROLHA xD
 
@@ -65,6 +66,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         notesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         notesList.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     //qualquer acao com 2 cliques
@@ -72,12 +74,27 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         removeNoteButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent event) {
                 ListSelectionModel selmodel = notesList.getSelectionModel();
                 int index = selmodel.getMinSelectionIndex();
                 if (index >= 0)
                 {
                     System.out.println(model.get(index));
+                }
+            }
+        });
+        editNoteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                ListSelectionModel selmodel = notesList.getSelectionModel();
+                int index = selmodel.getMinSelectionIndex();
+                if (index >= 0)
+                {
+                    LastSelectedEdit = (String)model.get(index);
+                    setContentPane(editNotePanel);
+                    invalidate();
+                    validate();
                 }
             }
         });
@@ -285,9 +302,11 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_OnAddNoteButtonClick
 
     private void OnEditButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnEditButtonClick
+        /*
         setContentPane(editNotePanel);
         invalidate();
         validate();
+        */
     }//GEN-LAST:event_OnEditButtonClick
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
