@@ -7,6 +7,7 @@ package stickymemories;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,11 +18,18 @@ public class Note implements Serializable {
     
     private List<Reminder> reminders;
     private final String image;
+    private final long ID;
     
     public Note(String image)
     {
         this.image = image;
         this.reminders = new ArrayList<>();
+        this.ID = new Date().getTime();
+    }
+    
+    public long getID()
+    {
+        return ID;
     }
     
     public void setReminders(List<Reminder> reminders)

@@ -5,6 +5,12 @@
  */
 package stickymemories;
 
+import java.io.IOException;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +29,8 @@ public class DataNotes {
     }
     
     public boolean add(String path_image, List<Reminder> reminders)
+            throws DirectoryNotEmptyException, FileAlreadyExistsException,
+                IOException
     {
         if(!saveImageApllicationFolder(path_image))
         {
@@ -35,14 +43,24 @@ public class DataNotes {
     }
     
     private boolean saveImageApllicationFolder(String path_image)
+            throws DirectoryNotEmptyException, FileAlreadyExistsException,
+                IOException
     {
-        return false;
+        Path source = Paths.get(path_image);
+        Path newdir = Paths.get("", source.getFileName().toString());
+        return (Files.copy(source, newdir) != null);
     }
     
-    public boolean remove()
+    public boolean remove(long note_id)
     {
-        
-        
+        for(Note note : notes)
+        {
+            if(note.getID() == note_id)
+            {
+                notes.remove(note);
+                return true;
+            }
+        }
         return false;
     }
 }
