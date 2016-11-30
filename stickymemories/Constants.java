@@ -12,6 +12,8 @@ import javax.swing.ImageIcon;
 public class Constants {
     public static String STICKY_MEMORIES_TITLE = "Sticky Memories";
     
+    public static final String OPTIONS_FILE_NAME = "optionsFile.bin";
+    
     public static final String MAIN_PANEL = "main_panel";
     public static final String OPTIONS_PANEL = "options_panel";
     

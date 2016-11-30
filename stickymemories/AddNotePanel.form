@@ -209,6 +209,9 @@
           <Dimension value="[210, 185]"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="AddNotePanel_remindersPanel"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">

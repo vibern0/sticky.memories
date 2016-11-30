@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package stickymemories;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
@@ -18,13 +14,13 @@ import java.util.List;
  *
  * @author bernardovieira
  */
-public class DataNotes {
+
+public class DataNotes implements Serializable{
     
     private static List<Note> notes;
     
     public DataNotes()
     {
-        //
         notes = new ArrayList<>();
     }
     
@@ -36,8 +32,7 @@ public class DataNotes {
         {
             return false;
         }
-        Note note = new Note(path_image);
-        note.setReminders(reminders);
+        Note note = new Note(path_image, reminders);
         notes.add(note);
         return true;
     }
