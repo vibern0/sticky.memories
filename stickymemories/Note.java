@@ -20,10 +20,10 @@ public class Note implements Serializable {
     private final String image;
     private final long ID;
     
-    public Note(String image)
+    public Note(String image, List<Reminder> reminders)
     {
         this.image = image;
-        this.reminders = new ArrayList<>();
+        this.reminders = reminders;
         this.ID = new Date().getTime();
     }
     
