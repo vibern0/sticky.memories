@@ -1,17 +1,24 @@
 package stickymemories;
 
 import com.toedter.calendar.JDateChooser;
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Insets;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -24,6 +31,7 @@ public class AddNotePanel extends javax.swing.JPanel {
     private Image image;
     private String imagePath;
     private List<JDateChooser> reminders;
+    public static JPanel panel_reminders;
     
     private boolean reminderState = false;
     
@@ -34,10 +42,13 @@ public class AddNotePanel extends javax.swing.JPanel {
         setupComponents();
         setupButtons();
         
-        remindersPanel.add(reminderPanel);
-        remindersPanel.add(reminderPanel);
-        remindersPanel.add(reminderPanel);
-        remindersPanel.invalidate();
+        panel_reminders = new JPanel();
+        BoxLayout boxlayout = new BoxLayout(panel_reminders, BoxLayout.Y_AXIS);
+        panel_reminders.setLayout(boxlayout);
+        
+        panel_reminders.add(new ReminderPanel(this));
+        
+        remindersPanel.add(panel_reminders);
     }
 
     @SuppressWarnings("unchecked")
@@ -52,13 +63,7 @@ public class AddNotePanel extends javax.swing.JPanel {
         reminderSwitcher = new javax.swing.JToggleButton();
         jButton2 = new javax.swing.JButton();
         remindersPanel = new javax.swing.JPanel();
-        reminderPanel = new javax.swing.JPanel();
-        jDateChoser = new com.toedter.calendar.JDateChooser();
-        JSpinHour = new com.toedter.components.JSpinField();
-        JSpinMinute = new com.toedter.components.JSpinField();
-        hoursLabel = new javax.swing.JLabel();
-        minutesLabel = new javax.swing.JLabel();
-        removeReminderButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(400, 350));
@@ -79,7 +84,6 @@ public class AddNotePanel extends javax.swing.JPanel {
         createNoteButton.setBackground(new java.awt.Color(255, 255, 255));
         createNoteButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         createNoteButton.setLabel("Create");
-        createNoteButton.setOpaque(false);
         createNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 OnCreateNoteButtonClick(evt);
@@ -125,111 +129,54 @@ public class AddNotePanel extends javax.swing.JPanel {
         });
 
         jButton2.setText("Add new reminder");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
+        remindersPanel.setAutoscrolls(true);
         remindersPanel.setMaximumSize(new java.awt.Dimension(210, 185));
         remindersPanel.setMinimumSize(new java.awt.Dimension(210, 185));
         remindersPanel.setPreferredSize(new java.awt.Dimension(210, 185));
+        remindersPanel.setLayout(new java.awt.BorderLayout());
 
-        reminderPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        jDateChoser.setToolTipText("Config the reminder");
-        jDateChoser.setDateFormatString("dd/MM/yyyy");
-        jDateChoser.setFont(new java.awt.Font("Monaco", 0, 13)); // NOI18N
-        jDateChoser.setOpaque(false);
-
-        JSpinHour.setOpaque(false);
-
-        hoursLabel.setFont(new java.awt.Font("Monaco", 1, 16)); // NOI18N
-        hoursLabel.setText("H");
-
-        minutesLabel.setFont(new java.awt.Font("Monaco", 1, 16)); // NOI18N
-        minutesLabel.setText("M");
-
-        removeReminderButton.setText("jButton4");
-        removeReminderButton.setMaximumSize(new java.awt.Dimension(30, 30));
-        removeReminderButton.setMinimumSize(new java.awt.Dimension(30, 30));
-        removeReminderButton.setPreferredSize(new java.awt.Dimension(30, 30));
-
-        javax.swing.GroupLayout reminderPanelLayout = new javax.swing.GroupLayout(reminderPanel);
-        reminderPanel.setLayout(reminderPanelLayout);
-        reminderPanelLayout.setHorizontalGroup(
-            reminderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(reminderPanelLayout.createSequentialGroup()
-                .addGroup(reminderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jDateChoser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(reminderPanelLayout.createSequentialGroup()
-                        .addComponent(JSpinHour, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(hoursLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(JSpinMinute, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(minutesLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(removeReminderButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        reminderPanelLayout.setVerticalGroup(
-            reminderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(reminderPanelLayout.createSequentialGroup()
-                .addGroup(reminderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(reminderPanelLayout.createSequentialGroup()
-                        .addComponent(jDateChoser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(reminderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(reminderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(minutesLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(reminderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JSpinHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(JSpinMinute, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(hoursLabel)))
-                    .addComponent(removeReminderButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout remindersPanelLayout = new javax.swing.GroupLayout(remindersPanel);
-        remindersPanel.setLayout(remindersPanelLayout);
-        remindersPanelLayout.setHorizontalGroup(
-            remindersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(reminderPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        remindersPanelLayout.setVerticalGroup(
-            remindersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(remindersPanelLayout.createSequentialGroup()
-                .addComponent(reminderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 121, Short.MAX_VALUE))
-        );
+        jScrollPane1.setHorizontalScrollBar(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(createNoteButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(86, 86, 86)
+                        .addComponent(createNoteTextLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(chosenImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(remindersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(86, 86, 86)
-                                .addComponent(createNoteTextLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(chosenImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(24, 24, 24)
                                         .addComponent(remindersTextLabel)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(reminderSwitcher))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(remindersPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(reminderSwitcher, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,28 +192,22 @@ public class AddNotePanel extends javax.swing.JPanel {
                             .addComponent(reminderSwitcher)
                             .addComponent(remindersTextLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(remindersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(createNoteButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(chosenImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(chosenImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(remindersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void setupComponents(){
         image = Constants.getSelectedImageIcon(0, Constants.PATH_IMG_DEFFAULT_IMAGE).getImage();
-        
-        jDateChoser.getJCalendar().setMinSelectableDate(new Date());
-        
-        JSpinHour.setValue(11);
-        JSpinHour.setMinimum(0);
-        JSpinHour.setMaximum(23);
-        JSpinMinute.setMinimum(0);
-        JSpinMinute.setMaximum(59);
         
         remindersPanel.setVisible(false);
         
@@ -313,6 +254,13 @@ public class AddNotePanel extends javax.swing.JPanel {
         
         //Note note = new Note(imagePath, );
     }//GEN-LAST:event_OnCreateNoteButtonClick
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        panel_reminders.add(new ReminderPanel(this));
+        remindersPanel.invalidate();
+        remindersPanel.validate();
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     class ImagePanel extends JPanel{
         @Override
@@ -346,20 +294,14 @@ public class AddNotePanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.components.JSpinField JSpinHour;
-    private com.toedter.components.JSpinField JSpinMinute;
     private javax.swing.JButton backButton;
     private javax.swing.JPanel chosenImagePanel;
     private javax.swing.JButton createNoteButton;
     private javax.swing.JLabel createNoteTextLabel;
-    private javax.swing.JLabel hoursLabel;
     private javax.swing.JButton jButton2;
-    private com.toedter.calendar.JDateChooser jDateChoser;
-    private javax.swing.JLabel minutesLabel;
-    private javax.swing.JPanel reminderPanel;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton reminderSwitcher;
     private javax.swing.JPanel remindersPanel;
     private javax.swing.JLabel remindersTextLabel;
-    private javax.swing.JButton removeReminderButton;
     // End of variables declaration//GEN-END:variables
 }
