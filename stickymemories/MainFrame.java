@@ -121,6 +121,8 @@ public class MainFrame extends javax.swing.JFrame {
         jButton7.setText("jButton7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(400, 350));
+        setMinimumSize(new java.awt.Dimension(400, 350));
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
         mainPanel.setPreferredSize(new java.awt.Dimension(300, 300));
