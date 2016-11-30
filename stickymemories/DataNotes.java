@@ -36,9 +36,9 @@ public class DataNotes {
         {
             return false;
         }
-        Note note = new Note(path_image);
-        note.setReminders(reminders);
-        notes.add(note);
+        //Note note = new Note(path_image);
+        //note.setReminders(reminders);
+        //notes.add(note);
         return true;
     }
     
