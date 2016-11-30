@@ -6,6 +6,7 @@
 package stickymemories;
 
 import java.util.Date;
+import javax.swing.JPanel;
 
 /**
  *
@@ -13,12 +14,14 @@ import java.util.Date;
  */
 public class ReminderPanel extends javax.swing.JPanel {
 
+    private final JPanel master;
     /**
      * Creates new form ReminderPanel
      */
-    public ReminderPanel() {
+    public ReminderPanel(JPanel panel) {
         initComponents();
         
+        master = panel;
         jDateChoser.getJCalendar().setMinSelectableDate(new Date());
         
         JSpinHour.setValue(11);
@@ -53,6 +56,11 @@ public class ReminderPanel extends javax.swing.JPanel {
         removeReminderButton.setMaximumSize(new java.awt.Dimension(30, 30));
         removeReminderButton.setMinimumSize(new java.awt.Dimension(30, 30));
         removeReminderButton.setPreferredSize(new java.awt.Dimension(30, 30));
+        removeReminderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeReminderButtonActionPerformed(evt);
+            }
+        });
 
         JSpinHour.setOpaque(false);
 
@@ -97,6 +105,22 @@ public class ReminderPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void removeReminderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeReminderButtonActionPerformed
+        // TODO add your handling code here:
+        AddNotePanel.panel_reminders.remove(this);
+        AddNotePanel.panel_reminders.invalidate();
+        AddNotePanel.panel_reminders.validate();
+        AddNotePanel.panel_reminders.repaint();
+    }//GEN-LAST:event_removeReminderButtonActionPerformed
+
+    public int getHour()
+    {
+        return JSpinHour.getValue();
+    }
+    public int getMinute()
+    {
+        return JSpinMinute.getValue();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.components.JSpinField JSpinHour;

@@ -79,6 +79,9 @@
           <Dimension value="[30, 30]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeReminderButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="com.toedter.components.JSpinField" name="JSpinHour">
       <Properties>
