@@ -252,7 +252,6 @@ public class AddNotePanel extends javax.swing.JPanel {
     private void OnCreateNoteButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnCreateNoteButtonClick
         //jDateChoser.getCalendar().getTime()
         
-        //Note note = new Note(imagePath, );
     }//GEN-LAST:event_OnCreateNoteButtonClick
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
