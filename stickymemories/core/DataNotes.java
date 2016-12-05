@@ -17,11 +17,16 @@ import java.util.List;
 
 public class DataNotes implements Serializable{
     
-    private static List<Note> notes;
+    public static List<Note> notes;
     
     public DataNotes()
     {
         notes = new ArrayList<>();
+    }
+    
+    public boolean add(Note note)
+    {
+        return notes.add(note);
     }
     
     public boolean add(String path_image, List<Reminder> reminders)
