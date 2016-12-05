@@ -1,8 +1,9 @@
 package stickymemories.frames;
 
-import javax.swing.JColorChooser;
+import java.awt.Component;
 import javax.swing.JFrame;
-import javax.swing.colorchooser.AbstractColorChooserPanel;
+import javax.swing.JPanel;
+import stickymemories.OptionsModel;
 import stickymemories.core.Constants;
 import stickymemories.RGBColorChooserPanel;
 
@@ -14,39 +15,38 @@ public class OptionsPanel extends javax.swing.JPanel {
 
     private JFrame mainFrame;
     
+    private boolean notificationMode;
+    
     public OptionsPanel(JFrame mainFrame) {
         this.mainFrame = mainFrame;
         initComponents();
         
-        setupComponents();
-        
         setupButtons();
+
+        setupComponents();
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jColorChooser = new javax.swing.JColorChooser();
         backButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         passiveRadioButton = new javax.swing.JRadioButton();
         activeRadioButton = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        colorJPanel = new javax.swing.JPanel();
+        save = new javax.swing.JButton();
 
-        jColorChooser.setPreferredSize(new java.awt.Dimension(300, 200));
-
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(Constants.colorBackground);
         setToolTipText("");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(new java.awt.Dimension(400, 300));
         setMinimumSize(new java.awt.Dimension(400, 300));
         setPreferredSize(new java.awt.Dimension(400, 300));
 
-        backButton.setBackground(new java.awt.Color(255, 255, 255));
+        backButton.setBackground(Constants.colorBackground);
         backButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         backButton.setToolTipText("Back to Main Page");
         backButton.setBorderPainted(false);
@@ -61,9 +61,11 @@ public class OptionsPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Monaco", 1, 24)); // NOI18N
         jLabel1.setText("Settings");
 
+        jLabel2.setBackground(Constants.colorBackground);
         jLabel2.setFont(new java.awt.Font("Monaco", 1, 18)); // NOI18N
         jLabel2.setText("Notifications Mode");
 
+        passiveRadioButton.setBackground(Constants.colorBackground);
         passiveRadioButton.setFont(new java.awt.Font("Monaco", 0, 15)); // NOI18N
         passiveRadioButton.setText("Passive");
         passiveRadioButton.setFocusable(false);
@@ -73,6 +75,7 @@ public class OptionsPanel extends javax.swing.JPanel {
             }
         });
 
+        activeRadioButton.setBackground(Constants.colorBackground);
         activeRadioButton.setFont(new java.awt.Font("Monaco", 0, 15)); // NOI18N
         activeRadioButton.setText("Active");
         activeRadioButton.setFocusable(false);
@@ -85,27 +88,33 @@ public class OptionsPanel extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Monaco", 1, 18)); // NOI18N
         jLabel3.setText("Background Color");
 
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        colorJPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        colorJPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 OnBackgroundColorClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout colorJPanelLayout = new javax.swing.GroupLayout(colorJPanel);
+        colorJPanel.setLayout(colorJPanelLayout);
+        colorJPanelLayout.setHorizontalGroup(
+            colorJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 50, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        colorJPanelLayout.setVerticalGroup(
+            colorJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 40, Short.MAX_VALUE)
         );
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jButton1.setText("Save");
-        jButton1.setFocusable(false);
+        save.setBackground(new java.awt.Color(255, 255, 255));
+        save.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
+        save.setText("Save");
+        save.setFocusable(false);
+        save.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OnSaveButtonClick(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -123,11 +132,11 @@ public class OptionsPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
+                            .addComponent(save)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(128, Short.MAX_VALUE))
+                        .addComponent(colorJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,19 +154,27 @@ public class OptionsPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                    .addComponent(colorJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(save)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void setupComponents(){
-        passiveRadioButton.setSelected(true);
+    
+    private void setupButtons(){
+        backButton.setIcon(Constants.getButtonImageIcon(Constants.PATH_IMG_BACK_SIGN));
     }
     
-    private void setupButtons() {
-        backButton.setIcon(Constants.getButtonImageIcon(Constants.PATH_IMG_BACK_SIGN));
+    private void setupComponents(){
+        OptionsModel om = OptionsModel.loadOptions();
+        if(om != null){
+            if(om.getNotificationsMode())
+                passiveRadioButton.setSelected(true);
+            else
+                activeRadioButton.setSelected(true);
+        } else {
+            passiveRadioButton.setSelected(true);
+        }
     }
     
     private void backButtonOnBackButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonOnBackButtonClicked
@@ -167,39 +184,38 @@ public class OptionsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_backButtonOnBackButtonClicked
 
     private void OnPassiveRadioButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnPassiveRadioButtonClick
-        if(activeRadioButton.isSelected())
+        if(activeRadioButton.isSelected()){
             activeRadioButton.setSelected(false);
+            notificationMode = false;
+        }
     }//GEN-LAST:event_OnPassiveRadioButtonClick
 
     private void OnActiveRadioButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnActiveRadioButtonClick
-        if(passiveRadioButton.isSelected())
+        if(passiveRadioButton.isSelected()){
             passiveRadioButton.setSelected(false);
+            notificationMode = true;
+        }
     }//GEN-LAST:event_OnActiveRadioButtonClick
 
     private void OnBackgroundColorClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnBackgroundColorClicked
         RGBColorChooserPanel rgbCCP = new RGBColorChooserPanel(mainFrame);
     }//GEN-LAST:event_OnBackgroundColorClicked
 
-    private static AbstractColorChooserPanel findPanel(JColorChooser chooser, String name) {
-        AbstractColorChooserPanel[] panels = chooser.getChooserPanels();
-        for (int i = 0; i < panels.length; i++) {
-            String clsName = panels[i].getClass().getName();
-            if (clsName.equals(name)) {
-                return panels[i];
-            }
-        }
-        return null;
-      }
-
+    private void OnSaveButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnSaveButtonClick
+        OptionsModel om = 
+                new OptionsModel(notificationMode, colorJPanel.getBackground());
+        om.saveOptions();
+        Constants.updateBackground(om.getColorCode());
+    }//GEN-LAST:event_OnSaveButtonClick
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton activeRadioButton;
     private javax.swing.JButton backButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JColorChooser jColorChooser;
+    public static javax.swing.JPanel colorJPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton passiveRadioButton;
+    private javax.swing.JButton save;
     // End of variables declaration//GEN-END:variables
 }
