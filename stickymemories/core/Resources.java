@@ -1,6 +1,7 @@
-package stickymemories;
+package stickymemories.core;
 
 import java.net.URL;
+import stickymemories.StickyMemories;
 /**
  *
  * @author andre
