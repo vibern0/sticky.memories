@@ -1,8 +1,10 @@
-package stickymemories;
+package stickymemories.frames;
 
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
+import stickymemories.core.Constants;
+import stickymemories.RGBColorChooserPanel;
 
 /**
  *
@@ -65,7 +67,6 @@ public class OptionsPanel extends javax.swing.JPanel {
         passiveRadioButton.setFont(new java.awt.Font("Monaco", 0, 15)); // NOI18N
         passiveRadioButton.setText("Passive");
         passiveRadioButton.setFocusable(false);
-        passiveRadioButton.setOpaque(false);
         passiveRadioButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 OnPassiveRadioButtonClick(evt);
@@ -75,7 +76,6 @@ public class OptionsPanel extends javax.swing.JPanel {
         activeRadioButton.setFont(new java.awt.Font("Monaco", 0, 15)); // NOI18N
         activeRadioButton.setText("Active");
         activeRadioButton.setFocusable(false);
-        activeRadioButton.setOpaque(false);
         activeRadioButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 OnActiveRadioButtonClick(evt);

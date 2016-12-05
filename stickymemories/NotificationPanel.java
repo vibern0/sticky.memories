@@ -1,6 +1,7 @@
 
 package stickymemories;
 
+import stickymemories.core.Resources;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;

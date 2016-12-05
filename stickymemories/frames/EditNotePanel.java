@@ -1,9 +1,10 @@
 
-package stickymemories;
+package stickymemories.frames;
 
 import javax.swing.JFrame;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
+import stickymemories.core.Constants;
 /**
  *
  * @author andre

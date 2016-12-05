@@ -1,5 +1,5 @@
 
-package stickymemories;
+package stickymemories.core;
 
 import java.io.File;
 import java.io.IOException;

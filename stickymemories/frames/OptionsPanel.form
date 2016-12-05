@@ -136,7 +136,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Passive"/>
         <Property name="focusable" type="boolean" value="false"/>
-        <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="OnPassiveRadioButtonClick"/>
@@ -149,7 +148,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Active"/>
         <Property name="focusable" type="boolean" value="false"/>
-        <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="OnActiveRadioButtonClick"/>
