@@ -1,20 +1,13 @@
 package stickymemories.frames;
 
 import com.toedter.calendar.JDateChooser;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Insets;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -43,14 +36,6 @@ public class AddNotePanel extends javax.swing.JPanel {
         
         setupComponents();
         setupButtons();
-        
-        panel_reminders = new JPanel();
-        BoxLayout boxlayout = new BoxLayout(panel_reminders, BoxLayout.Y_AXIS);
-        panel_reminders.setLayout(boxlayout);
-        
-        panel_reminders.add(new ReminderPanel(this));
-        
-        remindersPanel.add(panel_reminders);
     }
 
     @SuppressWarnings("unchecked")
@@ -89,11 +74,6 @@ public class AddNotePanel extends javax.swing.JPanel {
         createNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 OnCreateNoteButtonClick(evt);
-            }
-        });
-        createNoteButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createNoteButtonActionPerformed(evt);
             }
         });
 
@@ -207,6 +187,13 @@ public class AddNotePanel extends javax.swing.JPanel {
     private void setupComponents(){
         image = Constants.getSelectedImageIcon(0, Constants.PATH_IMG_DEFFAULT_IMAGE).getImage();
         
+        panel_reminders = new JPanel();
+        BoxLayout boxlayout = new BoxLayout(panel_reminders, BoxLayout.Y_AXIS);
+        panel_reminders.setLayout(boxlayout);
+        
+        panel_reminders.add(new ReminderPanel(this));
+        
+        remindersPanel.add(panel_reminders);
         remindersPanel.setVisible(false);
         
         this.repaint();
@@ -245,13 +232,9 @@ public class AddNotePanel extends javax.swing.JPanel {
         this.repaint();
     }//GEN-LAST:event_OnReminderStateClick
 
-    private void createNoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNoteButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_createNoteButtonActionPerformed
-
     private void OnCreateNoteButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnCreateNoteButtonClick
-        //jDateChoser.getCalendar().getTime()
-        
+        // Obter a imagem e a listagem de reminders de modo a adicionar a nota 
+        // ao DataNote
     }//GEN-LAST:event_OnCreateNoteButtonClick
 
     private void button_add_remindersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_add_remindersActionPerformed
