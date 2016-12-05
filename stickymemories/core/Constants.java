@@ -1,10 +1,14 @@
 
 package stickymemories.core;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import stickymemories.frames.MainFrame;
 /**
  *
  * @author andre
@@ -35,6 +39,17 @@ public class Constants {
     public static String PATH_IMG_DEFFAULT_IMAGE = "images/deffault_img.png";
     
     public static String PATH_IMG_EXCLAMATION_SIGN = "images/exclamation_sign.png";
+    
+    public static Color colorBackground;
+    
+    public static void updateBackground(Color colorBackground){
+        Constants.colorBackground = colorBackground;
+        MainFrame.addNotePanel.setBackground(colorBackground);
+        MainFrame.editNotePanel.setBackground(colorBackground);
+        MainFrame.mainPanel.setBackground(colorBackground);
+        MainFrame.notesList.setBackground(colorBackground);
+        MainFrame.optionsPanel.setBackground(colorBackground);
+    }
     
     public static ImageIcon getButtonImageIcon(String path) {
         try {
