@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import stickymemories.core.Constants;
 import stickymemories.core.Resources;
  
+
 public class NotificationPopUp extends javax.swing.JFrame {
 
     private Image img = null;
