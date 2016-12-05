@@ -15,7 +15,7 @@ import java.util.List;
  * @author bernardovieira
  */
 
-public class DataNotes implements Serializable{
+public class DataNotes implements Serializable {
     
     public static List<Note> notes;
     
