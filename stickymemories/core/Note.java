@@ -6,9 +6,14 @@
 package stickymemories.core;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import static stickymemories.core.Constants.getSelectedImageIcon;
 
 /**
  *
@@ -45,5 +50,15 @@ public class Note implements Serializable {
     public List<Reminder> getReminders()
     {
         return reminders;
+    }
+    
+    public String getImagePath()
+    {
+        return image;
+    }
+    
+    public ImageIcon getImage()
+    {
+        return Constants.getSelectedImageIcon(0, "images/lambo.png");
     }
 }
