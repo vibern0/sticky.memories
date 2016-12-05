@@ -1,24 +1,16 @@
 package stickymemories;
 
 import com.toedter.calendar.JDateChooser;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Insets;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -41,14 +33,6 @@ public class AddNotePanel extends javax.swing.JPanel {
         
         setupComponents();
         setupButtons();
-        
-        panel_reminders = new JPanel();
-        BoxLayout boxlayout = new BoxLayout(panel_reminders, BoxLayout.Y_AXIS);
-        panel_reminders.setLayout(boxlayout);
-        
-        panel_reminders.add(new ReminderPanel(this));
-        
-        remindersPanel.add(panel_reminders);
     }
 
     @SuppressWarnings("unchecked")
@@ -89,11 +73,6 @@ public class AddNotePanel extends javax.swing.JPanel {
                 OnCreateNoteButtonClick(evt);
             }
         });
-        createNoteButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createNoteButtonActionPerformed(evt);
-            }
-        });
 
         chosenImagePanel.setBackground(new java.awt.Color(255, 255, 255));
         chosenImagePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -129,11 +108,6 @@ public class AddNotePanel extends javax.swing.JPanel {
         });
 
         jButton2.setText("Add new reminder");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         remindersPanel.setAutoscrolls(true);
         remindersPanel.setMaximumSize(new java.awt.Dimension(210, 185));
@@ -154,28 +128,30 @@ public class AddNotePanel extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(createNoteButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(86, 86, 86)
-                        .addComponent(createNoteTextLabel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(chosenImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(remindersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(86, 86, 86)
+                                .addComponent(createNoteTextLabel))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(chosenImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(remindersTextLabel)
+                                        .addGap(9, 9, 9)
+                                        .addComponent(remindersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(reminderSwitcher, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))))
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(24, 24, 24)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(remindersTextLabel)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(reminderSwitcher, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -209,6 +185,13 @@ public class AddNotePanel extends javax.swing.JPanel {
     private void setupComponents(){
         image = Constants.getSelectedImageIcon(0, Constants.PATH_IMG_DEFFAULT_IMAGE).getImage();
         
+        panel_reminders = new JPanel();
+        BoxLayout boxlayout = new BoxLayout(panel_reminders, BoxLayout.Y_AXIS);
+        panel_reminders.setLayout(boxlayout);
+        
+        panel_reminders.add(new ReminderPanel(this));
+        
+        remindersPanel.add(panel_reminders);
         remindersPanel.setVisible(false);
         
         this.repaint();
@@ -245,21 +228,10 @@ public class AddNotePanel extends javax.swing.JPanel {
         this.repaint();
     }//GEN-LAST:event_OnReminderStateClick
 
-    private void createNoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNoteButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_createNoteButtonActionPerformed
-
     private void OnCreateNoteButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnCreateNoteButtonClick
-        //jDateChoser.getCalendar().getTime()
-        
+        // Obter a imagem e a listagem de reminders de modo a adicionar a nota 
+        // ao DataNote
     }//GEN-LAST:event_OnCreateNoteButtonClick
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        panel_reminders.add(new ReminderPanel(this));
-        remindersPanel.invalidate();
-        remindersPanel.validate();
-    }//GEN-LAST:event_jButton2ActionPerformed
     
     class ImagePanel extends JPanel{
         @Override
