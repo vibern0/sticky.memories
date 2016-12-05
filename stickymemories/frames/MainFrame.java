@@ -1,14 +1,16 @@
 
-package stickymemories;
+package stickymemories.frames;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
+import stickymemories.core.Constants;
 /**
  *
  * @author andre
@@ -67,8 +69,10 @@ public class MainFrame extends javax.swing.JFrame {
         notesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         notesList.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
+            public void mouseClicked(MouseEvent e)
+            {
+                if (e.getClickCount() == 2)
+                {
                     //qualquer acao com 2 cliques
                 }
             }
@@ -81,6 +85,10 @@ public class MainFrame extends javax.swing.JFrame {
                 if (index >= 0)
                 {
                     System.out.println(model.get(index));
+                }
+                else
+                {
+                    System.out.println("There is no selected note!");
                 }
             }
         });
@@ -95,6 +103,10 @@ public class MainFrame extends javax.swing.JFrame {
                     setContentPane(editNotePanel);
                     invalidate();
                     validate();
+                }
+                else
+                {
+                    System.out.println("There is no selected note!");
                 }
             }
         });
@@ -115,13 +127,12 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         notesList = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        combo_sort_by = new javax.swing.JComboBox<>();
         sortModeButton = new javax.swing.JButton();
 
         jButton7.setText("jButton7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(400, 350));
         setMinimumSize(new java.awt.Dimension(400, 350));
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -181,6 +192,11 @@ public class MainFrame extends javax.swing.JFrame {
         helpButton.setMinimumSize(new java.awt.Dimension(20, 20));
         helpButton.setPreferredSize(new java.awt.Dimension(30, 30));
         helpButton.setRequestFocusEnabled(false);
+        helpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpButtonActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -197,8 +213,13 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Sort by:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Creation date", "Reminder date" }));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(120, 30));
+        combo_sort_by.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Creation date", "Reminder date" }));
+        combo_sort_by.setPreferredSize(new java.awt.Dimension(120, 30));
+        combo_sort_by.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                combo_sort_byItemStateChanged(evt);
+            }
+        });
 
         sortModeButton.setBackground(new java.awt.Color(255, 255, 255));
         sortModeButton.setToolTipText("Sort orientation");
@@ -232,7 +253,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combo_sort_by, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sortModeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -253,7 +274,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combo_sort_by, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sortModeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -282,12 +303,17 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private void OnButtonSortByClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnButtonSortByClick
+        String sort_name = (String)combo_sort_by.getSelectedItem();
         if(sortMode.equals(Constants.UP_TEXT)) {
             sortMode = Constants.DOWN_TEXT;
             sortModeButton.setIcon(Constants.getButtonImageIcon(Constants.PATH_IMG_DOWN_SIGN));
+            
+            System.out.println("Sorting up! " + sort_name);
         } else {
             sortMode = Constants.UP_TEXT;
             sortModeButton.setIcon(Constants.getButtonImageIcon(Constants.PATH_IMG_UP_SIGN));
+            
+            System.out.println("Sorting down! " + sort_name);
         }
     }//GEN-LAST:event_OnButtonSortByClick
 
@@ -311,13 +337,27 @@ public class MainFrame extends javax.swing.JFrame {
         */
     }//GEN-LAST:event_OnEditButtonClick
 
+    private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Something happens in Help Button!");
+    }//GEN-LAST:event_helpButtonActionPerformed
+
+    private void combo_sort_byItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_sort_byItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            Object item = evt.getItem();
+            // do something with object
+            System.out.println("You changed your selection to " + item.toString());
+       }
+    }//GEN-LAST:event_combo_sort_byItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNoteButton;
+    private javax.swing.JComboBox<String> combo_sort_by;
     private javax.swing.JButton editNoteButton;
     private javax.swing.JButton helpButton;
     private javax.swing.JButton jButton7;
     private javax.swing.JColorChooser jColorChooser1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JPanel mainPanel;
