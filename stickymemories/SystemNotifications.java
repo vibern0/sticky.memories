@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import stickymemories.Constants;
 /**
  *
  * @author bernardovieira
@@ -65,7 +64,7 @@ public class SystemNotifications
                 }
                 catch (IOException ex)
                 {
-                    Logger.getLogger(StickyMemories.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(SystemNotifications.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 break;
             case Linux:
@@ -77,7 +76,7 @@ public class SystemNotifications
                 }
                 catch (IOException ex)
                 {
-                    Logger.getLogger(StickyMemories.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(SystemNotifications.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 break;
             case Other:
