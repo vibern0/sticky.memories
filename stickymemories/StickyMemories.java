@@ -12,7 +12,7 @@ public class StickyMemories {
 
     
     public static void main(String[] args) throws AWTException {
-
+        
         MainFrame mf = new MainFrame();
         
         OsCheck.OSType ostype=OsCheck.getOperatingSystemType();
