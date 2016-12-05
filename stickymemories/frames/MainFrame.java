@@ -1,5 +1,5 @@
 
-package stickymemories;
+package stickymemories.frames;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +9,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
+import stickymemories.core.Constants;
 /**
  *
  * @author andre
@@ -121,7 +122,6 @@ public class MainFrame extends javax.swing.JFrame {
         jButton7.setText("jButton7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(400, 350));
         setMinimumSize(new java.awt.Dimension(400, 350));
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));

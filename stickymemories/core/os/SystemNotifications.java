@@ -1,6 +1,9 @@
 
-package stickymemories;
+package stickymemories.core.os;
 
+import stickymemories.core.Resources;
+import stickymemories.core.Constants;
+import stickymemories.core.os.OsCheck;
 import java.awt.*;
 import java.awt.TrayIcon.MessageType;
 import java.io.IOException;

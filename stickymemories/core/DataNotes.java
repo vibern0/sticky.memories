@@ -1,4 +1,4 @@
-package stickymemories;
+package stickymemories.core;
 
 import java.io.IOException;
 import java.io.Serializable;

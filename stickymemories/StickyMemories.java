@@ -5,11 +5,14 @@
  */
 package stickymemories;
 
+import stickymemories.frames.MainFrame;
+
 /**
  *
  * @author bernardovieira
  */
-public class StickyMemories {
+public class StickyMemories
+{
     public static void main(String[] args)
     {
         MainFrame mf = new MainFrame();
