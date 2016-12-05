@@ -7,17 +7,17 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import stickymemories.core.Constants;
 
 public class NotificationPopUp extends javax.swing.JFrame {
 
     private Image img = null;
-    public NotificationPopUp(String imagePath) throws IOException {
+    public NotificationPopUp(String imagePath) {
         initComponents();
+        img = Constants.getSelectedImage(1, imagePath);
         setFrameComponents();
-        img = ImageIO.read(Resources.getResourceFile(imagePath));
     }
     
     public void setFrameComponents(){
@@ -30,11 +30,6 @@ public class NotificationPopUp extends javax.swing.JFrame {
         this.setMinimumSize(screenSize);
         this.setMaximumSize(screenSize);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        
-        int width = (int)screenSize.getWidth();
-        int heigth = (int)screenSize.getWidth();
-        
-        jPanel1.setBackground(new Color(0,0,0,0));
     }
     
     
@@ -47,16 +42,15 @@ public class NotificationPopUp extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
         imagePanel = new ImagePanel();
         dismissButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
         setResizable(false);
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         imagePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -64,12 +58,21 @@ public class NotificationPopUp extends javax.swing.JFrame {
         imagePanel.setLayout(imagePanelLayout);
         imagePanelLayout.setHorizontalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 650, Short.MAX_VALUE)
         );
         imagePanelLayout.setVerticalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 584, Short.MAX_VALUE)
+            .addGap(0, 639, Short.MAX_VALUE)
         );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 650;
+        gridBagConstraints.ipady = 639;
+        gridBagConstraints.insets = new java.awt.Insets(70, 70, 0, 70);
+        getContentPane().add(imagePanel, gridBagConstraints);
 
         dismissButton.setText("Dismiss Reminder");
         dismissButton.setToolTipText("");
@@ -78,42 +81,13 @@ public class NotificationPopUp extends javax.swing.JFrame {
                 dismissButtonMouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(imagePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(327, 327, 327)
-                .addComponent(dismissButton)
-                .addContainerGap(348, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(imagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(dismissButton)
-                .addGap(35, 35, 35))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(40, 0, 0, 0);
+        getContentPane().add(dismissButton, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void dismissButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dismissButtonMouseClicked
@@ -124,7 +98,6 @@ public class NotificationPopUp extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton dismissButton;
     private javax.swing.JPanel imagePanel;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
     class ImagePanel extends JPanel{               
@@ -135,6 +108,8 @@ public class NotificationPopUp extends javax.swing.JFrame {
             
             if(img != null)
                 g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+            else
+                System.err.println("Image == null");
         }
     }
 
