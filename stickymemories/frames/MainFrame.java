@@ -6,8 +6,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JList;
@@ -15,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import stickymemories.core.Constants;
 import static stickymemories.core.Constants.getSelectedImageIcon;
+import stickymemories.core.Controller;
 import stickymemories.core.DataNotes;
 import stickymemories.core.Note;
 import stickymemories.core.Reminder;
@@ -74,9 +78,16 @@ public class MainFrame extends javax.swing.JFrame {
         Note ferrari = new Note(Constants.PATH_IMG_EXCLAMATION_SIGN, reminders);
         Note lambo = new Note(Constants.PATH_IMG_EXCLAMATION_SIGN, reminders);
         
-        DataNotes notes = new DataNotes();
-        notes.add(ferrari);
-        notes.add(lambo);
+        DataNotes data_notes = new DataNotes();
+        try {
+            data_notes.notes = (List<Note>) Controller.loadData();
+            data_notes.add(ferrari);
+            data_notes.add(lambo);
+        } catch (IOException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         String[] nameList = {" ", " "};
         notesList = new JList(nameList);
@@ -84,6 +95,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         invalidate();
         validate();
+        
         
         notesList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         notesList.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
