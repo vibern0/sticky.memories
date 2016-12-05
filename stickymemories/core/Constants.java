@@ -3,6 +3,7 @@ package stickymemories.core;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -73,4 +74,16 @@ public class Constants {
         return null;
     }
     
+    public static Image getSelectedImage(int mode, String path) {
+        //mode -> 0 classPath; 1 fullPath
+        try {
+            if(mode == 0)
+                return ImageIO.read((Resources.getResourceFile(path)));
+            else
+                return ImageIO.read(new File(path));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }

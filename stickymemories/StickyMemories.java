@@ -11,6 +11,7 @@ import stickymemories.frames.MainFrame;
  *
  * @author bernardovieira
  */
+
 public class StickyMemories
 {
     public static void main(String[] args)

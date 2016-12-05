@@ -6,12 +6,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import stickymemories.OptionsModel;
 import stickymemories.core.Constants;
+import static stickymemories.core.Constants.getSelectedImageIcon;
+import stickymemories.core.Controller;
+import stickymemories.core.DataNotes;
+import stickymemories.core.Note;
+import stickymemories.core.Reminder;
 /**
  *
  * @author andre
@@ -21,7 +32,7 @@ public class MainFrame extends javax.swing.JFrame {
     public static JPanel addNotePanel;
     public static JPanel editNotePanel;
     public static JPanel optionsPanel;
-    public static String LastSelectedEdit;
+    public static long LastSelectedEdit;
 
     private String sortMode = Constants.DOWN_TEXT; // FEITO À TROLHA xD
 
@@ -46,19 +57,50 @@ public class MainFrame extends javax.swing.JFrame {
         this.setVisible(true);
                 
         initNotesList();
+        
+        loadNotes();
+    }
+    
+    private void loadNotes()
+    {
+        
     }
     
     private void initNotesList()
     {
-        DefaultListModel model = new DefaultListModel();
+        /*DefaultListModel model = new DefaultListModel();
         notesList = new JList(model);
 
         // Initialize the list with items
-        String[] items = { "A", "B", "C", "D" };
-        for (int i = 0; i < items.length; i++) {
-          model.add(i, items[i]);
-
+        ImageIcon [] items = { getSelectedImageIcon(1, "image/ferrari.png"), getSelectedImageIcon(1, "image/lambo.png") };
+        for (int i = 0; i < items.length; i++)
+        {
+            model.add(i, items[i]);
+        }*/
+        
+        List<Reminder> reminders = new ArrayList<>();
+        
+        Note ferrari = new Note(Constants.PATH_IMG_EXCLAMATION_SIGN, reminders);
+        Note lambo = new Note(Constants.PATH_IMG_EXCLAMATION_SIGN, reminders);
+        
+        DataNotes data_notes = new DataNotes();
+        try {
+            data_notes.notes = (List<Note>) Controller.loadData();
+            data_notes.add(ferrari);
+            data_notes.add(lambo);
+        } catch (IOException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        String[] nameList = {" ", " "};
+        notesList = new JList(nameList);
+        notesList.setCellRenderer(new NotesListRenderer());
+        
+        invalidate();
+        validate();
+        
         
         notesList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         notesList.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -89,7 +131,7 @@ public class MainFrame extends javax.swing.JFrame {
                 int index = selmodel.getMinSelectionIndex();
                 if (index >= 0)
                 {
-                    System.out.println(model.get(index));
+                    System.out.println(DataNotes.notes.get(index).getID());
                 }
                 else
                 {
@@ -104,7 +146,7 @@ public class MainFrame extends javax.swing.JFrame {
                 int index = selmodel.getMinSelectionIndex();
                 if (index >= 0)
                 {
-                    LastSelectedEdit = (String)model.get(index);
+                    LastSelectedEdit = DataNotes.notes.get(index).getID();
                     setContentPane(editNotePanel);
                     invalidate();
                     validate();
