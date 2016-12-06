@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import stickymemories.core.Constants;
 import stickymemories.core.Controller;
+import stickymemories.core.DataNotes;
+import stickymemories.core.Note;
 
 /**
  *
@@ -236,6 +238,7 @@ public class AddNotePanel extends javax.swing.JPanel {
     private void OnCreateNoteButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnCreateNoteButtonClick
         // Obter a imagem e a listagem de reminders de modo a adicionar a nota 
         // ao DataNote
+        //DataNotes.notes.add(new Note(Constants.PATH_IMG_EXCLAMATION_SIGN));
     }//GEN-LAST:event_OnCreateNoteButtonClick
 
     private void button_add_remindersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_add_remindersActionPerformed
