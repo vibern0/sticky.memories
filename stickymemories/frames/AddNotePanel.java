@@ -210,8 +210,10 @@ public class AddNotePanel extends javax.swing.JPanel {
 
     private void OnImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnImageMouseClicked
         imagePath = Controller.selectImageFromDisk();
-        image = Constants.getSelectedImageIcon(1, imagePath).getImage();
-        chosenImagePanel.repaint();
+        if(imagePath != null){
+            image = Constants.getSelectedImageIcon(1, imagePath).getImage();
+            chosenImagePanel.repaint();
+        }
     }//GEN-LAST:event_OnImageMouseClicked
 
     private void OnReminderStateClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnReminderStateClick
