@@ -1,5 +1,6 @@
 package stickymemories;
 
+import java.awt.Color;
 import stickymemories.core.Constants;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,30 +18,37 @@ import java.io.Serializable;
 public class OptionsModel implements Serializable {
     
     private boolean notificationsMode;
-    private String colorCode;
+    private Color color;
     
-    public OptionsModel(boolean notificationsMode, String colorCode){
+    public OptionsModel(boolean notificationsMode, Color color){
         this.notificationsMode = notificationsMode;
-        this.colorCode = colorCode;
+        this.color = color;
+    }
+
+    public boolean getNotificationsMode() {
+        return notificationsMode;
+    }
+
+    public Color getColorCode() {
+        return color;
     }
     
-    public final OptionsModel loadOptions(){
+    public static final OptionsModel loadOptions(){
         FileInputStream fins = null;
         try {
             fins = new FileInputStream(new File(Constants.OPTIONS_FILE_NAME));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            return null;
         }
         ObjectInputStream ois = null;
         try {
             ois = new ObjectInputStream(fins);
             return (OptionsModel) ois.readObject();
         } catch (ClassNotFoundException e){
-            e.printStackTrace();
+            return null;
         } catch (IOException e) {
-            e.printStackTrace();
+            return null;
         }
-        return null;
     }
     
     public final void saveOptions(){

@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
+import stickymemories.OptionsModel;
 import stickymemories.core.Constants;
 import static stickymemories.core.Constants.getSelectedImageIcon;
 import stickymemories.core.Controller;
@@ -37,7 +38,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     public MainFrame() {
         initComponents();
-       
+               
         this.addNotePanel = new AddNotePanel(this);
         this.editNotePanel = new EditNotePanel(this);
         this.optionsPanel = new OptionsPanel(this);
@@ -49,8 +50,12 @@ public class MainFrame extends javax.swing.JFrame {
         
         setupButtons();
         
-        this.setVisible(true);
+        OptionsModel om = OptionsModel.loadOptions();
+        if(om != null)
+            Constants.updateBackground(om.getColorCode());
         
+        this.setVisible(true);
+                
         initNotesList();
         
         loadNotes();
@@ -187,6 +192,7 @@ public class MainFrame extends javax.swing.JFrame {
         addNoteButton.setFocusable(false);
         addNoteButton.setMaximumSize(new java.awt.Dimension(25, 25));
         addNoteButton.setMinimumSize(new java.awt.Dimension(25, 25));
+        addNoteButton.setOpaque(false);
         addNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
         addNoteButton.setRequestFocusEnabled(false);
         addNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -200,6 +206,7 @@ public class MainFrame extends javax.swing.JFrame {
         removeNoteButton.setBorderPainted(false);
         removeNoteButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         removeNoteButton.setFocusPainted(false);
+        removeNoteButton.setOpaque(false);
         removeNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
 
         editNoteButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -208,6 +215,7 @@ public class MainFrame extends javax.swing.JFrame {
         editNoteButton.setFocusPainted(false);
         editNoteButton.setMaximumSize(new java.awt.Dimension(20, 20));
         editNoteButton.setMinimumSize(new java.awt.Dimension(20, 20));
+        editNoteButton.setOpaque(false);
         editNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
         editNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -219,6 +227,7 @@ public class MainFrame extends javax.swing.JFrame {
         optionsButton.setToolTipText("Options");
         optionsButton.setBorderPainted(false);
         optionsButton.setFocusPainted(false);
+        optionsButton.setOpaque(false);
         optionsButton.setPreferredSize(new java.awt.Dimension(30, 30));
         optionsButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -232,6 +241,7 @@ public class MainFrame extends javax.swing.JFrame {
         helpButton.setFocusPainted(false);
         helpButton.setMaximumSize(new java.awt.Dimension(20, 20));
         helpButton.setMinimumSize(new java.awt.Dimension(20, 20));
+        helpButton.setOpaque(false);
         helpButton.setPreferredSize(new java.awt.Dimension(30, 30));
         helpButton.setRequestFocusEnabled(false);
         helpButton.addActionListener(new java.awt.event.ActionListener() {
@@ -256,6 +266,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1.setText("Sort by:");
 
         combo_sort_by.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Creation date", "Reminder date" }));
+        combo_sort_by.setOpaque(false);
         combo_sort_by.setPreferredSize(new java.awt.Dimension(120, 30));
         combo_sort_by.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -267,6 +278,7 @@ public class MainFrame extends javax.swing.JFrame {
         sortModeButton.setToolTipText("Sort orientation");
         sortModeButton.setBorderPainted(false);
         sortModeButton.setFocusPainted(false);
+        sortModeButton.setOpaque(false);
         sortModeButton.setPreferredSize(new java.awt.Dimension(30, 30));
         sortModeButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

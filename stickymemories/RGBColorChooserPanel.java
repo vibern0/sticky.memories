@@ -8,6 +8,8 @@ import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -15,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
+import stickymemories.frames.OptionsPanel;
 
 /**
  *
@@ -28,7 +31,6 @@ public final class RGBColorChooserPanel extends JDialog implements ActionListene
     private JOptionPane optionPanel;
     
     private final String title;
-    private String colorCode;
 
     public RGBColorChooserPanel(JFrame mainFrame) {
         super(mainFrame);
@@ -63,27 +65,21 @@ public final class RGBColorChooserPanel extends JDialog implements ActionListene
         this.setVisible(true);
     }
 
-    @Override
-    public void actionPerformed(final ActionEvent e) {
-        /*
-        int selection = getSelection(pane);
-
-        switch (selection) {
-        case JOptionPane.OK_OPTION:
-          System.out.println("OK_OPTION");
-          break;
-        case JOptionPane.CANCEL_OPTION:
-          System.out.println("CANCEL");
-          break;
-        default:
-          System.out.println("Others");
-        }
-        */
-    }
-
     private void modifyJColorChooser() {
         optionPanel = new JOptionPane();
-        Object[] options = {"Ok Color", "Cancel"};
+        JButton jButtonSelectColor = new JButton("Select Color");
+        jButtonSelectColor.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+                setItemsBackgroundColor();
+            } 
+        });
+        JButton jButtonCancelColor = new JButton("Cancel");
+        jButtonCancelColor.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+                closeJDialog();
+            } 
+        });
+        JButton[] options = { jButtonSelectColor, jButtonCancelColor};
         for (final AbstractColorChooserPanel accp : jCC.getChooserPanels()) {
             if (accp.getDisplayName().equals("RGB")) {
                 //optionPanel.
@@ -92,5 +88,21 @@ public final class RGBColorChooserPanel extends JDialog implements ActionListene
                 null, options, null);
             }
         }
+    }
+    
+    private void setItemsBackgroundColor(){
+        OptionsPanel.colorJPanel.setBackground(jCC.getColor());
+        this.setVisible(false);
+        this.dispatchEvent(new WindowEvent(
+                    this, WindowEvent.WINDOW_CLOSING));
+    }
+    
+    private void closeJDialog(){
+        
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
