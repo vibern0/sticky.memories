@@ -79,15 +79,15 @@ public class MainFrame extends javax.swing.JFrame {
         Note lambo = new Note(Constants.PATH_IMG_EXCLAMATION_SIGN, reminders);
         
         DataNotes data_notes = new DataNotes();
-        try {
+        data_notes.add(ferrari);
+        data_notes.add(lambo);
+        /*try
+        {
             data_notes.notes = (List<Note>) Controller.loadData();
             data_notes.add(ferrari);
             data_notes.add(lambo);
-        } catch (IOException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (IOException | ClassNotFoundException ex) { }*/
         
         String[] nameList = {" ", " "};
         notesList = new JList(nameList);

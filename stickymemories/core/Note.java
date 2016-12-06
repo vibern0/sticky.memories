@@ -8,6 +8,7 @@ package stickymemories.core;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,11 +25,18 @@ public class Note implements Serializable {
     private List<Reminder> reminders;
     private final String image;
     private final long ID;
-    
+   
     public Note(String image, List<Reminder> reminders)
     {
         this.image = image;
         this.reminders = reminders;
+        this.ID = new Date().getTime();
+    }
+    
+    public Note(String image)
+    {
+        this.image = image;
+        this.reminders = new ArrayList<>();
         this.ID = new Date().getTime();
     }
     
