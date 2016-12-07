@@ -8,10 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-<<<<<<< HEAD
-=======
 import java.io.File;
->>>>>>> 9c208c78bdcd9861a98c764d90b6867ddb908deb
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,11 +20,8 @@ import java.util.PriorityQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-<<<<<<< HEAD
-=======
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
->>>>>>> 9c208c78bdcd9861a98c764d90b6867ddb908deb
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
