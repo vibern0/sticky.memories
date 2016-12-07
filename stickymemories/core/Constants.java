@@ -23,6 +23,8 @@ public class Constants {
     public static final String ON_TEXT = "ON";
     public static final String OFF_TEXT = "OFF";
     
+    public static final String CREATION_DAYE = "Creation date";
+    public static final String REMINDER_DATE = "Reminder date";
     public static final String UP_TEXT = "Up";
     public static final String DOWN_TEXT = "Down";
     

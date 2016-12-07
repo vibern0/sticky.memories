@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -29,6 +30,10 @@ import stickymemories.core.Controller;
 import stickymemories.core.DataNotes;
 import stickymemories.core.Note;
 import stickymemories.core.Reminder;
+import stickymemories.core.order.ByCreationOrderAsc;
+import stickymemories.core.order.ByCreationOrderDesc;
+import stickymemories.core.order.ByReminderOrderAsc;
+import stickymemories.core.order.ByReminderOrderDesc;
 /**
  *
  * @author andre
@@ -183,7 +188,6 @@ public class MainFrame extends javax.swing.JFrame {
         addNoteButton.setFocusable(false);
         addNoteButton.setMaximumSize(new java.awt.Dimension(25, 25));
         addNoteButton.setMinimumSize(new java.awt.Dimension(25, 25));
-        addNoteButton.setOpaque(false);
         addNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
         addNoteButton.setRequestFocusEnabled(false);
         addNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -197,7 +201,6 @@ public class MainFrame extends javax.swing.JFrame {
         removeNoteButton.setBorderPainted(false);
         removeNoteButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         removeNoteButton.setFocusPainted(false);
-        removeNoteButton.setOpaque(false);
         removeNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
         removeNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -211,7 +214,6 @@ public class MainFrame extends javax.swing.JFrame {
         editNoteButton.setFocusPainted(false);
         editNoteButton.setMaximumSize(new java.awt.Dimension(20, 20));
         editNoteButton.setMinimumSize(new java.awt.Dimension(20, 20));
-        editNoteButton.setOpaque(false);
         editNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
         editNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -223,7 +225,6 @@ public class MainFrame extends javax.swing.JFrame {
         optionsButton.setToolTipText("Options");
         optionsButton.setBorderPainted(false);
         optionsButton.setFocusPainted(false);
-        optionsButton.setOpaque(false);
         optionsButton.setPreferredSize(new java.awt.Dimension(30, 30));
         optionsButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -237,7 +238,6 @@ public class MainFrame extends javax.swing.JFrame {
         helpButton.setFocusPainted(false);
         helpButton.setMaximumSize(new java.awt.Dimension(20, 20));
         helpButton.setMinimumSize(new java.awt.Dimension(20, 20));
-        helpButton.setOpaque(false);
         helpButton.setPreferredSize(new java.awt.Dimension(30, 30));
         helpButton.setRequestFocusEnabled(false);
         helpButton.addActionListener(new java.awt.event.ActionListener() {
@@ -360,28 +360,29 @@ public class MainFrame extends javax.swing.JFrame {
             sortModeButton.setIcon(Constants.getButtonImageIcon(Constants.PATH_IMG_DOWN_SIGN));
             
             System.out.println("Sorting up! " + sort_name);
-            if(sort_name.equals("Creation date"))
-            {
-                order_notes = 0;
+            
+            if(sort_name.equals(Constants.CREATION_DAYE)){
+                Collections.sort(DataNotes.notes, new ByCreationOrderAsc());
             }
-            else
-            {
-                order_notes = 2;
+            else if(sort_name.equals(Constants.REMINDER_DATE)){
+                Collections.sort(DataNotes.notes, new ByReminderOrderAsc());
             }
         } else {
             sortMode = Constants.UP_TEXT;
             sortModeButton.setIcon(Constants.getButtonImageIcon(Constants.PATH_IMG_UP_SIGN));
             
             System.out.println("Sorting down! " + sort_name);
-            if(sort_name.equals("Creation date"))
-            {
-                order_notes = 1;
+            if(sort_name.equals("Creation date")){
+                Collections.sort(DataNotes.notes, new ByCreationOrderDesc());
             }
-            else
-            {
-                order_notes = 3;
+            else{
+                Collections.sort(DataNotes.notes, new ByReminderOrderDesc());
             }
         }
+        
+        invalidate();
+        validate();
+        repaint();
     }//GEN-LAST:event_OnButtonSortByClick
 
     private void OnOptionsButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnOptionsButtonClicked
