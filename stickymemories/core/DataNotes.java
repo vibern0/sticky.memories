@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 /**
  *
@@ -17,11 +18,11 @@ import java.util.List;
 
 public class DataNotes implements Serializable {
     
-    public static List<Note> notes;
+    public static PriorityQueue<Note> notes;
     
     public DataNotes()
     {
-        notes = new ArrayList<>();
+        notes = new PriorityQueue(new NotesComparator());
     }
     
     public boolean add(Note note)

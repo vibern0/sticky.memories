@@ -67,6 +67,6 @@ public class Note implements Serializable {
     
     public ImageIcon getImage()
     {
-        return Constants.getSelectedImageIcon(0, "images/lambo.png");
+        return Constants.getSelectedImageIcon(0, image);
     }
 }

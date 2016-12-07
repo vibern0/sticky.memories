@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +34,7 @@ public class MainFrame extends javax.swing.JFrame {
     public static JPanel editNotePanel;
     public static JPanel optionsPanel;
     public static long LastSelectedEdit;
+    public static int order_notes;
 
     private String sortMode = Constants.DOWN_TEXT; // FEITO À TROLHA xD
 
@@ -59,6 +61,7 @@ public class MainFrame extends javax.swing.JFrame {
         initNotesList();
         
         loadNotes();
+        order_notes = 0;
     }
     
     private void loadNotes()
@@ -80,8 +83,13 @@ public class MainFrame extends javax.swing.JFrame {
         
         List<Reminder> reminders = new ArrayList<>();
         
-        Note ferrari = new Note(Constants.PATH_IMG_EXCLAMATION_SIGN, reminders);
-        Note lambo = new Note(Constants.PATH_IMG_EXCLAMATION_SIGN, reminders);
+        Note ferrari = new Note("images/ferrari.png", reminders);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Note lambo = new Note("images/lambo.png", reminders);
         
         DataNotes data_notes = new DataNotes();
         data_notes.add(ferrari);
@@ -131,7 +139,15 @@ public class MainFrame extends javax.swing.JFrame {
                 int index = selmodel.getMinSelectionIndex();
                 if (index >= 0)
                 {
-                    System.out.println(DataNotes.notes.get(index).getID());
+                    int pos = 0;
+                    Iterator it = DataNotes.notes.iterator();
+                    while(pos++ < index)
+                    {
+                        it.next();
+                    }
+                    Note note = (Note)it.next();
+                    
+                    System.out.println(note.getID());
                 }
                 else
                 {
@@ -146,7 +162,17 @@ public class MainFrame extends javax.swing.JFrame {
                 int index = selmodel.getMinSelectionIndex();
                 if (index >= 0)
                 {
-                    LastSelectedEdit = DataNotes.notes.get(index).getID();
+                    int pos = 0;
+                    Iterator it = DataNotes.notes.iterator();
+                    while(pos++ < index)
+                    {
+                        it.next();
+                    }
+                    Note note = (Note)it.next();
+                    
+                    System.out.println(note.getID());
+                    
+                    LastSelectedEdit = note.getID();
                     setContentPane(editNotePanel);
                     invalidate();
                     validate();
@@ -192,7 +218,6 @@ public class MainFrame extends javax.swing.JFrame {
         addNoteButton.setFocusable(false);
         addNoteButton.setMaximumSize(new java.awt.Dimension(25, 25));
         addNoteButton.setMinimumSize(new java.awt.Dimension(25, 25));
-        addNoteButton.setOpaque(false);
         addNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
         addNoteButton.setRequestFocusEnabled(false);
         addNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -206,7 +231,6 @@ public class MainFrame extends javax.swing.JFrame {
         removeNoteButton.setBorderPainted(false);
         removeNoteButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         removeNoteButton.setFocusPainted(false);
-        removeNoteButton.setOpaque(false);
         removeNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
 
         editNoteButton.setBackground(new java.awt.Color(255, 255, 255));
@@ -215,7 +239,6 @@ public class MainFrame extends javax.swing.JFrame {
         editNoteButton.setFocusPainted(false);
         editNoteButton.setMaximumSize(new java.awt.Dimension(20, 20));
         editNoteButton.setMinimumSize(new java.awt.Dimension(20, 20));
-        editNoteButton.setOpaque(false);
         editNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
         editNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -227,7 +250,6 @@ public class MainFrame extends javax.swing.JFrame {
         optionsButton.setToolTipText("Options");
         optionsButton.setBorderPainted(false);
         optionsButton.setFocusPainted(false);
-        optionsButton.setOpaque(false);
         optionsButton.setPreferredSize(new java.awt.Dimension(30, 30));
         optionsButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -241,7 +263,6 @@ public class MainFrame extends javax.swing.JFrame {
         helpButton.setFocusPainted(false);
         helpButton.setMaximumSize(new java.awt.Dimension(20, 20));
         helpButton.setMinimumSize(new java.awt.Dimension(20, 20));
-        helpButton.setOpaque(false);
         helpButton.setPreferredSize(new java.awt.Dimension(30, 30));
         helpButton.setRequestFocusEnabled(false);
         helpButton.addActionListener(new java.awt.event.ActionListener() {
@@ -278,7 +299,6 @@ public class MainFrame extends javax.swing.JFrame {
         sortModeButton.setToolTipText("Sort orientation");
         sortModeButton.setBorderPainted(false);
         sortModeButton.setFocusPainted(false);
-        sortModeButton.setOpaque(false);
         sortModeButton.setPreferredSize(new java.awt.Dimension(30, 30));
         sortModeButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -363,11 +383,27 @@ public class MainFrame extends javax.swing.JFrame {
             sortModeButton.setIcon(Constants.getButtonImageIcon(Constants.PATH_IMG_DOWN_SIGN));
             
             System.out.println("Sorting up! " + sort_name);
+            if(sort_name.equals("Creation date"))
+            {
+                order_notes = 0;
+            }
+            else
+            {
+                order_notes = 2;
+            }
         } else {
             sortMode = Constants.UP_TEXT;
             sortModeButton.setIcon(Constants.getButtonImageIcon(Constants.PATH_IMG_UP_SIGN));
             
             System.out.println("Sorting down! " + sort_name);
+            if(sort_name.equals("Creation date"))
+            {
+                order_notes = 1;
+            }
+            else
+            {
+                order_notes = 3;
+            }
         }
     }//GEN-LAST:event_OnButtonSortByClick
 
