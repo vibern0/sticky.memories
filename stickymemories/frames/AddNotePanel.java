@@ -2,15 +2,20 @@ package stickymemories.frames;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import stickymemories.core.Constants;
 import stickymemories.core.Controller;
@@ -243,23 +248,36 @@ public class AddNotePanel extends javax.swing.JPanel {
     private void OnCreateNoteButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnCreateNoteButtonClick
         if(imagePath == null)
             return;
-        if(reminderState){
-            List<Reminder> reminders = new ArrayList<>();
-            for(ReminderPanel rm : this.remindersList){
-                if(rm.jDateChoser.getDate() == null)
-                    continue;
-                Date date = rm.jDateChoser.getDate();
-                Reminder reminder = new Reminder(date.getDay(), date.getMonth(),
-                        date.getYear(), rm.getHour(), rm.getMinute());
-                reminders.add(reminder);
+        String newPath = Constants.copyImage(imagePath);
+        if(newPath != null){
+            if(reminderState){
+                List<Reminder> reminders = new ArrayList<>();
+                for(ReminderPanel rm : this.remindersList){
+                    if(rm.jDateChoser.getDate() == null)
+                        continue;
+                    Date date = rm.jDateChoser.getDate();
+                    Reminder reminder = new Reminder(date.getDay(), date.getMonth(),
+                            date.getYear(), rm.getHour(), rm.getMinute());
+                    reminders.add(reminder);
+                }
+                DataNotes.add(new Note("images/"+newPath, reminders));
+                System.out.println("Adicionei uma nota com PATH:"+imagePath+",REMINDERS:"+reminders.size());
+            } else {
+                DataNotes.add(new Note("images/"+newPath, null));
+                System.out.println("Adicionei uma nota com PATH:"+imagePath+",REMINDERS:null");
             }
-            DataNotes.add(new Note(imagePath, reminders));
-            System.out.println("Adicionei uma nota com PATH:"+imagePath+",REMINDERS:"+reminders.size());
-        } else {
-            DataNotes.add(new Note(imagePath, null));
-            System.out.println("Adicionei uma nota com PATH:"+imagePath+",REMINDERS:null");
+            try
+            {
+                Controller.saveData();
+            }
+            catch (IOException ex)
+            {
+                System.out.println("Erro ao criar nota!");
+            }
+            MainFrame.reloadPanel();
+
+            OnBackButtonClicked(evt);
         }
-        OnBackButtonClicked(evt);
     }//GEN-LAST:event_OnCreateNoteButtonClick
 
     private void button_add_remindersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_add_remindersActionPerformed

@@ -6,6 +6,7 @@
 package stickymemories.core;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -18,13 +19,19 @@ public class Reminder implements Serializable {
     private final int ano;
     private final int h;
     private final int m;
-
-    public Reminder(int dia, int mes, int ano, int h, int m) {
+    
+    public Reminder(int ano, int mes, int dia, int h, int m) {
         this.dia = dia;
         this.mes = mes;
         this.ano = ano;
         this.h = h;
         this.m = m;
+    }
+    
+    public long getReminderTime(){
+        Date dt = new Date(ano, mes, dia, h, m, 0);
+        System.out.println("Reminder: " + dt.toString());
+        return dt.getTime();
     }
 
     public int getDia() {

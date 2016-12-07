@@ -8,15 +8,26 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+<<<<<<< HEAD
+=======
+import java.io.File;
+>>>>>>> 9c208c78bdcd9861a98c764d90b6867ddb908deb
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+<<<<<<< HEAD
+=======
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+>>>>>>> 9c208c78bdcd9861a98c764d90b6867ddb908deb
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
@@ -26,12 +37,15 @@ import stickymemories.core.Controller;
 import stickymemories.core.DataNotes;
 import stickymemories.core.Note;
 import stickymemories.core.Reminder;
+import stickymemories.core.order.ByCreationOrderAsc;
+import stickymemories.core.order.ByCreationOrderDesc;
+import stickymemories.core.order.ByReminderOrderAsc;
+import stickymemories.core.order.ByReminderOrderDesc;
 /**
  *
  * @author andre
  */
 public class MainFrame extends javax.swing.JFrame {
-
     public static JPanel addNotePanel;
     public static JPanel editNotePanel;
     public static JPanel optionsPanel;
@@ -48,11 +62,7 @@ public class MainFrame extends javax.swing.JFrame {
         this.editNotePanel = new EditNotePanel(this,0);
         this.optionsPanel = new OptionsPanel(this);
         this.helpPanel = new HelpPanel(this);
-        /*
-        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("path/to/image.png"));
-        ImageIcon icon = new ImageIcon( );
-        setIconImage(icon.getImage());
-        */
+
         try {
             setIconImage(ImageIO.read(new File("sticky.memories/images/brain.png")));
         }
@@ -74,15 +84,8 @@ public class MainFrame extends javax.swing.JFrame {
         this.setVisible(true);
                 
         initNotesList();
-        
-        loadNotes();
-        order_notes = 0;
     }
     
-    private void loadNotes()
-    {
-        
-    }
     
     private void initNotesList()
     {
@@ -96,46 +99,34 @@ public class MainFrame extends javax.swing.JFrame {
             model.add(i, items[i]);
         }*/
         
-        DataNotes data_notes = new DataNotes();
-        String [] nameList = {};
+        DataNotes.init();
+        
                 
         try
         {
-            data_notes.notes = Controller.loadData();
+            DataNotes.setNotes(Controller.loadData());
         }
         catch (FileNotFoundException e)
         {
-            List<Reminder> reminders = new ArrayList<>();
-        
-            Note ferrari = new Note("images/ferrari.png", reminders);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            Note lambo = new Note("images/lambo.png", reminders);
-
-            nameList = new String[2];
-            nameList[0] = " ";
-            nameList[1] = " ";
-            
-            data_notes.add(ferrari);
-            data_notes.add(lambo);
         }
         catch (IOException | ClassNotFoundException ex)
         {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
-        
+        reloadPanel();
+    }
+    
+    public static void reloadPanel()
+    {
+        String [] nameList = {};
+        nameList = new String[DataNotes.getSize()];
         
         notesList = new JList(nameList);
         notesList.setCellRenderer(new NotesListRenderer());
         
-        invalidate();
-        validate();
-        
+        //invalidate();
+        //validate();    
         
         notesList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         notesList.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -149,67 +140,6 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(notesList);
         
         notesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        notesList.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e)
-            {
-                if (e.getClickCount() == 2)
-                {
-                    //qualquer acao com 2 cliques
-                }
-            }
-        });
-        removeNoteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                ListSelectionModel selmodel = notesList.getSelectionModel();
-                int index = selmodel.getMinSelectionIndex();
-                if (index >= 0)
-                {
-                    int pos = 0;
-                    Iterator it = DataNotes.notes.iterator();
-                    while(pos++ < index)
-                    {
-                        it.next();
-                    }
-                    Note note = (Note)it.next();
-                    
-                    System.out.println(note.getID());
-                }
-                else
-                {
-                    System.out.println("There is no selected note!");
-                }
-            }
-        });
-        editNoteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                ListSelectionModel selmodel = notesList.getSelectionModel();
-                int index = selmodel.getMinSelectionIndex();
-                if (index >= 0)
-                {
-                    int pos = 0;
-                    Iterator it = DataNotes.notes.iterator();
-                    while(pos++ < index)
-                    {
-                        it.next();
-                    }
-                    Note note = (Note)it.next();
-                    
-                    System.out.println(note.getID());
-                    
-                    LastSelectedEdit = note.getID();
-                    setContentPane(editNotePanel);
-                    invalidate();
-                    validate();
-                }
-                else
-                {
-                    System.out.println("There is no selected note!");
-                }
-            }
-        });
     }
 
     @SuppressWarnings("unchecked")
@@ -245,7 +175,6 @@ public class MainFrame extends javax.swing.JFrame {
         addNoteButton.setFocusable(false);
         addNoteButton.setMaximumSize(new java.awt.Dimension(25, 25));
         addNoteButton.setMinimumSize(new java.awt.Dimension(25, 25));
-        addNoteButton.setOpaque(false);
         addNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
         addNoteButton.setRequestFocusEnabled(false);
         addNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -259,8 +188,12 @@ public class MainFrame extends javax.swing.JFrame {
         removeNoteButton.setBorderPainted(false);
         removeNoteButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         removeNoteButton.setFocusPainted(false);
-        removeNoteButton.setOpaque(false);
         removeNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
+        removeNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OnRemoveNoteButtonClicked(evt);
+            }
+        });
 
         editNoteButton.setBackground(new java.awt.Color(255, 255, 255));
         editNoteButton.setToolTipText("Edit note");
@@ -268,7 +201,6 @@ public class MainFrame extends javax.swing.JFrame {
         editNoteButton.setFocusPainted(false);
         editNoteButton.setMaximumSize(new java.awt.Dimension(20, 20));
         editNoteButton.setMinimumSize(new java.awt.Dimension(20, 20));
-        editNoteButton.setOpaque(false);
         editNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
         editNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -280,7 +212,6 @@ public class MainFrame extends javax.swing.JFrame {
         optionsButton.setToolTipText("Options");
         optionsButton.setBorderPainted(false);
         optionsButton.setFocusPainted(false);
-        optionsButton.setOpaque(false);
         optionsButton.setPreferredSize(new java.awt.Dimension(30, 30));
         optionsButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -294,7 +225,6 @@ public class MainFrame extends javax.swing.JFrame {
         helpButton.setFocusPainted(false);
         helpButton.setMaximumSize(new java.awt.Dimension(20, 20));
         helpButton.setMinimumSize(new java.awt.Dimension(20, 20));
-        helpButton.setOpaque(false);
         helpButton.setPreferredSize(new java.awt.Dimension(30, 30));
         helpButton.setRequestFocusEnabled(false);
         helpButton.addActionListener(new java.awt.event.ActionListener() {
@@ -417,28 +347,29 @@ public class MainFrame extends javax.swing.JFrame {
             sortModeButton.setIcon(Constants.getButtonImageIcon(Constants.PATH_IMG_DOWN_SIGN));
             
             System.out.println("Sorting up! " + sort_name);
-            if(sort_name.equals("Creation date"))
-            {
-                order_notes = 0;
+            
+            if(sort_name.equals(Constants.CREATION_DAYE)){
+                Collections.sort(DataNotes.notes, new ByCreationOrderAsc());
             }
-            else
-            {
-                order_notes = 2;
+            else if(sort_name.equals(Constants.REMINDER_DATE)){
+                Collections.sort(DataNotes.notes, new ByReminderOrderAsc());
             }
         } else {
             sortMode = Constants.UP_TEXT;
             sortModeButton.setIcon(Constants.getButtonImageIcon(Constants.PATH_IMG_UP_SIGN));
             
             System.out.println("Sorting down! " + sort_name);
-            if(sort_name.equals("Creation date"))
-            {
-                order_notes = 1;
+            if(sort_name.equals("Creation date")){
+                Collections.sort(DataNotes.notes, new ByCreationOrderDesc());
             }
-            else
-            {
-                order_notes = 3;
+            else if(sort_name.equals(Constants.REMINDER_DATE)){
+                Collections.sort(DataNotes.notes, new ByReminderOrderDesc());
             }
         }
+        
+        invalidate();
+        validate();
+        repaint();
     }//GEN-LAST:event_OnButtonSortByClick
 
     private void OnOptionsButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnOptionsButtonClicked
@@ -454,11 +385,32 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_OnAddNoteButtonClick
 
     private void OnEditButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnEditButtonClick
-        /*
+        ListSelectionModel selmodel = notesList.getSelectionModel();
+        int index = selmodel.getMinSelectionIndex();
+        if (index >= 0){
+            int pos = 0;
+            Iterator it = DataNotes.notes.iterator();
+            while(pos++ < index)
+            {
+                it.next();
+            }
+            Note note = (Note)it.next();
+            
+            System.out.println(note.getID());
+            
+            LastSelectedEdit = note.getID();
+            setContentPane(editNotePanel);
+            invalidate();
+            validate();
+        }else{
+            System.out.println("There is no selected note!");
+            return;
+        }
+        
+        ((EditNotePanel)editNotePanel).setupComponents();
         setContentPane(editNotePanel);
         invalidate();
         validate();
-        */
     }//GEN-LAST:event_OnEditButtonClick
 
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
@@ -476,6 +428,24 @@ public class MainFrame extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_combo_sort_byItemStateChanged
 
+    private void OnRemoveNoteButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnRemoveNoteButtonClicked
+        ListSelectionModel selmodel = notesList.getSelectionModel();
+        int index = selmodel.getMinSelectionIndex();
+        if (index >= 0) {
+            System.out.println("Apaguei a nota: "+DataNotes.notes.get(index).getID());
+            DataNotes.remove(DataNotes.notes.get(index).getID());
+        } else {
+            System.out.println("There is no selected note!");
+        }
+        this.reloadPanel();
+        try {
+            Controller.saveData();
+        } catch (IOException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_OnRemoveNoteButtonClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNoteButton;
     private javax.swing.JComboBox<String> combo_sort_by;
@@ -484,7 +454,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private static javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JPanel mainPanel;
     public static javax.swing.JList<String> notesList;
     private javax.swing.JButton optionsButton;

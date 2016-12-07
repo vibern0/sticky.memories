@@ -102,6 +102,7 @@ public class HelpPanel extends javax.swing.JPanel {
         backButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         backButton2.setToolTipText("Back to Main Page");
         backButton2.setBorderPainted(false);
+        backButton2.setEnabled(false);
         backButton2.setFocusable(false);
         backButton2.setOpaque(false);
         backButton2.setPreferredSize(new java.awt.Dimension(30, 30));
@@ -115,6 +116,7 @@ public class HelpPanel extends javax.swing.JPanel {
         backButton3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         backButton3.setToolTipText("Back to Main Page");
         backButton3.setBorderPainted(false);
+        backButton3.setEnabled(false);
         backButton3.setFocusable(false);
         backButton3.setOpaque(false);
         backButton3.setPreferredSize(new java.awt.Dimension(30, 30));
@@ -123,6 +125,7 @@ public class HelpPanel extends javax.swing.JPanel {
         backButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         backButton4.setToolTipText("Back to Main Page");
         backButton4.setBorderPainted(false);
+        backButton4.setEnabled(false);
         backButton4.setFocusable(false);
         backButton4.setOpaque(false);
         backButton4.setPreferredSize(new java.awt.Dimension(30, 30));
@@ -131,6 +134,7 @@ public class HelpPanel extends javax.swing.JPanel {
         backButton5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         backButton5.setToolTipText("Back to Main Page");
         backButton5.setBorderPainted(false);
+        backButton5.setEnabled(false);
         backButton5.setFocusable(false);
         backButton5.setOpaque(false);
         backButton5.setPreferredSize(new java.awt.Dimension(30, 30));
@@ -139,6 +143,7 @@ public class HelpPanel extends javax.swing.JPanel {
         backButton6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         backButton6.setToolTipText("Back to Main Page");
         backButton6.setBorderPainted(false);
+        backButton6.setEnabled(false);
         backButton6.setFocusable(false);
         backButton6.setOpaque(false);
         backButton6.setPreferredSize(new java.awt.Dimension(30, 30));

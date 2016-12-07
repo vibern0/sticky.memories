@@ -18,11 +18,24 @@ import java.util.PriorityQueue;
 
 public class DataNotes implements Serializable {
     
-    public static PriorityQueue<Note> notes;
+    public static List<Note> notes;
     
     public DataNotes()
+    { }
+    
+    public static void init()
     {
-        notes = new PriorityQueue(new NotesComparator());
+        notes = new ArrayList<>();
+    }
+    
+    public static void setNotes(List<Note> ns)
+    {
+        notes = ns;
+    }
+    
+    public static int getSize()
+    {
+        return notes.size();
     }
     
     public static boolean add(Note note)
@@ -52,7 +65,7 @@ public class DataNotes implements Serializable {
         return (Files.copy(source, newdir) != null);
     }
     
-    public boolean remove(long note_id)
+    public static boolean remove(long note_id)
     {
         for(Note note : notes)
         {
@@ -63,5 +76,12 @@ public class DataNotes implements Serializable {
             }
         }
         return false;
+    }
+    
+    public static Note getNote(long noteID){
+        for(Note note : notes)
+            if(note.getID() == noteID)
+                return note;
+        return null;
     }
 }

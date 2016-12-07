@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -60,6 +61,11 @@ public class Note implements Serializable {
         return reminders;
     }
     
+    public Reminder getNextReminder()
+    {
+        return reminders.get(0);
+    }
+    
     public String getImagePath()
     {
         return image;
@@ -67,6 +73,20 @@ public class Note implements Serializable {
     
     public ImageIcon getImage()
     {
-        return Constants.getSelectedImageIcon(0, image);
+        String path = image;
+        return Constants.getSelectedImageIcon(0, path);
+    }
+    
+    public Reminder getLatestReminder(){
+        if(reminders.size() > 0){
+            Reminder temp = reminders.get(0);
+            for (Reminder r : reminders) {
+             if(r.getReminderTime() > temp.getReminderTime())
+                 temp = r;
+            }
+            System.out.println(temp.getReminderTime());
+            return temp;
+        }
+        return null;
     }
 }
