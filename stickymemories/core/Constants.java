@@ -34,6 +34,7 @@ public class Constants {
     public static String PATH_IMG_OPTIONS_SIGN = "images/options_sign.png";
     public static String PATH_IMG_UP_SIGN = "images/up_sign.png";
     public static String PATH_IMG_DOWN_SIGN = "images/down_sign.png";
+    public static String PATH_IMG_ICON = "images/brain.png";
     
     public static String PATH_IMG_DEFFAULT_IMAGE = "images/deffault_img.png";
     
@@ -45,6 +46,7 @@ public class Constants {
         Constants.colorBackground = colorBackground;
         MainFrame.addNotePanel.setBackground(colorBackground);
         MainFrame.editNotePanel.setBackground(colorBackground);
+        MainFrame.helpPanel.setBackground(colorBackground);
         MainFrame.mainPanel.setBackground(colorBackground);
         MainFrame.notesList.setBackground(colorBackground);
         MainFrame.optionsPanel.setBackground(colorBackground);

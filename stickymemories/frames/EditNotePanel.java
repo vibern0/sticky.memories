@@ -2,6 +2,7 @@
 package stickymemories.frames;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -11,16 +12,20 @@ import javax.swing.JPanel;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import stickymemories.core.Constants;
+import stickymemories.core.Controller;
+import stickymemories.core.DataNotes;
+import stickymemories.core.Note;
 /**
  *
  * @author andre
  */
 public class EditNotePanel extends javax.swing.JPanel {
-
     
     JFrame mainFrame;
+    String imagePath = "";
+    private Image image;
 
-    public EditNotePanel(JFrame mainFrame, int noteID) {
+    public EditNotePanel(JFrame mainFrame) {
         this.mainFrame = mainFrame;
         initComponents();
         
@@ -64,11 +69,6 @@ public class EditNotePanel extends javax.swing.JPanel {
 
         chosenImagePanel.setBackground(new java.awt.Color(255, 255, 255));
         chosenImagePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        chosenImagePanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                chosenImagePanelOnImageMouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout chosenImagePanelLayout = new javax.swing.GroupLayout(chosenImagePanel);
         chosenImagePanel.setLayout(chosenImagePanelLayout);
@@ -175,6 +175,18 @@ public class EditNotePanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     
+    public void setupComponents(){
+        Note note = DataNotes.getNote(MainFrame.LastSelectedEdit);
+        if(note == null){ System.out.println("ERRO");
+            return;}
+        imagePath = note.getImagePath();
+        if(imagePath != null){
+            image = Constants.getSelectedImageIcon(0, imagePath).getImage();
+            chosenImagePanel.repaint();
+        }
+        //if(note.getReminders())
+    }
+    
     private void backButtonOnBackButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonOnBackButtonClicked
         mainFrame.setContentPane(MainFrame.mainPanel);
         invalidate();
@@ -203,16 +215,6 @@ public class EditNotePanel extends javax.swing.JPanel {
         }
         */
     }//GEN-LAST:event_createNoteButtonOnCreateNoteButtonClick
-
-    private void chosenImagePanelOnImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chosenImagePanelOnImageMouseClicked
-        /*
-        imagePath = Controller.selectImageFromDisk();
-        if(imagePath != null){
-            image = Constants.getSelectedImageIcon(1, imagePath).getImage();
-            chosenImagePanel.repaint();
-        }
-        */
-    }//GEN-LAST:event_chosenImagePanelOnImageMouseClicked
 
     private void reminderSwitcherOnReminderStateClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reminderSwitcherOnReminderStateClick
         /*
@@ -251,9 +253,9 @@ public class EditNotePanel extends javax.swing.JPanel {
         @Override
         public void paintComponent(Graphics g){
             super.paintComponent(g);
-            //if(image != null){
-            //    g.drawImage(image, 0, 0, this);
-            //}
+            if(image != null){
+                g.drawImage(image, 0, 0, this);
+            }
         }
     }
     

@@ -77,4 +77,11 @@ public class DataNotes implements Serializable {
         }
         return false;
     }
+    
+    public static Note getNote(long noteID){
+        for(Note note : notes)
+            if(note.getID() == noteID)
+                return note;
+        return null;
+    }
 }
