@@ -16,8 +16,8 @@ public class ByReminderOrderAsc implements Comparator<Note> {
 
     @Override
     public int compare(Note t, Note t1) {
-        if(t.getLatestReminder() == null || t1.getLatestReminder() == null)
-            return 0;
+//        if(t.getLatestReminder() == null || t1.getLatestReminder() == null)
+//            return 0;
         return Long.valueOf(t.getLatestReminder().getReminderTime()).compareTo(t1.getLatestReminder().getReminderTime());
     }
     

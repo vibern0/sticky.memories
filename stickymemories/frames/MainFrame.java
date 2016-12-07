@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -109,15 +110,16 @@ public class MainFrame extends javax.swing.JFrame {
         catch (FileNotFoundException e)
         {
             List<Reminder> reminders = new ArrayList<>();
-        
             Note ferrari = new Note("images/ferrari.png", reminders);
+            ferrari.addReminder(new Reminder(2016,10,20,20,10));
+            
             try
             {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             }
             catch (InterruptedException ex) { }
             Note lambo = new Note("images/lambo.png", reminders);
-
+            lambo.addReminder(new Reminder(2015,10,20,10,20));
             
             DataNotes.add(ferrari);
             DataNotes.add(lambo);
@@ -375,7 +377,7 @@ public class MainFrame extends javax.swing.JFrame {
             if(sort_name.equals("Creation date")){
                 Collections.sort(DataNotes.notes, new ByCreationOrderDesc());
             }
-            else{
+            else if(sort_name.equals(Constants.REMINDER_DATE)){
                 Collections.sort(DataNotes.notes, new ByReminderOrderDesc());
             }
         }

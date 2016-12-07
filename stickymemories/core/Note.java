@@ -80,9 +80,10 @@ public class Note implements Serializable {
         if(reminders.size() > 0){
             Reminder temp = reminders.get(0);
             for (Reminder r : reminders) {
-             if(r.getReminderTime() < temp.getReminderTime())
+             if(r.getReminderTime() > temp.getReminderTime())
                  temp = r;
             }
+            System.out.println(temp.getReminderTime());
             return temp;
         }
         return null;

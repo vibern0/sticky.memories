@@ -19,8 +19,8 @@ public class Reminder implements Serializable {
     private final int ano;
     private final int h;
     private final int m;
-
-    public Reminder(int dia, int mes, int ano, int h, int m) {
+    
+    public Reminder(int ano, int mes, int dia, int h, int m) {
         this.dia = dia;
         this.mes = mes;
         this.ano = ano;
@@ -29,7 +29,8 @@ public class Reminder implements Serializable {
     }
     
     public long getReminderTime(){
-        Date dt = new Date(dia, mes, dia, mes, dia, mes);
+        Date dt = new Date(ano, mes, dia, h, m, 0);
+        System.out.println("Reminder: " + dt.toString());
         return dt.getTime();
     }
 
