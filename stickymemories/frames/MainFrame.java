@@ -8,11 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-<<<<<<< HEAD
 import java.io.File;
-=======
 import java.io.FileNotFoundException;
->>>>>>> ed1309bb7fc4c6fdcb0f010f4622bffa6d22ae45
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,12 +17,9 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-<<<<<<< HEAD
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-=======
->>>>>>> 5bddb52a588a861fe202ef446d1c2e65a84ad1dc
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
@@ -40,7 +34,6 @@ import stickymemories.core.Reminder;
  * @author andre
  */
 public class MainFrame extends javax.swing.JFrame {
-
     public static JPanel addNotePanel;
     public static JPanel editNotePanel;
     public static JPanel optionsPanel;
@@ -54,14 +47,10 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
                
         this.addNotePanel = new AddNotePanel(this);
-        this.editNotePanel = new EditNotePanel(this);;
+        this.editNotePanel = new EditNotePanel(this);
         this.optionsPanel = new OptionsPanel(this);
         this.helpPanel = new HelpPanel(this);
-        /*
-        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("path/to/image.png"));
-        ImageIcon icon = new ImageIcon( );
-        setIconImage(icon.getImage());
-        */
+
         try {
             setIconImage(ImageIO.read(new File("sticky.memories/images/brain.png")));
         }
@@ -425,6 +414,7 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
         
+        ((EditNotePanel)editNotePanel).setupComponents();
         setContentPane(editNotePanel);
         invalidate();
         validate();
