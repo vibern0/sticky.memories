@@ -42,7 +42,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
                
         this.addNotePanel = new AddNotePanel(this);
-        this.editNotePanel = new EditNotePanel(this);
+        this.editNotePanel = new EditNotePanel(this);;
         this.optionsPanel = new OptionsPanel(this);
         this.helpPanel = new HelpPanel(this);
         
@@ -112,16 +112,12 @@ public class MainFrame extends javax.swing.JFrame {
         {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
-        
+
         notesList = new JList(nameList);
         notesList.setCellRenderer(new NotesListRenderer());
         
         invalidate();
-        validate();
-        
+        validate();    
         
         notesList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         notesList.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -135,67 +131,6 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(notesList);
         
         notesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        notesList.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e)
-            {
-                if (e.getClickCount() == 2)
-                {
-                    //qualquer acao com 2 cliques
-                }
-            }
-        });
-        removeNoteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                ListSelectionModel selmodel = notesList.getSelectionModel();
-                int index = selmodel.getMinSelectionIndex();
-                if (index >= 0)
-                {
-                    int pos = 0;
-                    Iterator it = DataNotes.notes.iterator();
-                    while(pos++ < index)
-                    {
-                        it.next();
-                    }
-                    Note note = (Note)it.next();
-                    
-                    System.out.println(note.getID());
-                }
-                else
-                {
-                    System.out.println("There is no selected note!");
-                }
-            }
-        });
-        editNoteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                ListSelectionModel selmodel = notesList.getSelectionModel();
-                int index = selmodel.getMinSelectionIndex();
-                if (index >= 0)
-                {
-                    int pos = 0;
-                    Iterator it = DataNotes.notes.iterator();
-                    while(pos++ < index)
-                    {
-                        it.next();
-                    }
-                    Note note = (Note)it.next();
-                    
-                    System.out.println(note.getID());
-                    
-                    LastSelectedEdit = note.getID();
-                    setContentPane(editNotePanel);
-                    invalidate();
-                    validate();
-                }
-                else
-                {
-                    System.out.println("There is no selected note!");
-                }
-            }
-        });
     }
 
     @SuppressWarnings("unchecked")
@@ -247,6 +182,11 @@ public class MainFrame extends javax.swing.JFrame {
         removeNoteButton.setFocusPainted(false);
         removeNoteButton.setOpaque(false);
         removeNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
+        removeNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OnRemoveNoteButtonClicked(evt);
+            }
+        });
 
         editNoteButton.setBackground(new java.awt.Color(255, 255, 255));
         editNoteButton.setToolTipText("Edit note");
@@ -440,11 +380,31 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_OnAddNoteButtonClick
 
     private void OnEditButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnEditButtonClick
-        /*
+        ListSelectionModel selmodel = notesList.getSelectionModel();
+        int index = selmodel.getMinSelectionIndex();
+        if (index >= 0){
+            int pos = 0;
+            Iterator it = DataNotes.notes.iterator();
+            while(pos++ < index)
+            {
+                it.next();
+            }
+            Note note = (Note)it.next();
+            
+            System.out.println(note.getID());
+            
+            LastSelectedEdit = note.getID();
+            setContentPane(editNotePanel);
+            invalidate();
+            validate();
+        }else{
+            System.out.println("There is no selected note!");
+            return;
+        }
+        
         setContentPane(editNotePanel);
         invalidate();
         validate();
-        */
     }//GEN-LAST:event_OnEditButtonClick
 
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
@@ -461,6 +421,22 @@ public class MainFrame extends javax.swing.JFrame {
             System.out.println("You changed your selection to " + item.toString());
        }
     }//GEN-LAST:event_combo_sort_byItemStateChanged
+
+    private void OnRemoveNoteButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnRemoveNoteButtonClicked
+        ListSelectionModel selmodel = notesList.getSelectionModel();
+        int index = selmodel.getMinSelectionIndex();
+        if (index >= 0) {
+            int pos = 0;
+            Iterator it = DataNotes.notes.iterator();
+            while(pos++ < index)
+                it.next();
+            Note note = (Note)it.next();
+            
+            System.out.println(note.getID());
+        } else {
+            System.out.println("There is no selected note!");
+        }
+    }//GEN-LAST:event_OnRemoveNoteButtonClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNoteButton;

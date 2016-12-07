@@ -17,10 +17,11 @@ import stickymemories.core.Constants;
  */
 public class EditNotePanel extends javax.swing.JPanel {
 
+    private long noteID;
     
     JFrame mainFrame;
 
-    public EditNotePanel(JFrame mainFrame, int noteID) {
+    public EditNotePanel(JFrame mainFrame) {
         this.mainFrame = mainFrame;
         initComponents();
         

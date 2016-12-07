@@ -45,6 +45,7 @@ public class Constants {
         Constants.colorBackground = colorBackground;
         MainFrame.addNotePanel.setBackground(colorBackground);
         MainFrame.editNotePanel.setBackground(colorBackground);
+        MainFrame.helpPanel.setBackground(colorBackground);
         MainFrame.mainPanel.setBackground(colorBackground);
         MainFrame.notesList.setBackground(colorBackground);
         MainFrame.optionsPanel.setBackground(colorBackground);
