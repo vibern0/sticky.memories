@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -77,15 +78,8 @@ public class MainFrame extends javax.swing.JFrame {
         this.setVisible(true);
                 
         initNotesList();
-        
-        loadNotes();
-        order_notes = 0;
     }
     
-    private void loadNotes()
-    {
-        
-    }
     
     private void initNotesList()
     {
@@ -108,19 +102,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
         catch (FileNotFoundException e)
         {
-            List<Reminder> reminders = new ArrayList<>();
-        
-            Note ferrari = new Note("images/ferrari.png", reminders);
-            try
-            {
-                Thread.sleep(1000);
-            }
-            catch (InterruptedException ex) { }
-            Note lambo = new Note("images/lambo.png", reminders);
-
-            
-            DataNotes.add(ferrari);
-            DataNotes.add(lambo);
         }
         catch (IOException | ClassNotFoundException ex)
         {
@@ -375,7 +356,7 @@ public class MainFrame extends javax.swing.JFrame {
             if(sort_name.equals("Creation date")){
                 Collections.sort(DataNotes.notes, new ByCreationOrderDesc());
             }
-            else{
+            else if(sort_name.equals(Constants.REMINDER_DATE)){
                 Collections.sort(DataNotes.notes, new ByReminderOrderDesc());
             }
         }
@@ -445,16 +426,18 @@ public class MainFrame extends javax.swing.JFrame {
         ListSelectionModel selmodel = notesList.getSelectionModel();
         int index = selmodel.getMinSelectionIndex();
         if (index >= 0) {
-            int pos = 0;
-            Iterator it = DataNotes.notes.iterator();
-            while(pos++ < index)
-                it.next();
-            Note note = (Note)it.next();
-            
-            System.out.println(note.getID());
+            System.out.println("Apaguei a nota: "+DataNotes.notes.get(index).getID());
+            DataNotes.remove(DataNotes.notes.get(index).getID());
         } else {
             System.out.println("There is no selected note!");
         }
+        this.reloadPanel();
+        try {
+            Controller.saveData();
+        } catch (IOException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_OnRemoveNoteButtonClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -38,7 +38,7 @@ public class Controller {
             @Override
             public boolean accept(File f)
             {
-                return f.getName().toLowerCase().endsWith(".gif")
+                return f.getName().toLowerCase().endsWith(".jpg")
                     || f.isDirectory();
             }
 
