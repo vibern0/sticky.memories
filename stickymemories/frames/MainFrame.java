@@ -32,6 +32,7 @@ public class MainFrame extends javax.swing.JFrame {
     public static JPanel addNotePanel;
     public static JPanel editNotePanel;
     public static JPanel optionsPanel;
+    public static JPanel helpPanel;
     public static long LastSelectedEdit;
 
     private String sortMode = Constants.DOWN_TEXT; // FEITO À TROLHA xD
@@ -42,6 +43,7 @@ public class MainFrame extends javax.swing.JFrame {
         this.addNotePanel = new AddNotePanel(this);
         this.editNotePanel = new EditNotePanel(this);
         this.optionsPanel = new OptionsPanel(this);
+        this.helpPanel = new HelpPanel(this);
         
         this.setTitle(Constants.STICKY_MEMORIES_TITLE);
         this.setResizable(false);
@@ -392,7 +394,9 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_OnEditButtonClick
 
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
-        // TODO add your handling code here:
+        setContentPane(helpPanel);
+        invalidate();
+        validate();
         System.out.println("Something happens in Help Button!");
     }//GEN-LAST:event_helpButtonActionPerformed
 
