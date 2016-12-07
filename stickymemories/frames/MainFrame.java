@@ -53,7 +53,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
                
         this.addNotePanel = new AddNotePanel(this);
-        this.editNotePanel = new EditNotePanel(this,0);
+        this.editNotePanel = new EditNotePanel(this);
         this.optionsPanel = new OptionsPanel(this);
         this.helpPanel = new HelpPanel(this);
 
