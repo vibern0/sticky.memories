@@ -24,12 +24,12 @@ public class DataNotes implements Serializable {
         notes = new ArrayList<>();
     }
     
-    public boolean add(Note note)
+    public static boolean add(Note note)
     {
         return notes.add(note);
     }
     
-    public boolean add(String path_image, List<Reminder> reminders)
+    public static boolean add(String path_image, List<Reminder> reminders)
             throws DirectoryNotEmptyException, FileAlreadyExistsException,
                 IOException
     {
@@ -42,7 +42,7 @@ public class DataNotes implements Serializable {
         return true;
     }
     
-    private boolean saveImageApllicationFolder(String path_image)
+    private static boolean saveImageApllicationFolder(String path_image)
             throws DirectoryNotEmptyException, FileAlreadyExistsException,
                 IOException
     {
