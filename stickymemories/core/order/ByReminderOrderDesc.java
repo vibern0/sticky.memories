@@ -16,10 +16,9 @@ public class ByReminderOrderDesc implements Comparator<Note> {
 
     @Override
     public int compare(Note t, Note t1) {
-        
-        //
-        
-        return 0;
+        if(t.getLatestReminder() == null || t1.getLatestReminder() == null)
+            return 0;
+        return Long.valueOf(t1.getLatestReminder().getReminderTime()).compareTo(t.getLatestReminder().getReminderTime());
     }
     
 }

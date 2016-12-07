@@ -16,10 +16,7 @@ public class ByCreationOrderAsc implements Comparator<Note> {
 
     @Override
     public int compare(Note t, Note t1) {
-        
-        //
-        
-        return 0;
+        return Long.valueOf(t.getID()).compareTo(t1.getID());
     }
     
 }
