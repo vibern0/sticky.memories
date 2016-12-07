@@ -95,7 +95,7 @@ public class MainFrame extends javax.swing.JFrame {
         }*/
         
         DataNotes.init();
-        String [] nameList = {};
+        
                 
         try
         {
@@ -113,7 +113,6 @@ public class MainFrame extends javax.swing.JFrame {
             catch (InterruptedException ex) { }
             Note lambo = new Note("images/lambo.png", reminders);
 
-            nameList = new String[2];
             
             DataNotes.add(ferrari);
             DataNotes.add(lambo);
@@ -123,11 +122,19 @@ public class MainFrame extends javax.swing.JFrame {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        reloadPanel();
+    }
+    
+    public static void reloadPanel()
+    {
+        String [] nameList = {};
+        nameList = new String[DataNotes.getSize()];
+        
         notesList = new JList(nameList);
         notesList.setCellRenderer(new NotesListRenderer());
         
-        invalidate();
-        validate();    
+        //invalidate();
+        //validate();    
         
         notesList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         notesList.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -457,7 +464,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private static javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JPanel mainPanel;
     public static javax.swing.JList<String> notesList;
     private javax.swing.JButton optionsButton;
