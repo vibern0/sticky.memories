@@ -275,14 +275,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
 
+        notesList.setBackground(Constants.colorBackground);
         notesList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         notesList.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         notesList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         notesList.setAutoscrolls(false);
         notesList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         notesList.setFixedCellHeight(100);
-        notesList.setFixedCellWidth(115);
+        notesList.setFixedCellWidth(130);
         notesList.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        notesList.setSelectionBackground(new java.awt.Color(204, 204, 204));
         notesList.setVisibleRowCount(-1);
         jScrollPane1.setViewportView(notesList);
 
