@@ -246,6 +246,8 @@ public class AddNotePanel extends javax.swing.JPanel {
         if(reminderState){
             List<Reminder> reminders = new ArrayList<>();
             for(ReminderPanel rm : this.remindersList){
+                if(rm.jDateChoser.getDate() == null)
+                    continue;
                 Date date = rm.jDateChoser.getDate();
                 Reminder reminder = new Reminder(date.getDay(), date.getMonth(),
                         date.getYear(), rm.getHour(), rm.getMinute());
@@ -257,6 +259,7 @@ public class AddNotePanel extends javax.swing.JPanel {
             DataNotes.add(new Note(imagePath, null));
             System.out.println("Adicionei uma nota com PATH:"+imagePath+",REMINDERS:null");
         }
+        OnBackButtonClicked(evt);
     }//GEN-LAST:event_OnCreateNoteButtonClick
 
     private void button_add_remindersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_add_remindersActionPerformed

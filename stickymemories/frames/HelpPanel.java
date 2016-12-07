@@ -62,13 +62,14 @@ public class HelpPanel extends javax.swing.JPanel {
         backButton6 = new javax.swing.JButton();
         label8 = new java.awt.Label();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(Constants.colorBackground);
 
         backButton.setBackground(new java.awt.Color(255, 255, 255));
         backButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         backButton.setToolTipText("Back to Main Page");
         backButton.setBorderPainted(false);
         backButton.setFocusable(false);
+        backButton.setOpaque(false);
         backButton.setPreferredSize(new java.awt.Dimension(30, 30));
         backButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -102,6 +103,7 @@ public class HelpPanel extends javax.swing.JPanel {
         backButton2.setToolTipText("Back to Main Page");
         backButton2.setBorderPainted(false);
         backButton2.setFocusable(false);
+        backButton2.setOpaque(false);
         backButton2.setPreferredSize(new java.awt.Dimension(30, 30));
         backButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +116,7 @@ public class HelpPanel extends javax.swing.JPanel {
         backButton3.setToolTipText("Back to Main Page");
         backButton3.setBorderPainted(false);
         backButton3.setFocusable(false);
+        backButton3.setOpaque(false);
         backButton3.setPreferredSize(new java.awt.Dimension(30, 30));
 
         backButton4.setBackground(new java.awt.Color(255, 255, 255));
@@ -121,6 +124,7 @@ public class HelpPanel extends javax.swing.JPanel {
         backButton4.setToolTipText("Back to Main Page");
         backButton4.setBorderPainted(false);
         backButton4.setFocusable(false);
+        backButton4.setOpaque(false);
         backButton4.setPreferredSize(new java.awt.Dimension(30, 30));
 
         backButton5.setBackground(new java.awt.Color(255, 255, 255));
@@ -128,6 +132,7 @@ public class HelpPanel extends javax.swing.JPanel {
         backButton5.setToolTipText("Back to Main Page");
         backButton5.setBorderPainted(false);
         backButton5.setFocusable(false);
+        backButton5.setOpaque(false);
         backButton5.setPreferredSize(new java.awt.Dimension(30, 30));
 
         backButton6.setBackground(new java.awt.Color(255, 255, 255));
@@ -135,6 +140,7 @@ public class HelpPanel extends javax.swing.JPanel {
         backButton6.setToolTipText("Back to Main Page");
         backButton6.setBorderPainted(false);
         backButton6.setFocusable(false);
+        backButton6.setOpaque(false);
         backButton6.setPreferredSize(new java.awt.Dimension(30, 30));
 
         label8.setText("@ISEC, G15");
