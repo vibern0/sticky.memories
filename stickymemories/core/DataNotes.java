@@ -18,11 +18,24 @@ import java.util.PriorityQueue;
 
 public class DataNotes implements Serializable {
     
-    public static PriorityQueue<Note> notes;
+    public static List<Note> notes;
     
     public DataNotes()
+    { }
+    
+    public static void init()
     {
-        notes = new PriorityQueue(new NotesComparator());
+        notes = new ArrayList<>();
+    }
+    
+    public static void setNotes(List<Note> ns)
+    {
+        notes = ns;
+    }
+    
+    public static int getSize()
+    {
+        return notes.size();
     }
     
     public static boolean add(Note note)

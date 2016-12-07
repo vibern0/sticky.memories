@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -58,6 +59,11 @@ public class Note implements Serializable {
     public List<Reminder> getReminders()
     {
         return reminders;
+    }
+    
+    public Reminder getNextReminder()
+    {
+        return reminders.get(0);
     }
     
     public String getImagePath()

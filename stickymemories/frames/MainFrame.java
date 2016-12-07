@@ -94,42 +94,47 @@ public class MainFrame extends javax.swing.JFrame {
             model.add(i, items[i]);
         }*/
         
-        DataNotes data_notes = new DataNotes();
-        String [] nameList = {};
+        DataNotes.init();
+        
                 
         try
         {
-            data_notes.notes = Controller.loadData();
+            DataNotes.setNotes(Controller.loadData());
         }
         catch (FileNotFoundException e)
         {
             List<Reminder> reminders = new ArrayList<>();
         
             Note ferrari = new Note("images/ferrari.png", reminders);
-            try {
+            try
+            {
                 Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
+            catch (InterruptedException ex) { }
             Note lambo = new Note("images/lambo.png", reminders);
 
-            nameList = new String[2];
-            nameList[0] = " ";
-            nameList[1] = " ";
             
-            data_notes.add(ferrari);
-            data_notes.add(lambo);
+            DataNotes.add(ferrari);
+            DataNotes.add(lambo);
         }
         catch (IOException | ClassNotFoundException ex)
         {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        reloadPanel();
+    }
+    
+    public static void reloadPanel()
+    {
+        String [] nameList = {};
+        nameList = new String[DataNotes.getSize()];
+        
         notesList = new JList(nameList);
         notesList.setCellRenderer(new NotesListRenderer());
         
-        invalidate();
-        validate();    
+        //invalidate();
+        //validate();    
         
         notesList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         notesList.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -459,7 +464,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private static javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JPanel mainPanel;
     public static javax.swing.JList<String> notesList;
     private javax.swing.JButton optionsButton;
