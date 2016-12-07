@@ -11,9 +11,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import stickymemories.core.Constants;
 import stickymemories.core.Controller;
+import stickymemories.core.DataNotes;
+import stickymemories.core.Note;
 
 /**
  *
@@ -211,8 +212,10 @@ public class AddNotePanel extends javax.swing.JPanel {
 
     private void OnImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnImageMouseClicked
         imagePath = Controller.selectImageFromDisk();
-        image = Constants.getSelectedImageIcon(1, imagePath).getImage();
-        chosenImagePanel.repaint();
+        if(imagePath != null){
+            image = Constants.getSelectedImageIcon(1, imagePath).getImage();
+            chosenImagePanel.repaint();
+        }
     }//GEN-LAST:event_OnImageMouseClicked
 
     private void OnReminderStateClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnReminderStateClick
@@ -235,6 +238,7 @@ public class AddNotePanel extends javax.swing.JPanel {
     private void OnCreateNoteButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnCreateNoteButtonClick
         // Obter a imagem e a listagem de reminders de modo a adicionar a nota 
         // ao DataNote
+        //DataNotes.notes.add(new Note(Constants.PATH_IMG_EXCLAMATION_SIGN));
     }//GEN-LAST:event_OnCreateNoteButtonClick
 
     private void button_add_remindersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_add_remindersActionPerformed

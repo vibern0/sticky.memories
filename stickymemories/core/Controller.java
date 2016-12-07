@@ -6,6 +6,13 @@
 package stickymemories.core;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
@@ -55,15 +62,24 @@ public class Controller {
         return System.getProperty("user.home");
     }
     
-    public boolean saveData()
+    public static boolean saveData() throws FileNotFoundException, IOException
     {
-        
+        FileOutputStream fout = new FileOutputStream("file.bin");
+        try (ObjectOutputStream oos = new ObjectOutputStream(fout))
+        {
+            oos.writeObject(DataNotes.notes);
+        }
         return false;
     }
     
-    public boolean loadData()
+    public static List<Note> loadData() throws FileNotFoundException, IOException, ClassNotFoundException
     {
+        List<Note> notes;
         
-        return false;
+        FileInputStream fin = new FileInputStream("file.bin");
+        ObjectInputStream ois = new ObjectInputStream(fin);
+        notes = (List<Note>)ois.readObject();
+        
+        return notes;
     }
 }
