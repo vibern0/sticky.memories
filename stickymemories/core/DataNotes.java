@@ -65,7 +65,7 @@ public class DataNotes implements Serializable {
         return (Files.copy(source, newdir) != null);
     }
     
-    public boolean remove(long note_id)
+    public static boolean remove(long note_id)
     {
         for(Note note : notes)
         {
