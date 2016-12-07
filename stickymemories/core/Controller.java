@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
+import java.util.PriorityQueue;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
@@ -62,23 +63,24 @@ public class Controller {
         return System.getProperty("user.home");
     }
     
-    public static boolean saveData() throws FileNotFoundException, IOException
+    public static void saveData()
+            throws FileNotFoundException, IOException
     {
         FileOutputStream fout = new FileOutputStream("file.bin");
         try (ObjectOutputStream oos = new ObjectOutputStream(fout))
         {
             oos.writeObject(DataNotes.notes);
         }
-        return false;
     }
     
-    public static List<Note> loadData() throws FileNotFoundException, IOException, ClassNotFoundException
+    public static PriorityQueue<Note> loadData()
+            throws FileNotFoundException, IOException, ClassNotFoundException
     {
-        List<Note> notes;
+        PriorityQueue<Note> notes;
         
         FileInputStream fin = new FileInputStream("file.bin");
         ObjectInputStream ois = new ObjectInputStream(fin);
-        notes = (List<Note>)ois.readObject();
+        notes = (PriorityQueue<Note>)ois.readObject();
         
         return notes;
     }

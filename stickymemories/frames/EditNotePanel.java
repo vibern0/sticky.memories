@@ -17,9 +17,10 @@ import stickymemories.core.Constants;
  */
 public class EditNotePanel extends javax.swing.JPanel {
 
+    
     JFrame mainFrame;
 
-    public EditNotePanel(JFrame mainFrame) {
+    public EditNotePanel(JFrame mainFrame, int noteID) {
         this.mainFrame = mainFrame;
         initComponents();
         
@@ -31,7 +32,6 @@ public class EditNotePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         backButton = new javax.swing.JButton();
-        backButton1 = new javax.swing.JButton();
         createNoteButton = new javax.swing.JButton();
         chosenImagePanel = new ImagePanel();
         createNoteTextLabel = new javax.swing.JLabel();
@@ -50,18 +50,6 @@ public class EditNotePanel extends javax.swing.JPanel {
         backButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 backButtonOnBackButtonClicked(evt);
-            }
-        });
-
-        backButton1.setBackground(new java.awt.Color(255, 255, 255));
-        backButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        backButton1.setToolTipText("Back to Main Page");
-        backButton1.setBorderPainted(false);
-        backButton1.setOpaque(false);
-        backButton1.setPreferredSize(new java.awt.Dimension(30, 30));
-        backButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backButton1OnBackButtonClicked(evt);
             }
         });
 
@@ -140,8 +128,7 @@ public class EditNotePanel extends javax.swing.JPanel {
                             .addGap(0, 0, Short.MAX_VALUE)
                             .addComponent(createNoteButton))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(backButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(86, 86, 86)
+                            .addGap(116, 116, 116)
                             .addComponent(createNoteTextLabel))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(chosenImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,9 +154,8 @@ public class EditNotePanel extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(backButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(createNoteTextLabel))
+                    .addComponent(createNoteTextLabel)
+                    .addGap(5, 5, 5)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(18, 18, 18)
@@ -194,12 +180,6 @@ public class EditNotePanel extends javax.swing.JPanel {
         invalidate();
         validate();
     }//GEN-LAST:event_backButtonOnBackButtonClicked
-
-    private void backButton1OnBackButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButton1OnBackButtonClicked
-        mainFrame.setContentPane(MainFrame.mainPanel);
-        invalidate();
-        validate();
-    }//GEN-LAST:event_backButton1OnBackButtonClicked
 
     private void createNoteButtonOnCreateNoteButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createNoteButtonOnCreateNoteButtonClick
         /*
@@ -299,7 +279,6 @@ public class EditNotePanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
-    private javax.swing.JButton backButton1;
     private javax.swing.JButton button_add_reminders;
     private javax.swing.JPanel chosenImagePanel;
     private javax.swing.JButton createNoteButton;

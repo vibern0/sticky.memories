@@ -11,14 +11,19 @@ package stickymemories.loop;
  */
 public class CheckReminders extends Thread {
     
+    boolean hasNext;
     public CheckReminders()
     {
-        
+        this.hasNext = false;
     }
     
     @Override
     public void run()
     {
-        
+        if(hasNext == false)
+        {
+            //schedule next note
+        }
+        //schedule next note
     }
 }
