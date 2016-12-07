@@ -8,11 +8,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+<<<<<<< HEAD
 import java.io.File;
+=======
+import java.io.FileNotFoundException;
+>>>>>>> ed1309bb7fc4c6fdcb0f010f4622bffa6d22ae45
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -98,28 +103,40 @@ public class MainFrame extends javax.swing.JFrame {
             model.add(i, items[i]);
         }*/
         
-        List<Reminder> reminders = new ArrayList<>();
-        
-        Note ferrari = new Note("images/ferrari.png", reminders);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Note lambo = new Note("images/lambo.png", reminders);
-        
         DataNotes data_notes = new DataNotes();
-        data_notes.add(ferrari);
-        data_notes.add(lambo);
-        /*try
+        String [] nameList = {};
+                
+        try
         {
-            data_notes.notes = (List<Note>) Controller.loadData();
+            data_notes.notes = Controller.loadData();
+        }
+        catch (FileNotFoundException e)
+        {
+            List<Reminder> reminders = new ArrayList<>();
+        
+            Note ferrari = new Note("images/ferrari.png", reminders);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Note lambo = new Note("images/lambo.png", reminders);
+
+            nameList = new String[2];
+            nameList[0] = " ";
+            nameList[1] = " ";
+            
             data_notes.add(ferrari);
             data_notes.add(lambo);
         }
-        catch (IOException | ClassNotFoundException ex) { }*/
+        catch (IOException | ClassNotFoundException ex)
+        {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        String[] nameList = {" ", " "};
+        
+        
+        
         notesList = new JList(nameList);
         notesList.setCellRenderer(new NotesListRenderer());
         
