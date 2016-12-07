@@ -4,9 +4,18 @@ package stickymemories.core;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import stickymemories.StickyMemories;
 import stickymemories.frames.MainFrame;
 /**
  *
@@ -87,5 +96,29 @@ public class Constants {
             ex.printStackTrace();
         }
         return null;
+    }
+    
+    public static String copyImage(String imagePath) {
+        String[] imagePathArray = imagePath.replaceAll("\\\\", "/").split("/");
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(new File(imagePath));
+            String newPath = StickyMemories.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()
+                    +"stickymemories/images/"+imagePathArray[imagePathArray.length-1];
+            os = new FileOutputStream(new File(newPath));
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+            is.close();
+            os.close();
+            return imagePathArray[imagePathArray.length-1];
+        } catch (FileNotFoundException ex) {
+            return null;
+        } catch(Exception e){
+            return null;
+        } 
     }
 }
