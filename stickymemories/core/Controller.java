@@ -73,14 +73,14 @@ public class Controller {
         }
     }
     
-    public static PriorityQueue<Note> loadData()
+    public static List<Note> loadData()
             throws FileNotFoundException, IOException, ClassNotFoundException
     {
-        PriorityQueue<Note> notes;
+        List<Note> notes;
         
         FileInputStream fin = new FileInputStream("file.bin");
         ObjectInputStream ois = new ObjectInputStream(fin);
-        notes = (PriorityQueue<Note>)ois.readObject();
+        notes = (List<Note>)ois.readObject();
         
         return notes;
     }

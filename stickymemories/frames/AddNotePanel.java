@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.PriorityQueue;
 import javax.swing.BoxLayout;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFrame;
@@ -260,8 +261,7 @@ public class AddNotePanel extends javax.swing.JPanel {
             DataNotes.add(new Note(imagePath, null));
             System.out.println("Adicionei uma nota com PATH:"+imagePath+",REMINDERS:null");
         }
-        MainFrame.notesList = new JList(new String[DataNotes.notes.size()]);
-        MainFrame.notesList.setCellRenderer(new NotesListRenderer());
+        //funcao para update da janela!
         OnBackButtonClicked(evt);
     }//GEN-LAST:event_OnCreateNoteButtonClick
 

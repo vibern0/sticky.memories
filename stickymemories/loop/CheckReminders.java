@@ -5,25 +5,33 @@
  */
 package stickymemories.loop;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
+import stickymemories.core.DataNotes;
+import stickymemories.core.Note;
+
 /**
  *
  * @author bernardovieira
  */
-public class CheckReminders extends Thread {
+public class CheckReminders {
     
-    boolean hasNext;
+    private static List<Note> note_by_reminder;
     public CheckReminders()
     {
-        this.hasNext = false;
+        //load first time!
+        reorganizeReminders();
+        
+        
     }
     
-    @Override
-    public void run()
+    
+    public static void reorganizeReminders()
     {
-        if(hasNext == false)
-        {
-            //schedule next note
-        }
-        //schedule next note
+        //
+        note_by_reminder = new ArrayList<>();
+        //
     }
+    
 }
