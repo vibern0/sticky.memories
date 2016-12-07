@@ -35,6 +35,7 @@ public class MainFrame extends javax.swing.JFrame {
     public static JPanel addNotePanel;
     public static JPanel editNotePanel;
     public static JPanel optionsPanel;
+    public static JPanel helpPanel;
     public static long LastSelectedEdit;
     public static int order_notes;
 
@@ -46,6 +47,7 @@ public class MainFrame extends javax.swing.JFrame {
         this.addNotePanel = new AddNotePanel(this);
         this.editNotePanel = new EditNotePanel(this);
         this.optionsPanel = new OptionsPanel(this);
+        this.helpPanel = new HelpPanel(this);
         
         this.setTitle(Constants.STICKY_MEMORIES_TITLE);
         this.setResizable(false);
@@ -287,14 +289,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
 
+        notesList.setBackground(Constants.colorBackground);
         notesList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         notesList.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         notesList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         notesList.setAutoscrolls(false);
         notesList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         notesList.setFixedCellHeight(100);
-        notesList.setFixedCellWidth(115);
+        notesList.setFixedCellWidth(130);
         notesList.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
+        notesList.setSelectionBackground(new java.awt.Color(204, 204, 204));
         notesList.setVisibleRowCount(-1);
         jScrollPane1.setViewportView(notesList);
 
@@ -442,7 +446,9 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_OnEditButtonClick
 
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
-        // TODO add your handling code here:
+        setContentPane(helpPanel);
+        invalidate();
+        validate();
         System.out.println("Something happens in Help Button!");
     }//GEN-LAST:event_helpButtonActionPerformed
 

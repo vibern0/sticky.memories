@@ -1,11 +1,12 @@
 package stickymemories.frames;
 
-import com.toedter.calendar.JDateChooser;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JFormattedTextField.AbstractFormatter;
@@ -15,6 +16,7 @@ import stickymemories.core.Constants;
 import stickymemories.core.Controller;
 import stickymemories.core.DataNotes;
 import stickymemories.core.Note;
+import stickymemories.core.Reminder;
 
 /**
  *
@@ -22,17 +24,17 @@ import stickymemories.core.Note;
  */
 
 public class AddNotePanel extends javax.swing.JPanel {
-
     private JFrame mainFrame;
     private Image image;
     private String imagePath;
-    private List<JDateChooser> reminders;
-    public static JPanel panel_reminders;
+    public static List<ReminderPanel> remindersList;
+    public static JPanel panelReminders;
     
     private boolean reminderState = false;
     
     public AddNotePanel(JFrame mainFrame) {
         this.mainFrame = mainFrame;
+        this.remindersList = new ArrayList<>();
         initComponents();
         
         setupComponents();
@@ -62,6 +64,7 @@ public class AddNotePanel extends javax.swing.JPanel {
         backButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         backButton.setToolTipText("Back to Main Page");
         backButton.setBorderPainted(false);
+        backButton.setOpaque(false);
         backButton.setPreferredSize(new java.awt.Dimension(30, 30));
         backButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -188,13 +191,15 @@ public class AddNotePanel extends javax.swing.JPanel {
     private void setupComponents(){
         image = Constants.getSelectedImageIcon(0, Constants.PATH_IMG_DEFFAULT_IMAGE).getImage();
         
-        panel_reminders = new JPanel();
-        BoxLayout boxlayout = new BoxLayout(panel_reminders, BoxLayout.Y_AXIS);
-        panel_reminders.setLayout(boxlayout);
+        panelReminders = new JPanel();
+        BoxLayout boxlayout = new BoxLayout(panelReminders, BoxLayout.Y_AXIS);
+        panelReminders.setLayout(boxlayout);
         
-        panel_reminders.add(new ReminderPanel(this));
+        ReminderPanel rp = new ReminderPanel(this, remindersList.size());
+        panelReminders.add(rp);
+        remindersList.add(rp);
         
-        remindersPanel.add(panel_reminders);
+        remindersPanel.add(panelReminders);
         remindersPanel.setVisible(false);
         
         this.repaint();
@@ -236,14 +241,28 @@ public class AddNotePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_OnReminderStateClick
 
     private void OnCreateNoteButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnCreateNoteButtonClick
-        // Obter a imagem e a listagem de reminders de modo a adicionar a nota 
-        // ao DataNote
-        //DataNotes.notes.add(new Note(Constants.PATH_IMG_EXCLAMATION_SIGN));
+        if(imagePath == null)
+            return;
+        if(reminderState){
+            List<Reminder> reminders = new ArrayList<>();
+            for(ReminderPanel rm : this.remindersList){
+                Date date = rm.jDateChoser.getDate();
+                Reminder reminder = new Reminder(date.getDay(), date.getMonth(),
+                        date.getYear(), rm.getHour(), rm.getMinute());
+                reminders.add(reminder);
+            }
+            DataNotes.add(new Note(imagePath, reminders));
+            System.out.println("Adicionei uma nota com PATH:"+imagePath+",REMINDERS:"+reminders.size());
+        } else {
+            DataNotes.add(new Note(imagePath, null));
+            System.out.println("Adicionei uma nota com PATH:"+imagePath+",REMINDERS:null");
+        }
     }//GEN-LAST:event_OnCreateNoteButtonClick
 
     private void button_add_remindersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_add_remindersActionPerformed
-        // TODO add your handling code here:
-        panel_reminders.add(new ReminderPanel(this));
+        ReminderPanel rp = new ReminderPanel(this, remindersList.size());
+        panelReminders.add(rp);
+        remindersList.add(rp);
         remindersPanel.invalidate();
         remindersPanel.validate();
     }//GEN-LAST:event_button_add_remindersActionPerformed
@@ -259,7 +278,6 @@ public class AddNotePanel extends javax.swing.JPanel {
     }
     
     class DateLabelFormatter extends AbstractFormatter {
- 
         private String datePattern = "yyyy-MM-dd";
         private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
 

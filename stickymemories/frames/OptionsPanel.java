@@ -1,8 +1,6 @@
 package stickymemories.frames;
 
-import java.awt.Component;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import stickymemories.OptionsModel;
 import stickymemories.core.Constants;
 import stickymemories.RGBColorChooserPanel;
@@ -13,7 +11,7 @@ import stickymemories.RGBColorChooserPanel;
  */
 public class OptionsPanel extends javax.swing.JPanel {
 
-    private JFrame mainFrame;
+    private final JFrame mainFrame;
     
     private boolean notificationMode;
     
@@ -88,6 +86,7 @@ public class OptionsPanel extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Monaco", 1, 18)); // NOI18N
         jLabel3.setText("Background Color");
 
+        colorJPanel.setBackground(Constants.colorBackground);
         colorJPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
         colorJPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
