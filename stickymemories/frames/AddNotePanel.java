@@ -247,6 +247,8 @@ public class AddNotePanel extends javax.swing.JPanel {
         if(reminderState){
             List<Reminder> reminders = new ArrayList<>();
             for(ReminderPanel rm : this.remindersList){
+                if(rm.jDateChoser.getDate() == null)
+                    continue;
                 Date date = rm.jDateChoser.getDate();
                 Reminder reminder = new Reminder(date.getDay(), date.getMonth(),
                         date.getYear(), rm.getHour(), rm.getMinute());
@@ -260,6 +262,7 @@ public class AddNotePanel extends javax.swing.JPanel {
         }
         MainFrame.notesList = new JList(new String[DataNotes.notes.size()]);
         MainFrame.notesList.setCellRenderer(new NotesListRenderer());
+        OnBackButtonClicked(evt);
     }//GEN-LAST:event_OnCreateNoteButtonClick
 
     private void button_add_remindersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_add_remindersActionPerformed
