@@ -7,10 +7,12 @@ package stickymemories.frames;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.util.Iterator;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import stickymemories.core.DataNotes;
+import stickymemories.core.Note;
 
 /**
  *
@@ -25,7 +27,16 @@ public class NotesListRenderer extends DefaultListCellRenderer {
 
         JLabel label = (JLabel) super.getListCellRendererComponent(
                 list, null, index, isSelected, cellHasFocus);
-        label.setIcon(DataNotes.notes.get(index).getImage());
+        
+        int pos = 0;
+        Iterator it = DataNotes.notes.iterator();
+        while(pos++ < index)
+        {
+            it.next();
+        }
+        Note note = (Note)it.next();
+        
+        label.setIcon(note.getImage());
         //label.setHorizontalTextPosition(JLabel.RIGHT);
         //label.setFont(font);
         return label;

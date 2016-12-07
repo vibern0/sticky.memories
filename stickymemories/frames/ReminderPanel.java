@@ -1,25 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package stickymemories.frames;
 
 import java.util.Date;
 import javax.swing.JPanel;
+import stickymemories.core.Constants;
 
 /**
  *
  * @author bernardovieira
  */
 public class ReminderPanel extends javax.swing.JPanel {
-
     private final JPanel master;
-    /**
-     * Creates new form ReminderPanel
-     */
-    public ReminderPanel(JPanel panel) {
+    private int id;
+
+    public ReminderPanel(JPanel panel, int id) {
         initComponents();
+        
+        this.id = id;
         
         master = panel;
         jDateChoser.getJCalendar().setMinSelectableDate(new Date());
@@ -52,9 +49,12 @@ public class ReminderPanel extends javax.swing.JPanel {
         jDateChoser.setFont(new java.awt.Font("Monaco", 0, 13)); // NOI18N
         jDateChoser.setOpaque(false);
 
-        removeReminderButton.setText("jButton4");
+        removeReminderButton.setBackground(Constants.colorBackground);
+        removeReminderButton.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        removeReminderButton.setText("X");
         removeReminderButton.setMaximumSize(new java.awt.Dimension(30, 30));
         removeReminderButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        removeReminderButton.setOpaque(false);
         removeReminderButton.setPreferredSize(new java.awt.Dimension(30, 30));
         removeReminderButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,9 +85,9 @@ public class ReminderPanel extends javax.swing.JPanel {
                         .addComponent(JSpinMinute, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(minutesLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(removeReminderButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(removeReminderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,25 +100,28 @@ public class ReminderPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(JSpinHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(JSpinMinute, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(hoursLabel)))
-            .addComponent(removeReminderButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hoursLabel))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(removeReminderButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void removeReminderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeReminderButtonActionPerformed
-        // TODO add your handling code here:
-        AddNotePanel.panel_reminders.remove(this);
-        AddNotePanel.panel_reminders.invalidate();
-        AddNotePanel.panel_reminders.validate();
-        AddNotePanel.panel_reminders.repaint();
+        AddNotePanel.remindersList.remove(this.id);
+        AddNotePanel.panelReminders.remove(this);
+        AddNotePanel.panelReminders.invalidate();
+        AddNotePanel.panelReminders.validate();
+        AddNotePanel.panelReminders.repaint();
+        System.out.println("Removi o reminder:"+this.id);
     }//GEN-LAST:event_removeReminderButtonActionPerformed
 
-    public int getHour()
-    {
+    public int getHour(){
         return JSpinHour.getValue();
     }
-    public int getMinute()
-    {
+    
+    public int getMinute(){
         return JSpinMinute.getValue();
     }
 
@@ -126,7 +129,7 @@ public class ReminderPanel extends javax.swing.JPanel {
     private com.toedter.components.JSpinField JSpinHour;
     private com.toedter.components.JSpinField JSpinMinute;
     private javax.swing.JLabel hoursLabel;
-    private com.toedter.calendar.JDateChooser jDateChoser;
+    public com.toedter.calendar.JDateChooser jDateChoser;
     private javax.swing.JLabel minutesLabel;
     private javax.swing.JButton removeReminderButton;
     // End of variables declaration//GEN-END:variables

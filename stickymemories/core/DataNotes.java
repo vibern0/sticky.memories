@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 /**
  *
@@ -17,19 +18,19 @@ import java.util.List;
 
 public class DataNotes implements Serializable {
     
-    public static List<Note> notes;
+    public static PriorityQueue<Note> notes;
     
     public DataNotes()
     {
-        notes = new ArrayList<>();
+        notes = new PriorityQueue(new NotesComparator());
     }
     
-    public boolean add(Note note)
+    public static boolean add(Note note)
     {
         return notes.add(note);
     }
     
-    public boolean add(String path_image, List<Reminder> reminders)
+    public static boolean add(String path_image, List<Reminder> reminders)
             throws DirectoryNotEmptyException, FileAlreadyExistsException,
                 IOException
     {
@@ -42,7 +43,7 @@ public class DataNotes implements Serializable {
         return true;
     }
     
-    private boolean saveImageApllicationFolder(String path_image)
+    private static boolean saveImageApllicationFolder(String path_image)
             throws DirectoryNotEmptyException, FileAlreadyExistsException,
                 IOException
     {
