@@ -50,9 +50,13 @@ public class MainFrame extends javax.swing.JFrame {
         this.editNotePanel = new EditNotePanel(this);
         this.optionsPanel = new OptionsPanel(this);
         this.helpPanel = new HelpPanel(this);
-        
+        /*
+        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("path/to/image.png"));
+        ImageIcon icon = new ImageIcon( );
+        setIconImage(icon.getImage());
+        */
         try {
-            setIconImage(ImageIO.read(new File("res/brain-4.png")));
+            setIconImage(ImageIO.read(new File("sticky.memories/images/brain.png")));
         }
         catch (IOException exc) {
             exc.printStackTrace();
