@@ -56,7 +56,6 @@ public class AddNotePanel extends javax.swing.JPanel {
         backButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         backButton.setToolTipText("Back to Main Page");
         backButton.setBorderPainted(false);
-        backButton.setOpaque(false);
         backButton.setPreferredSize(new java.awt.Dimension(30, 30));
         backButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -317,3 +316,4 @@ public class AddNotePanel extends javax.swing.JPanel {
     private javax.swing.JLabel remindersTextLabel;
     // End of variables declaration//GEN-END:variables
 }
+
