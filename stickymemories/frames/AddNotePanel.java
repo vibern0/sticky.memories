@@ -22,7 +22,7 @@ public class AddNotePanel extends javax.swing.JPanel {
     private String imagePath;
     public static List<ReminderPanel> remindersList;
     //public static JPanel panelReminders;
-    JPanel outer_p;
+    public static JPanel outer_p;
     
     private boolean reminderState = false;
     
@@ -179,36 +179,8 @@ public class AddNotePanel extends javax.swing.JPanel {
     private void setupComponents(){
         image = Constants.getSelectedImageIcon(0, Constants.PATH_IMG_DEFFAULT_IMAGE).getImage();
         
-        
-        /*panelReminders = new JPanel();
-        BoxLayout boxlayout = new BoxLayout(panelReminders, BoxLayout.Y_AXIS);
-        panelReminders.setLayout(boxlayout);
-        
-        ReminderPanel rp = new ReminderPanel(this, remindersList.size());
-        panelReminders.add(rp);
-        remindersList.add(rp);
-        
-        remindersPanel.add(panelReminders);
-        remindersPanel.setVisible(false);*/
 
-	outer_p.add(new Label("bye"));
-        outer_p.add(new Label("hi"));
-        outer_p.add(new Label("hi"));
-        outer_p.add(new Label("hi"));
-        outer_p.add(new Label("hi"));
-        outer_p.add(new Label("hi"));
-        outer_p.add(new Label("hi"));
-        outer_p.add(new Label("hi"));
-        outer_p.add(new Label("hi"));
-        outer_p.add(new Label("bye"));
-        outer_p.add(new Label("hi"));
-        outer_p.add(new Label("hi"));
-        outer_p.add(new Label("hi"));
-        outer_p.add(new Label("hi"));
-        outer_p.add(new Label("hi"));
-        outer_p.add(new Label("hi"));
-        outer_p.add(new Label("hi"));
-        outer_p.add(new Label("hi"));
+	outer_p.setVisible(false);
         
         this.repaint();
     }
@@ -236,13 +208,13 @@ public class AddNotePanel extends javax.swing.JPanel {
             reminderSwitcher.setText(Constants.OFF_TEXT);
             reminderSwitcher.setSelected(false);
             reminderState = false;
-            //remindersPanel.setVisible(false);
+            outer_p.setVisible(false);
             button_add_reminders.setEnabled(false);
         }else{
             reminderSwitcher.setText(Constants.ON_TEXT);
             reminderSwitcher.setSelected(true);
             reminderState = true;
-            //remindersPanel.setVisible(true);
+            outer_p.setVisible(true);
             button_add_reminders.setEnabled(true);
         }
         this.repaint();
@@ -284,11 +256,11 @@ public class AddNotePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_OnCreateNoteButtonClick
 
     private void button_add_remindersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_add_remindersActionPerformed
-        /*ReminderPanel rp = new ReminderPanel(this, remindersList.size());
-        panelReminders.add(rp);
+        ReminderPanel rp = new ReminderPanel(this, remindersList.size());
+        outer_p.add(rp);
         remindersList.add(rp);
-        remindersPanel.invalidate();
-        remindersPanel.validate();*/
+        outer_p.invalidate();
+        outer_p.validate();
     }//GEN-LAST:event_button_add_remindersActionPerformed
     
     class ImagePanel extends JPanel{
