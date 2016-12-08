@@ -110,10 +110,10 @@ public class ReminderPanel extends javax.swing.JPanel {
 
     private void removeReminderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeReminderButtonActionPerformed
         AddNotePanel.remindersList.remove(this.id);
-        AddNotePanel.panelReminders.remove(this);
+        /*AddNotePanel.panelReminders.remove(this);
         AddNotePanel.panelReminders.invalidate();
         AddNotePanel.panelReminders.validate();
-        AddNotePanel.panelReminders.repaint();
+        AddNotePanel.panelReminders.repaint();*/
         System.out.println("Removi o reminder:"+this.id);
     }//GEN-LAST:event_removeReminderButtonActionPerformed
 
