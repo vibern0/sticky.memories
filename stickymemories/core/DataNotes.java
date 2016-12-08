@@ -1,5 +1,6 @@
 package stickymemories.core;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.*;
@@ -67,6 +68,8 @@ public class DataNotes implements Serializable {
             if(note.getID() == note_id)
             {
                 notes.remove(note);
+                File image = new File(Constants.getAppPath()+note.getImagePath());
+                image.delete();
                 return true;
             }
         }

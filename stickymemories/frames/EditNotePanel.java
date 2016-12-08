@@ -3,6 +3,7 @@ package stickymemories.frames;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,10 +16,10 @@ import stickymemories.core.*;
  * @author andre
  */
 public class EditNotePanel extends javax.swing.JPanel {
-    
     JFrame mainFrame;
     String imagePath = "";
     private Image image;
+    private boolean reminderState;
 
     public EditNotePanel(JFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -46,6 +47,9 @@ public class EditNotePanel extends javax.swing.JPanel {
         backButton.setBackground(new java.awt.Color(255, 255, 255));
         backButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         backButton.setToolTipText("Back to Main Page");
+        backButton.setBorderPainted(false);
+        backButton.setFocusable(false);
+        backButton.setOpaque(false);
         backButton.setPreferredSize(new java.awt.Dimension(30, 30));
         backButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -58,12 +62,17 @@ public class EditNotePanel extends javax.swing.JPanel {
         createNoteButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         createNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                createNoteButtonOnCreateNoteButtonClick(evt);
+                OnSaveButtonClicked(evt);
             }
         });
 
         chosenImagePanel.setBackground(new java.awt.Color(255, 255, 255));
         chosenImagePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        chosenImagePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OnImageMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout chosenImagePanelLayout = new javax.swing.GroupLayout(chosenImagePanel);
         chosenImagePanel.setLayout(chosenImagePanelLayout);
@@ -163,9 +172,7 @@ public class EditNotePanel extends javax.swing.JPanel {
                             .addComponent(button_add_reminders)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(createNoteButton))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addComponent(chosenImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(chosenImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -179,7 +186,11 @@ public class EditNotePanel extends javax.swing.JPanel {
             image = Constants.getSelectedImageIcon(0, imagePath).getImage();
             chosenImagePanel.repaint();
         }
-        //if(note.getReminders())
+        if(note.getReminders() == null)
+            reminderState = true;
+        else
+            reminderState = false;
+        updateReminderState();
     }
     
     private void backButtonOnBackButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonOnBackButtonClicked
@@ -188,31 +199,21 @@ public class EditNotePanel extends javax.swing.JPanel {
         validate();
     }//GEN-LAST:event_backButtonOnBackButtonClicked
 
-    private void createNoteButtonOnCreateNoteButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createNoteButtonOnCreateNoteButtonClick
-        /*
+    private void OnSaveButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnSaveButtonClicked
         if(imagePath == null)
             return;
-        if(reminderState){
-            List<Reminder> reminders = new ArrayList<>();
-            for(ReminderPanel rm : this.remindersList){
-                if(rm.jDateChoser.getDate() == null)
-                continue;
-                Date date = rm.jDateChoser.getDate();
-                Reminder reminder = new Reminder(date.getDay(), date.getMonth(),
-                    date.getYear(), rm.getHour(), rm.getMinute());
-                reminders.add(reminder);
-            }
-            DataNotes.add(new Note(imagePath, reminders));
-            System.out.println("Adicionei uma nota com PATH:"+imagePath+",REMINDERS:"+reminders.size());
-        } else {
-            DataNotes.add(new Note(imagePath, null));
-            System.out.println("Adicionei uma nota com PATH:"+imagePath+",REMINDERS:null");
+        String newPath = Constants.copyImage(imagePath);
+        DataNotes.getNote(MainFrame.LastSelectedEdit).setImagePath("images/"+newPath);
+        try{
+            Controller.saveData();
+        } catch (IOException ex) {
+            System.out.println("Erro ao criar nota!");
         }
-        */
-    }//GEN-LAST:event_createNoteButtonOnCreateNoteButtonClick
+        MainFrame.reloadPanel();
+        backButtonOnBackButtonClicked(evt);
+    }//GEN-LAST:event_OnSaveButtonClicked
 
-    private void reminderSwitcherOnReminderStateClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reminderSwitcherOnReminderStateClick
-        /*
+    private void updateReminderState(){
         if(reminderState){
             reminderSwitcher.setText(Constants.OFF_TEXT);
             reminderSwitcher.setSelected(false);
@@ -226,8 +227,11 @@ public class EditNotePanel extends javax.swing.JPanel {
             remindersPanel.setVisible(true);
             button_add_reminders.setEnabled(true);
         }
+    }
+    
+    private void reminderSwitcherOnReminderStateClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reminderSwitcherOnReminderStateClick
+        updateReminderState();
         this.repaint();
-        */
     }//GEN-LAST:event_reminderSwitcherOnReminderStateClick
 
     private void button_add_remindersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_add_remindersActionPerformed
@@ -239,6 +243,14 @@ public class EditNotePanel extends javax.swing.JPanel {
         remindersPanel.validate();
         */
     }//GEN-LAST:event_button_add_remindersActionPerformed
+
+    private void OnImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnImageMouseClicked
+        imagePath = Controller.selectImageFromDisk();
+        if(imagePath != null){
+            image = Constants.getSelectedImageIcon(1, imagePath).getImage();
+            chosenImagePanel.repaint();
+        }
+    }//GEN-LAST:event_OnImageMouseClicked
 
     private void setupButtons() {
         backButton.setIcon(Constants.getButtonImageIcon(Constants.PATH_IMG_BACK_SIGN));

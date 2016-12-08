@@ -59,7 +59,7 @@ public class Controller {
     public static void saveData()
             throws FileNotFoundException, IOException
     {
-        FileOutputStream fout = new FileOutputStream("file.bin");
+        FileOutputStream fout = new FileOutputStream(Constants.NOTES_FILE_PATH);
         try (ObjectOutputStream oos = new ObjectOutputStream(fout))
         {
             oos.writeObject(DataNotes.notes);
@@ -71,7 +71,7 @@ public class Controller {
     {
         List<Note> notes;
         
-        FileInputStream fin = new FileInputStream("file.bin");
+        FileInputStream fin = new FileInputStream(Constants.NOTES_FILE_PATH);
         ObjectInputStream ois = new ObjectInputStream(fin);
         notes = (List<Note>)ois.readObject();
         

@@ -26,15 +26,18 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
                
+//        this.addNotePanel = new AddNotePanel(this);
         this.editNotePanel = new EditNotePanel(this);
         this.optionsPanel = new OptionsPanel(this);
         this.helpPanel = new HelpPanel(this);
 
         try
         {
-            setIconImage(ImageIO.read(new File("images/brain.png")));
+            setIconImage(ImageIO.read(new File(Constants.getAppPath()+Constants.PATH_IMG_APP_ICON)));
         }
-        catch (IOException exc) { }
+        catch (IOException exc) {
+            System.out.println("ERRO a carregar icon da app!");
+        }
         
         this.setTitle(Constants.STICKY_MEMORIES_TITLE);
         this.setResizable(false);
@@ -121,6 +124,7 @@ public class MainFrame extends javax.swing.JFrame {
         addNoteButton.setFocusable(false);
         addNoteButton.setMaximumSize(new java.awt.Dimension(25, 25));
         addNoteButton.setMinimumSize(new java.awt.Dimension(25, 25));
+        addNoteButton.setOpaque(false);
         addNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
         addNoteButton.setRequestFocusEnabled(false);
         addNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -134,6 +138,7 @@ public class MainFrame extends javax.swing.JFrame {
         removeNoteButton.setBorderPainted(false);
         removeNoteButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         removeNoteButton.setFocusPainted(false);
+        removeNoteButton.setOpaque(false);
         removeNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
         removeNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -147,6 +152,7 @@ public class MainFrame extends javax.swing.JFrame {
         editNoteButton.setFocusPainted(false);
         editNoteButton.setMaximumSize(new java.awt.Dimension(20, 20));
         editNoteButton.setMinimumSize(new java.awt.Dimension(20, 20));
+        editNoteButton.setOpaque(false);
         editNoteButton.setPreferredSize(new java.awt.Dimension(30, 30));
         editNoteButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -158,6 +164,7 @@ public class MainFrame extends javax.swing.JFrame {
         optionsButton.setToolTipText("Options");
         optionsButton.setBorderPainted(false);
         optionsButton.setFocusPainted(false);
+        optionsButton.setOpaque(false);
         optionsButton.setPreferredSize(new java.awt.Dimension(30, 30));
         optionsButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -171,6 +178,7 @@ public class MainFrame extends javax.swing.JFrame {
         helpButton.setFocusPainted(false);
         helpButton.setMaximumSize(new java.awt.Dimension(20, 20));
         helpButton.setMinimumSize(new java.awt.Dimension(20, 20));
+        helpButton.setOpaque(false);
         helpButton.setPreferredSize(new java.awt.Dimension(30, 30));
         helpButton.setRequestFocusEnabled(false);
         helpButton.addActionListener(new java.awt.event.ActionListener() {
@@ -181,7 +189,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
 
-        notesList.setBackground(Constants.colorBackground);
         notesList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         notesList.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         notesList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -209,6 +216,7 @@ public class MainFrame extends javax.swing.JFrame {
         sortModeButton.setToolTipText("Sort orientation");
         sortModeButton.setBorderPainted(false);
         sortModeButton.setFocusPainted(false);
+        sortModeButton.setOpaque(false);
         sortModeButton.setPreferredSize(new java.awt.Dimension(30, 30));
         sortModeButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -326,6 +334,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void OnAddNoteButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnAddNoteButtonClick
         addNotePanel = new AddNotePanel(this);
+        addNotePanel.setBackground(Constants.colorBackground);
         setContentPane(addNotePanel);
         invalidate();
         validate();

@@ -18,7 +18,7 @@ import javax.swing.ImageIcon;
 public class Note implements Serializable {
     
     private List<Reminder> reminders;
-    private final String image;
+    private String image;
     private final long ID;
    
     public Note(String image, List<Reminder> reminders)
@@ -63,6 +63,10 @@ public class Note implements Serializable {
     public String getImagePath()
     {
         return image;
+    }
+    
+    public void setImagePath(String imagePath){
+        this.image = imagePath;
     }
     
     public ImageIcon getImage()

@@ -58,7 +58,7 @@ public class OptionsPanel extends javax.swing.JPanel {
         backButton.setPreferredSize(new java.awt.Dimension(30, 30));
         backButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backButtonOnBackButtonClicked(evt);
+                OnBackButtonClicked(evt);
             }
         });
 
@@ -173,7 +173,7 @@ public class OptionsPanel extends javax.swing.JPanel {
     private void setupComponents(){
         OptionsModel om = OptionsModel.loadOptions();
         if(om != null){
-            if(om.getNotificationsMode())
+            if(!om.getNotificationsMode())
                 passiveRadioButton.setSelected(true);
             else
                 activeRadioButton.setSelected(true);
@@ -182,11 +182,11 @@ public class OptionsPanel extends javax.swing.JPanel {
         }
     }
     
-    private void backButtonOnBackButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonOnBackButtonClicked
+    private void OnBackButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnBackButtonClicked
         mainFrame.setContentPane(MainFrame.mainPanel);
         invalidate();
         validate();
-    }//GEN-LAST:event_backButtonOnBackButtonClicked
+    }//GEN-LAST:event_OnBackButtonClicked
 
     private void OnPassiveRadioButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnPassiveRadioButtonClick
         if(activeRadioButton.isSelected()){
@@ -244,6 +244,7 @@ public class OptionsPanel extends javax.swing.JPanel {
         if (result == JOptionPane.OK_OPTION)
         {
             System.out.println("You entered " + jCC.getColor());
+            colorJPanel.setBackground(jCC.getColor());
         }
         else
         {
