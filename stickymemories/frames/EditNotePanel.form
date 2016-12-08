@@ -88,10 +88,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="createNoteButton" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="chosenImagePanel" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="chosenImagePanel" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>

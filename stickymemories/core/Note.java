@@ -6,16 +6,10 @@
 package stickymemories.core;
 
 import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import static stickymemories.core.Constants.getSelectedImageIcon;
 
 /**
  *

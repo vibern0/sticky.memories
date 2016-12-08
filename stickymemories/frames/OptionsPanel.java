@@ -1,9 +1,15 @@
 package stickymemories.frames;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import javax.swing.JColorChooser;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
-import stickymemories.OptionsModel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import stickymemories.core.OptionsModel;
 import stickymemories.core.Constants;
-import stickymemories.RGBColorChooserPanel;
 
 /**
  *
@@ -197,7 +203,53 @@ public class OptionsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_OnActiveRadioButtonClick
 
     private void OnBackgroundColorClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnBackgroundColorClicked
-        RGBColorChooserPanel rgbCCP = new RGBColorChooserPanel(mainFrame);
+        
+        Object[] options = {
+            "Yes, please",
+            "No way!" };
+
+        JColorChooser jCC;
+        JPanel panel;
+
+        jCC = new JColorChooser();
+        panel = new JPanel() {
+            @Override
+            protected void paintComponent(final Graphics g) {
+                final Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+                super.paintComponent(g);
+            }
+        };
+
+        panel.add(jCC);
+        panel.setOpaque(false);
+        jCC.setOpaque(false);
+        jCC.setPreviewPanel(new JPanel());
+        jCC.setColor(120, 20, 57);
+
+        final JComponent[] inputs = new JComponent[] {
+            jCC,
+            panel
+        };
+        int result = JOptionPane.showOptionDialog(null,
+            inputs,
+            "My custom dialog",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[0]);
+
+        if (result == JOptionPane.OK_OPTION)
+        {
+            System.out.println("You entered " + jCC.getColor());
+        }
+        else
+        {
+            System.out.println("User canceled / closed the dialog, result = " + result);
+        }
+        
     }//GEN-LAST:event_OnBackgroundColorClicked
 
     private void OnSaveButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnSaveButtonClick
