@@ -1,40 +1,14 @@
 
 package stickymemories.frames;
 
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.*;
+import java.util.*;
 import javax.imageio.ImageIO;
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.ListSelectionModel;
-import stickymemories.OptionsModel;
-import stickymemories.core.Constants;
-import stickymemories.core.Controller;
-import stickymemories.core.DataNotes;
-import stickymemories.core.Note;
-import stickymemories.core.Reminder;
-import stickymemories.core.order.ByCreationOrderAsc;
-import stickymemories.core.order.ByCreationOrderDesc;
-import stickymemories.core.order.ByReminderOrderAsc;
-import stickymemories.core.order.ByReminderOrderDesc;
+import javax.swing.*;
+import stickymemories.core.OptionsModel;
+import stickymemories.core.*;
+import stickymemories.core.order.*;
 /**
  *
  * @author andre
@@ -52,17 +26,15 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
                
-        this.addNotePanel = new AddNotePanel(this);
         this.editNotePanel = new EditNotePanel(this);
         this.optionsPanel = new OptionsPanel(this);
         this.helpPanel = new HelpPanel(this);
 
-        try {
-            setIconImage(ImageIO.read(new File("sticky.memories/images/brain.png")));
+        try
+        {
+            setIconImage(ImageIO.read(new File("images/brain.png")));
         }
-        catch (IOException exc) {
-            exc.printStackTrace();
-        }
+        catch (IOException exc) { }
         
         this.setTitle(Constants.STICKY_MEMORIES_TITLE);
         this.setResizable(false);
@@ -83,44 +55,24 @@ public class MainFrame extends javax.swing.JFrame {
     
     private void initNotesList()
     {
-        /*DefaultListModel model = new DefaultListModel();
-        notesList = new JList(model);
-
-        // Initialize the list with items
-        ImageIcon [] items = { getSelectedImageIcon(1, "image/ferrari.png"), getSelectedImageIcon(1, "image/lambo.png") };
-        for (int i = 0; i < items.length; i++)
-        {
-            model.add(i, items[i]);
-        }*/
-        
         DataNotes.init();
         
-                
         try
         {
             DataNotes.setNotes(Controller.loadData());
         }
-        catch (FileNotFoundException e)
-        {
-        }
-        catch (IOException | ClassNotFoundException ex)
-        {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        catch (IOException | ClassNotFoundException ex) { }
         
         reloadPanel();
     }
     
     public static void reloadPanel()
     {
-        String [] nameList = {};
+        String [] nameList;
         nameList = new String[DataNotes.getSize()];
         
         notesList = new JList(nameList);
         notesList.setCellRenderer(new NotesListRenderer());
-        
-        //invalidate();
-        //validate();    
         
         notesList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         notesList.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -373,6 +325,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_OnOptionsButtonClicked
 
     private void OnAddNoteButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnAddNoteButtonClick
+        addNotePanel = new AddNotePanel(this);
         setContentPane(addNotePanel);
         invalidate();
         validate();
@@ -397,7 +350,10 @@ public class MainFrame extends javax.swing.JFrame {
             invalidate();
             validate();
         }else{
-            System.out.println("There is no selected note!");
+            JOptionPane.showMessageDialog(this,
+                "There is no selected note!",
+                "Inane warning",
+                JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -429,13 +385,22 @@ public class MainFrame extends javax.swing.JFrame {
             System.out.println("Apaguei a nota: "+DataNotes.notes.get(index).getID());
             DataNotes.remove(DataNotes.notes.get(index).getID());
         } else {
-            System.out.println("There is no selected note!");
+            JOptionPane.showMessageDialog(this,
+                "There is no selected note!",
+                "Inane warning",
+                JOptionPane.WARNING_MESSAGE);
         }
-        this.reloadPanel();
-        try {
+        reloadPanel();
+        try
+        {
             Controller.saveData();
-        } catch (IOException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IOException ex)
+        {
+            JOptionPane.showMessageDialog(this,
+                "Error saving data!",
+                "Inane warning",
+                JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_OnRemoveNoteButtonClicked

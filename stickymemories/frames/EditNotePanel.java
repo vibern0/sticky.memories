@@ -9,12 +9,7 @@ import java.util.Calendar;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
-import stickymemories.core.Constants;
-import stickymemories.core.Controller;
-import stickymemories.core.DataNotes;
-import stickymemories.core.Note;
+import stickymemories.core.*;
 /**
  *
  * @author andre

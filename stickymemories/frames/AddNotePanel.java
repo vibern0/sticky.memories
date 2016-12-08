@@ -5,23 +5,10 @@ import java.awt.Image;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.BoxLayout;
+import java.util.*;
+import javax.swing.*;
 import javax.swing.JFormattedTextField.AbstractFormatter;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import stickymemories.core.Constants;
-import stickymemories.core.Controller;
-import stickymemories.core.DataNotes;
-import stickymemories.core.Note;
-import stickymemories.core.Reminder;
+import stickymemories.core.*;
 
 /**
  *

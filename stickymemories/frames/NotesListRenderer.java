@@ -6,7 +6,6 @@
 package stickymemories.frames;
 
 import java.awt.Component;
-import java.awt.Font;
 import java.util.Iterator;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;

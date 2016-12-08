@@ -7,8 +7,6 @@ package stickymemories.loop;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
-import stickymemories.core.DataNotes;
 import stickymemories.core.Note;
 
 /**

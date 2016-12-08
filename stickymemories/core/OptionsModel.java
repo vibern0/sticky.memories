@@ -1,4 +1,4 @@
-package stickymemories;
+package stickymemories.core;
 
 import java.awt.Color;
 import stickymemories.core.Constants;
