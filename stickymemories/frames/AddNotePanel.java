@@ -2,7 +2,6 @@ package stickymemories.frames;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Label;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -179,8 +178,9 @@ public class AddNotePanel extends javax.swing.JPanel {
     private void setupComponents(){
         image = Constants.getSelectedImageIcon(0, Constants.PATH_IMG_DEFFAULT_IMAGE).getImage();
         
-
 	outer_p.setVisible(false);
+        
+        backButton.setOpaque(false);
         
         this.repaint();
     }
@@ -221,15 +221,25 @@ public class AddNotePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_OnReminderStateClick
 
     private void OnCreateNoteButtonClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnCreateNoteButtonClick
-        if(imagePath == null)
+        if(imagePath == null){
+            JOptionPane.showMessageDialog(this,
+                "To create a new note, you need to set an image!",
+                "Create note warning",
+                JOptionPane.WARNING_MESSAGE);
             return;
+        }
         String newPath = Constants.copyImage(imagePath);
         if(newPath != null){
             if(reminderState){
                 List<Reminder> reminders = new ArrayList<>();
                 for(ReminderPanel rm : this.remindersList){
-                    if(rm.jDateChoser.getDate() == null)
-                        continue;
+                    if(rm.jDateChoser.getDate() == null){
+                        JOptionPane.showMessageDialog(this,
+                            "There are reminders with no date!",
+                            "Create note warning",
+                            JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
                     Date date = rm.jDateChoser.getDate();
                     Reminder reminder = new Reminder(date.getDay(), date.getMonth(),
                             date.getYear(), rm.getHour(), rm.getMinute());

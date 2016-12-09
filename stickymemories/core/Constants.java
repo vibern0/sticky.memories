@@ -15,7 +15,8 @@ import stickymemories.frames.MainFrame;
 public class Constants {
     public static String STICKY_MEMORIES_TITLE = "Sticky Memories";
     
-    public static final String OPTIONS_FILE_NAME = "optionsFile.bin";
+    public static final String NOTES_FILE_PATH = "notes.bin";
+    public static final String OPTIONS_FILE_PATH = "optionsFile.bin";
     
     public static final String MAIN_PANEL = "main_panel";
     public static final String OPTIONS_PANEL = "options_panel";
@@ -28,6 +29,7 @@ public class Constants {
     public static final String UP_TEXT = "Up";
     public static final String DOWN_TEXT = "Down";
     
+    public static String PATH_IMG_APP_ICON = "images/brain.png";
     public static String PATH_IMG_BACK_SIGN = "images/back_sign.png";
     public static String PATH_IMG_PLUS_SIGN = "images/plus_sign.png";
     public static String PATH_IMG_MINUS_SIGN = "images/minus_sign.png";
@@ -46,19 +48,25 @@ public class Constants {
     
     public static void updateBackground(Color colorBackground){
         Constants.colorBackground = colorBackground;
-        MainFrame.addNotePanel.setBackground(colorBackground);
+        //MainFrame.addNotePanel.setBackground(colorBackground);
         MainFrame.editNotePanel.setBackground(colorBackground);
         MainFrame.helpPanel.setBackground(colorBackground);
         MainFrame.mainPanel.setBackground(colorBackground);
-        MainFrame.notesList.setBackground(colorBackground);
+        MainFrame.notesList.setBackground(Color.WHITE);
         MainFrame.optionsPanel.setBackground(colorBackground);
+    }
+    
+    public static String getAppPath(){
+        try {
+            return StickyMemories.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()+"stickymemories/";
+        } catch (Exception ex) { return null; }
     }
     
     public static ImageIcon getButtonImageIcon(String path) {
         try {
             return new ImageIcon(ImageIO.read(Resources.getResourceFile(path)).getScaledInstance(25, 25,java.awt.Image.SCALE_SMOOTH ));
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.out.println("Erro no path!");
         }
         return null;
     }

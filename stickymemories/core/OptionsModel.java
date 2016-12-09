@@ -36,7 +36,7 @@ public class OptionsModel implements Serializable {
     public static final OptionsModel loadOptions(){
         FileInputStream fins = null;
         try {
-            fins = new FileInputStream(new File(Constants.OPTIONS_FILE_NAME));
+            fins = new FileInputStream(new File(Constants.OPTIONS_FILE_PATH));
         } catch (FileNotFoundException e) {
             return null;
         }
@@ -54,7 +54,7 @@ public class OptionsModel implements Serializable {
     public final void saveOptions(){
         FileOutputStream fout = null;
         try {
-            fout = new FileOutputStream(Constants.OPTIONS_FILE_NAME);
+            fout = new FileOutputStream(Constants.OPTIONS_FILE_PATH);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
