@@ -7,7 +7,6 @@ package JUnit;
  */
 
 
-import .*;
 import stickymemories.core.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
