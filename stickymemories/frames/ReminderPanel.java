@@ -124,6 +124,13 @@ public class ReminderPanel extends javax.swing.JPanel {
     public int getMinute(){
         return JSpinMinute.getValue();
     }
+    
+    public void setTime(int year, int month, int day, int hour, int minute){
+        jDateChoser.setDate(new Date(year, month-1, day));
+        System.out.println("Setei o jDateChoser "+(year)+"y:");
+        JSpinHour.setValue(hour);
+        JSpinMinute.setValue(minute);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.components.JSpinField JSpinHour;

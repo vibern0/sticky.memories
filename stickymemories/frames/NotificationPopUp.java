@@ -15,7 +15,7 @@ public class NotificationPopUp extends javax.swing.JFrame {
     private Image img = null;
     public NotificationPopUp(String imagePath) {
         initComponents();
-        img = Constants.getSelectedImage(0, imagePath);
+        img = Constants.getSelectedImage(1, imagePath);
         setFrameComponents();
     }
     
@@ -30,8 +30,6 @@ public class NotificationPopUp extends javax.swing.JFrame {
         this.setMaximumSize(screenSize);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,7 +44,7 @@ public class NotificationPopUp extends javax.swing.JFrame {
         imagePanel = new ImagePanel();
         dismissButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -90,8 +88,7 @@ public class NotificationPopUp extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void dismissButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dismissButtonMouseClicked
-        //this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_dismissButtonMouseClicked
 
 

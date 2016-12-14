@@ -2,7 +2,6 @@ package stickymemories.frames;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -235,6 +234,7 @@ public class AddNotePanel extends javax.swing.JPanel {
         if(newPath != null){
             if(reminderState){
                 List<Reminder> reminders = new ArrayList<>();
+                int i = 0;
                 for(ReminderPanel rm : this.remindersList){
                     if(rm.jDateChoser.getDate() == null){
                         JOptionPane.showMessageDialog(this,
@@ -255,9 +255,9 @@ public class AddNotePanel extends javax.swing.JPanel {
                     reminders.add(reminder);
                 }
                 if(reminders.isEmpty())
-                    DataNotes.add(new Note("images/"+newPath, null));
+                    DataNotes.add(new Note(newPath, null));
                 else
-                    DataNotes.add(new Note("images/"+newPath, reminders));
+                    DataNotes.add(new Note(newPath, reminders));
 
                 System.out.println("Adicionei uma nota com PATH:"+imagePath+",REMINDERS:"+reminders.size());
             } else {

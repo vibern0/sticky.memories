@@ -6,7 +6,9 @@ import java.awt.Image;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,6 +22,7 @@ public class EditNotePanel extends javax.swing.JPanel {
     String imagePath = "";
     private Image image;
     private boolean reminderState;
+    private List<ReminderPanel> remindersList;
 
     public EditNotePanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -179,17 +182,35 @@ public class EditNotePanel extends javax.swing.JPanel {
     
     public void setupComponents(){
         Note note = DataNotes.getNote(MainFrame.LastSelectedEdit);
-        if(note == null){ System.out.println("ERRO");
-            return;}
+        if(note == null){ 
+            System.out.println("ERRO");
+            return;
+        }
         imagePath = note.getImagePath();
         if(imagePath != null){
-            image = Constants.getSelectedImageIcon(0, imagePath).getImage();
+            System.out.println("ImagePath: " + imagePath);
+            image = Constants.getSelectedImageIcon(1, imagePath).getImage();
             chosenImagePanel.repaint();
         }
-        if(note.getReminders() == null)
-            reminderState = true;
-        else
+        if(note.getReminders() == null){
             reminderState = false;
+            System.out.println("Nota sem reminders!");
+        } else {
+            reminderState = true;
+            System.out.println("Esta nota tem "+note.getReminders().size()
+                    +" reminders!");
+            remindersList = new ArrayList<>();
+            for(Reminder rm : note.getReminders()) {
+                ReminderPanel rp = new ReminderPanel(this, remindersList.size());
+                rp.setTime(rm.getAno(), rm.getMes(), rm.getMinuto(), rm.getHora(), rm.getMinuto());
+                remindersPanel.add(rp);
+                remindersList.add(rp);
+            }
+            remindersPanel.invalidate();
+            remindersPanel.validate();
+            remindersPanel.repaint();
+        }           
+        
         updateReminderState();
     }
     
@@ -214,7 +235,7 @@ public class EditNotePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_OnSaveButtonClicked
 
     private void updateReminderState(){
-        if(reminderState){
+        if(!reminderState){
             reminderSwitcher.setText(Constants.OFF_TEXT);
             reminderSwitcher.setSelected(false);
             reminderState = false;
@@ -235,13 +256,11 @@ public class EditNotePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_reminderSwitcherOnReminderStateClick
 
     private void button_add_remindersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_add_remindersActionPerformed
-        /*
         ReminderPanel rp = new ReminderPanel(this, remindersList.size());
-        panelReminders.add(rp);
+        remindersPanel.add(rp);
         remindersList.add(rp);
         remindersPanel.invalidate();
         remindersPanel.validate();
-        */
     }//GEN-LAST:event_button_add_remindersActionPerformed
 
     private void OnImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OnImageMouseClicked
