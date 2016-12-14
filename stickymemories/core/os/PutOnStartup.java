@@ -10,6 +10,7 @@ package stickymemories.core.os;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import stickymemories.core.Constants;
 
 /**
  *
@@ -61,19 +62,20 @@ public class PutOnStartup {
     }
     
     private static boolean doItOnLinux() throws FileNotFoundException, UnsupportedEncodingException
-    //no linux é incluido no instalador
     {
-        PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
+        PrintWriter writer = new PrintWriter(Constants.getUserFolder() +
+                        ".config/autostart/StickyMemories.desktop", "UTF-8");
         writer.println(
                 "[Desktop Entry]\n" +
-                "Name=Sticky Notes\n" +
+                "Encoding=UTF-8\n" +
+                "Name=StickyMemories\n" +
+                "Comment=The best way to be reminded !\n" +
+                "Exec=java -jar /opt/StickyMemories/StickyMemories.jar\n" +
+                "Icon=/opt/StickyMemories/brain.png\n" +
+                "Categories=Utility;\n" +
+                "Version=1.0\n" +
                 "Type=Application\n" +
-                "Exec=~/.config/autostart/stickynotes.desktop\n" +
-                "Terminal=false\n" +
-                "Icon=noicon\n" +
-                "Comment=The Sticky Notes App.\n" +
-                "NoDisplay=false\n" +
-                "Categories=Utility;"
+                "Terminal=0"
         );
         writer.close();
         
