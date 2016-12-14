@@ -4,6 +4,8 @@ package stickymemories.frames;
 import java.awt.event.ItemEvent;
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import stickymemories.core.OptionsModel;
@@ -32,6 +34,12 @@ public class MainFrame extends javax.swing.JFrame {
         this.editNotePanel = new EditNotePanel(this);
         this.optionsPanel = new OptionsPanel(this);
         this.helpPanel = new HelpPanel(this);
+        
+        try
+        {
+            Controller.firstRun();
+        }
+        catch (IOException ex) { }
 
         try
         {
