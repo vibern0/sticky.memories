@@ -2,11 +2,11 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
+ */ 
 package stickymemories.core;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  *
@@ -29,9 +29,9 @@ public class Reminder implements Serializable {
     }
     
     public long getReminderTime(){
-        Date dt = new Date(ano-1900, mes-1, dia, h, m, 0);
-        System.out.println("Reminder: " + dt.toString());
-        return dt.getTime();
+        Calendar cal = Calendar.getInstance();
+        cal.set(ano, mes, dia, h, m, 0);
+        return cal.getTimeInMillis();
     }
 
     public int getDia() {

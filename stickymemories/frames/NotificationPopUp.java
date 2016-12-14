@@ -30,8 +30,6 @@ public class NotificationPopUp extends javax.swing.JFrame {
         this.setMaximumSize(screenSize);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,7 +44,7 @@ public class NotificationPopUp extends javax.swing.JFrame {
         imagePanel = new ImagePanel();
         dismissButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());

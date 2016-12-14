@@ -92,7 +92,7 @@ public class Constants {
             else
                 return new ImageIcon(ImageIO.read(new File(path)).getScaledInstance(160, 160,java.awt.Image.SCALE_SMOOTH));
         } catch (IOException ex) {
-            System.out.println("Erro ImageIO Constants.java.:l.95");
+            System.out.println("IOException error.:\tMode:"+mode+"\tImagePath:"+path);
         }
         return null;
     }

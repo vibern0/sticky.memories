@@ -82,9 +82,13 @@ public class Note implements Serializable {
              if(r.getReminderTime() > temp.getReminderTime())
                  temp = r;
             }
-            System.out.println(temp.getReminderTime());
             return temp;
         }
         return null;
     }
+
+    public void removeReminder(Reminder r) {
+        reminders.remove(r);
+    }
+    
 }
