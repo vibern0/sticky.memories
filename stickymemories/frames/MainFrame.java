@@ -28,9 +28,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     public MainFrame() {
         initComponents();
-        checkReminders = new CheckReminders();
-        ReminderThread reminderThread = new ReminderThread(checkReminders);
-        reminderThread.start();
 //        this.addNotePanel = new AddNotePanel(this);
         this.editNotePanel = new EditNotePanel(this);
         this.optionsPanel = new OptionsPanel(this);
@@ -59,6 +56,10 @@ public class MainFrame extends javax.swing.JFrame {
         this.setVisible(true);
                 
         initNotesList();
+        
+        checkReminders = new CheckReminders();
+        ReminderThread reminderThread = new ReminderThread(checkReminders);
+        reminderThread.start();
     }
     
     public void updateRemindes() throws IOException, FileNotFoundException, ClassNotFoundException{

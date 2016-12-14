@@ -244,8 +244,14 @@ public class AddNotePanel extends javax.swing.JPanel {
                         return;
                     }
                     Date date = rm.jDateChoser.getDate();
-                    Reminder reminder = new Reminder(date.getYear(), date.getMonth(),
-                            date.getDay(), rm.getHour(), rm.getMinute());
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(date);
+                    int year = cal.get(Calendar.YEAR);
+                    int month = cal.get(Calendar.MONTH);
+                    int day = cal.get(Calendar.DAY_OF_MONTH);
+                    Reminder reminder = new Reminder(year, month,
+                            day, rm.getHour(), rm.getMinute());
+                    System.out.println(year + ":" + month + ":" + day + ":" + rm.getHour() + ":" + rm.getMinute());
                     reminders.add(reminder);
                 }
                 if(reminders.isEmpty())
