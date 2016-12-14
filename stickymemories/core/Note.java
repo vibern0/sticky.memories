@@ -72,7 +72,7 @@ public class Note implements Serializable {
     public ImageIcon getImage()
     {
         String path = image;
-        return Constants.getSelectedImageIcon(1, path);
+        return Constants.getSelectedImageIcon(0, path);
     }
     
     public Reminder getLatestReminder(){

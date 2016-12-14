@@ -11,6 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import stickymemories.core.Note;
 import stickymemories.core.Reminder;
+import stickymemories.core.os.OsCheck;
+import stickymemories.core.os.SystemNotifications;
 import stickymemories.frames.NotificationPopUp;
 
 /**
@@ -20,10 +22,8 @@ import stickymemories.frames.NotificationPopUp;
 public class ReminderThread extends Thread {
 
     private final CheckReminders checkReminders;
-    private NotificationPopUp popUp;
     public ReminderThread(CheckReminders checkReminders) {
        this.checkReminders = checkReminders;
-       popUp = null;
     }
     
     @Override
@@ -48,16 +48,22 @@ public class ReminderThread extends Thread {
                         System.out.println("now time: " + cal.getTimeInMillis());
                         System.out.println("Reminder: " + n.getLatestReminder().getReminderTime());
                         if(n.getLatestReminder().getReminderTime() <= cal.getTimeInMillis()){
-                            Reminder r = n.getLatestReminder();
-                            n.removeReminder(r);
-                            popUp = new NotificationPopUp(n.getImagePath());
-                            checkReminders.updateComparator();
-                        }
+                            if(checkReminders.isNotificationMode()){
+                                Reminder r = n.getLatestReminder();
+                                n.removeReminder(r);
+                                NotificationPopUp popUp = new NotificationPopUp(n.getImagePath());
+                                checkReminders.updateComparator();
+                            }
+//                            else{
+//                                SystemNotifications sNotification = new SystemNotifications(OsCheck.getOperatingSystemType());
+//                                sNotification.showTextNotification("Sticky Memories",n.getImagePath());
+//                                checkReminders.updateComparator();
+//                            }
+                        }   
+                    }else{
+                        System.out.println("Sem nota ainda");
                     }
-                }else{
-                    System.out.println("Sem nota ainda");
                 }
-            //}
             
         }
         

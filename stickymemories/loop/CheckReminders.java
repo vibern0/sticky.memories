@@ -20,6 +20,7 @@ import stickymemories.core.order.ByCreationOrderAsc;
 public class CheckReminders {
     
     private PriorityQueue<Note> noteByReminder;
+    boolean notificationMode = false; //falso - passivo    true - ativo
     
     public CheckReminders(){
         //load first time!
@@ -50,5 +51,12 @@ public class CheckReminders {
         }
         return true;
     }
-    
+
+    public void isPassive(boolean notificationMode) {
+        this.notificationMode = notificationMode;
+    }
+
+    public boolean isNotificationMode() {
+        return notificationMode;
+    }
 }
