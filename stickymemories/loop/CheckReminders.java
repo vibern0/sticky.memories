@@ -5,9 +5,13 @@
  */
 package stickymemories.loop;
 
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+import java.util.PriorityQueue;
+import stickymemories.core.Controller;
 import stickymemories.core.Note;
+import stickymemories.core.order.ByCreationOrderAsc;
 
 /**
  *
@@ -15,21 +19,36 @@ import stickymemories.core.Note;
  */
 public class CheckReminders {
     
-    private static List<Note> note_by_reminder;
-    public CheckReminders()
-    {
+    private PriorityQueue<Note> noteByReminder;
+    
+    public CheckReminders(){
         //load first time!
-        reorganizeReminders();
-        
-        
+        noteByReminder = new PriorityQueue<>(new ByCreationOrderAsc());
+    }
+
+    public PriorityQueue<Note> getNoteByReminder() {
+        return noteByReminder;
     }
     
+    public Note getLatestReminderNote(){
+        return noteByReminder.peek();
+    }
     
-    public static void reorganizeReminders()
-    {
-        //
-        note_by_reminder = new ArrayList<>();
-        //
+    public void updateComparator(){
+        Note n = noteByReminder.poll();
+        noteByReminder.add(n);
+    }
+    
+    public boolean updateReminders() throws IOException, FileNotFoundException, ClassNotFoundException{
+        List<Note> temp = Controller.loadData();
+        if(temp == null){
+            return false;
+        }
+        noteByReminder.clear();
+        for (Note n : temp) {
+            noteByReminder.add(n);
+        }
+        return true;
     }
     
 }

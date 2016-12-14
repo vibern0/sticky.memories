@@ -9,11 +9,14 @@ import javax.swing.*;
 import stickymemories.core.OptionsModel;
 import stickymemories.core.*;
 import stickymemories.core.order.*;
+import stickymemories.loop.CheckReminders;
+import stickymemories.loop.ReminderThread;
 /**
  *
  * @author andre
  */
 public class MainFrame extends javax.swing.JFrame {
+    private CheckReminders checkReminders;
     public static JPanel addNotePanel;
     public static JPanel editNotePanel;
     public static JPanel optionsPanel;
@@ -25,7 +28,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     public MainFrame() {
         initComponents();
-               
+        checkReminders = new CheckReminders();
+        ReminderThread reminderThread = new ReminderThread(checkReminders);
+        reminderThread.start();
 //        this.addNotePanel = new AddNotePanel(this);
         this.editNotePanel = new EditNotePanel(this);
         this.optionsPanel = new OptionsPanel(this);
@@ -55,6 +60,9 @@ public class MainFrame extends javax.swing.JFrame {
         initNotesList();
     }
     
+    public void updateRemindes() throws IOException, FileNotFoundException, ClassNotFoundException{
+        checkReminders.updateReminders();
+    }
     
     private void initNotesList()
     {
