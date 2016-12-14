@@ -68,7 +68,8 @@ public class DataNotes implements Serializable {
             if(note.getID() == note_id)
             {
                 notes.remove(note);
-                File image = new File(Constants.getAppPath()+note.getImagePath());
+                //File image = new File(Constants.getAppPath()+note.getImagePath());
+                File image = new File(Constants.getFolderImages() + note.getImagePath());
                 image.delete();
                 return true;
             }

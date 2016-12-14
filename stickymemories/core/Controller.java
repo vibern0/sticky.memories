@@ -6,9 +6,14 @@
 package stickymemories.core;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import static stickymemories.core.Constants.getFolderData;
+import static stickymemories.core.Constants.getFolderImages;
+import stickymemories.core.os.PutOnStartup;
 
 /**
  *
@@ -19,6 +24,24 @@ public class Controller {
     public Controller()
     {
         
+    }
+    
+    public static void firstRun() throws IOException
+    {
+        String newPath = getFolderData();
+        File file = new File(newPath);
+        if(!file.exists())
+        {
+            Files.createDirectory(Paths.get(newPath));
+            newPath = getFolderImages();
+            file = new File(newPath);
+            if(!file.exists())
+            {
+                Files.createDirectory(Paths.get(newPath));
+            }
+            
+            PutOnStartup.doIt();
+        }
     }
     
     public static String selectImageFromDisk()
@@ -38,7 +61,7 @@ public class Controller {
             @Override
             public String getDescription()
             {
-                return "GIF Images";
+                return "JPG Images";
             }
         });
 
@@ -46,20 +69,19 @@ public class Controller {
         if (r == JFileChooser.APPROVE_OPTION)
         {
             String name = chooser.getSelectedFile().getAbsolutePath();
-            return name;
+            String format = name.substring(name.lastIndexOf("."));
+            if(format.equals(".jpg") || format.equals(".JPG"))
+            {
+                return name;
+            }
         }
         return null;
-    }
-    
-    private String getUserFolder()
-    {
-        return System.getProperty("user.home");
     }
     
     public static void saveData()
             throws FileNotFoundException, IOException
     {
-        FileOutputStream fout = new FileOutputStream(Constants.NOTES_FILE_PATH);
+        FileOutputStream fout = new FileOutputStream(Constants.getFolderData() + Constants.NOTES_FILE_PATH);
         try (ObjectOutputStream oos = new ObjectOutputStream(fout))
         {
             oos.writeObject(DataNotes.notes);
@@ -71,7 +93,7 @@ public class Controller {
     {
         List<Note> notes;
         
-        FileInputStream fin = new FileInputStream(Constants.NOTES_FILE_PATH);
+        FileInputStream fin = new FileInputStream(Constants.getFolderData() + Constants.NOTES_FILE_PATH);
         ObjectInputStream ois = new ObjectInputStream(fin);
         notes = (List<Note>)ois.readObject();
         
