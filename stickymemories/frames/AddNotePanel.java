@@ -245,10 +245,10 @@ public class AddNotePanel extends javax.swing.JPanel {
                             date.getYear(), rm.getHour(), rm.getMinute());
                     reminders.add(reminder);
                 }
-                DataNotes.add(new Note("images/"+newPath, reminders));
+                DataNotes.add(new Note(newPath, reminders));
                 System.out.println("Adicionei uma nota com PATH:"+imagePath+",REMINDERS:"+reminders.size());
             } else {
-                DataNotes.add(new Note("images/"+newPath, null));
+                DataNotes.add(new Note(newPath, null));
                 System.out.println("Adicionei uma nota com PATH:"+imagePath+",REMINDERS:null");
             }
             try
