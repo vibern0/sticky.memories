@@ -50,6 +50,9 @@ public class Constants {
     
     public static Color colorBackground;
     
+    public static String MAC_NOTIFICATION_PATH  = "osx/notification.scpt";
+    public static String MAC_STARTUP_PATH  = "osx/startup.scpt";
+    
     public static void updateBackground(Color colorBackground){
         Constants.colorBackground = colorBackground;
         //MainFrame.addNotePanel.setBackground(colorBackground);

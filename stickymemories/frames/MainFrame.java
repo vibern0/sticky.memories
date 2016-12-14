@@ -11,6 +11,7 @@ import javax.swing.*;
 import stickymemories.core.OptionsModel;
 import stickymemories.core.*;
 import stickymemories.core.order.*;
+import stickymemories.core.os.SystemNotifications;
 /**
  *
  * @author andre
