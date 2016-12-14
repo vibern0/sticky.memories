@@ -29,7 +29,7 @@ public class Reminder implements Serializable {
     }
     
     public long getReminderTime(){
-        Date dt = new Date(ano, mes, dia, h, m, 0);
+        Date dt = new Date(ano-1900, mes-1, dia, h, m, 0);
         System.out.println("Reminder: " + dt.toString());
         return dt.getTime();
     }

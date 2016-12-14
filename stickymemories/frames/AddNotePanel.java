@@ -232,6 +232,7 @@ public class AddNotePanel extends javax.swing.JPanel {
         if(newPath != null){
             if(reminderState){
                 List<Reminder> reminders = new ArrayList<>();
+                int i = 0;
                 for(ReminderPanel rm : this.remindersList){
                     if(rm.jDateChoser.getDate() == null){
                         JOptionPane.showMessageDialog(this,
@@ -241,8 +242,8 @@ public class AddNotePanel extends javax.swing.JPanel {
                         return;
                     }
                     Date date = rm.jDateChoser.getDate();
-                    Reminder reminder = new Reminder(date.getDay(), date.getMonth(),
-                            date.getYear(), rm.getHour(), rm.getMinute());
+                    Reminder reminder = new Reminder(date.getYear(), date.getMonth(),
+                            date.getDay() , rm.getHour(), rm.getMinute());
                     reminders.add(reminder);
                 }
                 DataNotes.add(new Note("images/"+newPath, reminders));
