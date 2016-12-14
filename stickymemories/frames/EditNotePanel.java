@@ -182,11 +182,14 @@ public class EditNotePanel extends javax.swing.JPanel {
     
     public void setupComponents(){
         Note note = DataNotes.getNote(MainFrame.LastSelectedEdit);
-        if(note == null){ System.out.println("ERRO");
-            return;}
+        if(note == null){ 
+            System.out.println("ERRO");
+            return;
+        }
         imagePath = note.getImagePath();
         if(imagePath != null){
-            image = Constants.getSelectedImageIcon(0, imagePath).getImage();
+            System.out.println("ImagePath: " + imagePath);
+            image = Constants.getSelectedImageIcon(1, imagePath).getImage();
             chosenImagePanel.repaint();
         }
         if(note.getReminders() == null){
