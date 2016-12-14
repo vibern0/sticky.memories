@@ -4,6 +4,10 @@ package stickymemories.core;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import stickymemories.StickyMemories;
@@ -56,10 +60,19 @@ public class Constants {
         MainFrame.optionsPanel.setBackground(colorBackground);
     }
     
-    public static String getAppPath(){
-        try {
-            return StickyMemories.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()+"stickymemories/";
-        } catch (Exception ex) { return null; }
+    public static String getUserFolder()
+    {
+        return System.getProperty("user.home") + "/";
+    }
+    
+    public static String getFolderData()
+    {
+        return getUserFolder() + ".stickyMemories/";
+    }
+    
+    public static String getFolderImages()
+    {
+        return getUserFolder() + ".stickyMemories/images/";
     }
     
     public static ImageIcon getButtonImageIcon(String path) {
@@ -103,8 +116,10 @@ public class Constants {
         OutputStream os = null;
         try {
             is = new FileInputStream(new File(imagePath));
-            String newPath = StickyMemories.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()
-                    +"stickymemories/images/"+imagePathArray[imagePathArray.length-1];
+            
+            String newPath = getFolderImages();
+            newPath += String.valueOf(new Date().getTime()) + ".jpg"; //imagePathArray[imagePathArray.length-1];
+            
             os = new FileOutputStream(new File(newPath));
             byte[] buffer = new byte[1024];
             int length;
@@ -113,7 +128,7 @@ public class Constants {
             }
             is.close();
             os.close();
-            return imagePathArray[imagePathArray.length-1];
+            return newPath;
         } catch (FileNotFoundException ex) {
             return null;
         } catch(Exception e){

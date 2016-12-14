@@ -17,24 +17,24 @@ import java.io.UnsupportedEncodingException;
  */
 public class PutOnStartup {
     
-    private final OsCheck.OSType ostype;
-    
-    public PutOnStartup(OsCheck.OSType ostype)
+    public PutOnStartup()
     {
         //
-        this.ostype = ostype;
     }
     
-    public boolean doIt() throws FileNotFoundException, UnsupportedEncodingException
+    public static boolean doIt() throws FileNotFoundException, UnsupportedEncodingException
     {
         boolean result = false;
         //
-        switch (ostype) {
+        switch (OsCheck.getOperatingSystemType()) {
             case Windows:
                 result = doItOnWindows();
                 break;
             case MacOS:
                 result = doItOnMac();
+                break;
+            case Linux:
+                result = doItOnLinux();
                 break;
             case Other:
                 //
@@ -43,14 +43,14 @@ public class PutOnStartup {
         return result;
     }
     
-    private boolean doItOnWindows()
+    private static boolean doItOnWindows()
     {
         //
         
         return false;
     }
     
-    private boolean doItOnMac()
+    private static boolean doItOnMac()
     {
         //
         //# add login item
@@ -60,5 +60,23 @@ public class PutOnStartup {
         return false;
     }
     
+    private static boolean doItOnLinux() throws FileNotFoundException, UnsupportedEncodingException
     //no linux é incluido no instalador
+    {
+        PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
+        writer.println(
+                "[Desktop Entry]\n" +
+                "Name=Sticky Notes\n" +
+                "Type=Application\n" +
+                "Exec=~/.config/autostart/stickynotes.desktop\n" +
+                "Terminal=false\n" +
+                "Icon=noicon\n" +
+                "Comment=The Sticky Notes App.\n" +
+                "NoDisplay=false\n" +
+                "Categories=Utility;"
+        );
+        writer.close();
+        
+        return false;
+    }
 }
