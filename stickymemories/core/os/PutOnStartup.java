@@ -36,9 +36,6 @@ public class PutOnStartup {
             case MacOS:
                 result = doItOnMac();
                 break;
-            case Linux:
-                result = doItOnLinux();
-                break;
             case Other:
                 //
                 break;
@@ -63,22 +60,5 @@ public class PutOnStartup {
         return false;
     }
     
-    private boolean doItOnLinux() throws FileNotFoundException, UnsupportedEncodingException
-    {
-        PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
-        writer.println(
-                "[Desktop Entry]\n" +
-                "Name=Sticky Notes\n" +
-                "Type=Application\n" +
-                "Exec=~/.config/autostart/stickynotes.desktop\n" +
-                "Terminal=false\n" +
-                "Icon=noicon\n" +
-                "Comment=The Sticky Notes App.\n" +
-                "NoDisplay=false\n" +
-                "Categories=Utility;"
-        );
-        writer.close();
-        
-        return false;
-    }
+    //no linux é incluido no instalador
 }

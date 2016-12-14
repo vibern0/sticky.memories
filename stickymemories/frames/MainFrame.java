@@ -38,7 +38,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         try
         {
-            setIconImage(ImageIO.read(new File(Constants.getAppPath()+Constants.PATH_IMG_APP_ICON)));
+            //setIconImage(ImageIO.read(new File(Constants.PATH_IMG_APP_ICON)));
+            setIconImage(ImageIO.read(Resources.getResourceFile(Constants.PATH_IMG_APP_ICON)));
         }
         catch (IOException exc) {
             System.out.println("ERRO a carregar icon da app!");
