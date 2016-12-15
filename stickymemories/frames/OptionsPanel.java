@@ -261,6 +261,7 @@ public class OptionsPanel extends javax.swing.JPanel {
         om.saveOptions();
         checkReminders.isPassive(notificationMode);
         Constants.updateBackground(om.getColorCode());
+        OnBackButtonClicked(evt);
     }//GEN-LAST:event_OnSaveButtonClick
   
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import stickymemories.core.Controller;
 import stickymemories.core.Note;
+import stickymemories.core.OptionsModel;
 import stickymemories.core.order.ByCreationOrderAsc;
 
 /**
@@ -23,8 +24,9 @@ public class CheckReminders {
     boolean notificationMode = false; //falso - passivo    true - ativo
     
     public CheckReminders(){
-        //load first time!
         noteByReminder = new PriorityQueue<>(new ByCreationOrderAsc());
+        notificationMode = OptionsModel.loadOptions().getNotificationsMode();
+        System.out.println("CheckReminders - NotificationMode:"+notificationMode);
     }
 
     public PriorityQueue<Note> getNoteByReminder() {

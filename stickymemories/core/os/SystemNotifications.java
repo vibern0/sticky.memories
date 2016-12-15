@@ -29,7 +29,7 @@ public class SystemNotifications
                 {
                     final SystemTray tray = SystemTray.getSystemTray();
 
-                    final Image imageIcon = Constants.getSelectedImage(0, image);
+                    final Image imageIcon = Constants.getSelectedImage(1, image);
                             
                     TrayIcon trayIcon = new TrayIcon(imageIcon);
                     trayIcon.setImageAutoSize(true);
