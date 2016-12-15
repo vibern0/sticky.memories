@@ -25,7 +25,9 @@ public class CheckReminders {
     
     public CheckReminders(){
         noteByReminder = new PriorityQueue<>(new ByCreationOrderAsc());
-        notificationMode = OptionsModel.loadOptions().getNotificationsMode();
+        OptionsModel options = OptionsModel.loadOptions();
+        if(options != null)
+            notificationMode = options.getNotificationsMode();
         System.out.println("CheckReminders - NotificationMode:"+notificationMode);
     }
 

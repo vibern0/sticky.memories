@@ -41,7 +41,7 @@ public class ReminderThread extends Thread {
                                 new NotificationPopUp(n.getImagePath());
                                 checkReminders.updateComparator();
                             } else {
-                                SystemNotifications sNotification = new SystemNotifications(OsCheck.getOperatingSystemType());
+                                SystemNotifications sNotification = new SystemNotifications();
                                 sNotification.showTextNotification("Sticky Memories", n.getImagePath());
                                 checkReminders.updateComparator();
                             }
