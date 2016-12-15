@@ -15,7 +15,7 @@ public class NotificationPopUp extends javax.swing.JFrame {
     private Image img = null;
     public NotificationPopUp(String imagePath) {
         initComponents();
-        img = Constants.getSelectedImage(1, imagePath);
+        img = Constants.getSelectedImage(0, imagePath);
         setFrameComponents();
     }
     
@@ -90,7 +90,8 @@ public class NotificationPopUp extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void dismissButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dismissButtonMouseClicked
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        //this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_dismissButtonMouseClicked
 
 

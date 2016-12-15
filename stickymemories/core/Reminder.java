@@ -6,6 +6,7 @@
 package stickymemories.core;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -29,9 +30,9 @@ public class Reminder implements Serializable {
     }
     
     public long getReminderTime(){
-        Date dt = new Date(ano, mes, dia, h, m, 0);
-        System.out.println("Reminder: " + dt.toString());
-        return dt.getTime();
+        Calendar cal = Calendar.getInstance();
+        cal.set(ano, mes, dia, h, m, 0);
+        return cal.getTimeInMillis();
     }
 
     public int getDia() {

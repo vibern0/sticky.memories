@@ -16,12 +16,12 @@ import stickymemories.core.*;
  * @author andre
  */
 public class EditNotePanel extends javax.swing.JPanel {
-    JFrame mainFrame;
+    MainFrame mainFrame;
     String imagePath = "";
     private Image image;
     private boolean reminderState;
 
-    public EditNotePanel(JFrame mainFrame) {
+    public EditNotePanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         initComponents();
         

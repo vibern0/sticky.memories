@@ -2,10 +2,13 @@ package stickymemories.frames;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import stickymemories.core.*;
@@ -16,7 +19,7 @@ import stickymemories.core.*;
  */
 
 public class AddNotePanel extends javax.swing.JPanel {
-    private JFrame mainFrame;
+    private MainFrame mainFrame;
     private Image image;
     private String imagePath;
     public static List<ReminderPanel> remindersList;
@@ -25,7 +28,7 @@ public class AddNotePanel extends javax.swing.JPanel {
     
     private boolean reminderState = false;
     
-    public AddNotePanel(JFrame mainFrame) {
+    public AddNotePanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         this.remindersList = new ArrayList<>();
         initComponents();
@@ -241,11 +244,21 @@ public class AddNotePanel extends javax.swing.JPanel {
                         return;
                     }
                     Date date = rm.jDateChoser.getDate();
-                    Reminder reminder = new Reminder(date.getDay(), date.getMonth(),
-                            date.getYear(), rm.getHour(), rm.getMinute());
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(date);
+                    int year = cal.get(Calendar.YEAR);
+                    int month = cal.get(Calendar.MONTH);
+                    int day = cal.get(Calendar.DAY_OF_MONTH);
+                    Reminder reminder = new Reminder(year, month,
+                            day, rm.getHour(), rm.getMinute());
+                    System.out.println(year + ":" + month + ":" + day + ":" + rm.getHour() + ":" + rm.getMinute());
                     reminders.add(reminder);
                 }
-                DataNotes.add(new Note(newPath, reminders));
+                if(reminders.isEmpty())
+                    DataNotes.add(new Note("images/"+newPath, null));
+                else
+                    DataNotes.add(new Note("images/"+newPath, reminders));
+
                 System.out.println("Adicionei uma nota com PATH:"+imagePath+",REMINDERS:"+reminders.size());
             } else {
                 DataNotes.add(new Note(newPath, null));
@@ -254,10 +267,14 @@ public class AddNotePanel extends javax.swing.JPanel {
             try
             {
                 Controller.saveData();
+                mainFrame.updateRemindes();
             }
             catch (IOException ex)
             {
                 System.out.println("Erro ao criar nota!");
+                Logger.getLogger(AddNotePanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AddNotePanel.class.getName()).log(Level.SEVERE, null, ex);
             }
             MainFrame.reloadPanel();
 

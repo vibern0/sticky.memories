@@ -8,8 +8,11 @@ package stickymemories.core.os;
  */
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import stickymemories.core.Constants;
 
 /**
@@ -54,10 +57,15 @@ public class PutOnStartup {
     private static boolean doItOnMac()
     {
         //
-        //# add login item
-        //osascript -e 'tell application "System Events" to make login item at 
-        //end with properties {name: "Notes",path:"/Applications/Notes.app", hidden:false}'
-        
+        try
+        {
+            ProcessBuilder pb = new ProcessBuilder("osascript", Constants.MAC_STARTUP_PATH);
+            Process p = pb.start();
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(SystemNotifications.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return false;
     }
     

@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import stickymemories.core.OptionsModel;
 import stickymemories.core.Constants;
+import stickymemories.loop.CheckReminders;
 
 /**
  *
@@ -18,11 +19,12 @@ import stickymemories.core.Constants;
 public class OptionsPanel extends javax.swing.JPanel {
 
     private final JFrame mainFrame;
-    
+    private CheckReminders checkReminders;
     private boolean notificationMode;
     
-    public OptionsPanel(JFrame mainFrame) {
+    public OptionsPanel(JFrame mainFrame, CheckReminders checkReminders) {
         this.mainFrame = mainFrame;
+        this.checkReminders = checkReminders;
         initComponents();
         
         setupButtons();
@@ -257,6 +259,7 @@ public class OptionsPanel extends javax.swing.JPanel {
         OptionsModel om = 
                 new OptionsModel(notificationMode, colorJPanel.getBackground());
         om.saveOptions();
+        checkReminders.isPassive(notificationMode);
         Constants.updateBackground(om.getColorCode());
     }//GEN-LAST:event_OnSaveButtonClick
   
