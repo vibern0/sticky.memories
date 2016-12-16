@@ -84,6 +84,14 @@ public class MainFrame extends javax.swing.JFrame {
         catch (IOException | ClassNotFoundException ex) { }
         
         reloadPanel();
+        
+        try {
+            updateRemindes();
+        } catch (IOException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public static void reloadPanel()

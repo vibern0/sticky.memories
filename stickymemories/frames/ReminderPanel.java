@@ -146,7 +146,7 @@ public class ReminderPanel extends javax.swing.JPanel {
         
         try {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            Date date = dateFormat.parse(day + "/" + month + "/" + year);
+            Date date = dateFormat.parse(day + "/" + (month + 1) + "/" + year);
             
             jDateChoser.setDate(date);
             System.out.println("Setei o jDateChoser "+(year)+"y:");

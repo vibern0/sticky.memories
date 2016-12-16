@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -199,6 +201,7 @@ public class EditNotePanel extends javax.swing.JPanel {
             image = Constants.getSelectedImageIcon(1, imagePath).getImage();
             chosenImagePanel.repaint();
         }
+        remindersList = new ArrayList<>();
         if(note.getReminders() == null){
             reminderState = false;
             System.out.println("Nota sem reminders!");
@@ -206,7 +209,7 @@ public class EditNotePanel extends javax.swing.JPanel {
             reminderState = true;
             System.out.println("Esta nota tem "+note.getReminders().size()
                     +" reminders!");
-            remindersList = new ArrayList<>();
+            
             for(Reminder rm : note.getReminders()) {
                 ReminderPanel rp = new ReminderPanel(this, remindersList.size());
                 rp.setTime(rm.getAno(), rm.getMes(), rm.getDia(), rm.getHora(), rm.getMinuto());
@@ -272,10 +275,17 @@ public class EditNotePanel extends javax.swing.JPanel {
         }
         note.setReminders(reminders);
         DataNotes.updateNote(MainFrame.LastSelectedEdit, note);
-        try{
+        try
+        {
             Controller.saveData();
-        } catch (IOException ex) {
+            mainFrame.updateRemindes();
+        }
+        catch (IOException ex)
+        {
             System.out.println("Erro ao criar nota!");
+            Logger.getLogger(AddNotePanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AddNotePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         MainFrame.reloadPanel();
         backButtonOnBackButtonClicked(evt);

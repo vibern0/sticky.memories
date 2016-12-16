@@ -3,6 +3,7 @@ package stickymemories.loop;
 
 import java.util.Calendar;
 import java.util.Date;
+import stickymemories.core.DataNotes;
 import stickymemories.core.Note;
 import stickymemories.core.Reminder;
 import stickymemories.core.os.OsCheck;
@@ -29,6 +30,9 @@ public class ReminderThread extends Thread {
                 Note n = checkReminders.getLatestReminderNote();
                 System.out.println("a");
                 if(n != null){
+                    if(n.getReminders() == null)
+                        continue;
+                    
                     if(!n.getReminders().isEmpty()){
                         System.out.println("b");
                         Date dt = new Date();
@@ -50,6 +54,7 @@ public class ReminderThread extends Thread {
                                 Reminder r = n.getLatestReminder();
                                 System.out.println(r.getAno() + ":" + r.getMes() + ":" + r.getDia() + ":" + r.getHora() + ":" + r.getMinuto());
                                 n.removeReminder(r);
+                                DataNotes.updateNote(n.getID(), n);
                                 checkReminders.updateComparator();
                                 System.out.println("e");
                             }
