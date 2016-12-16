@@ -1,7 +1,7 @@
 # sticky.memories
 An university work ! (Software Project Managment)
 
-# Bernardo Guide
+# GitHub Guide
 git status (Check if there are "red" files)<br/>
 [If "red" files] git add .<br/>
 [Check if all the files are "green"] git status<br/>
