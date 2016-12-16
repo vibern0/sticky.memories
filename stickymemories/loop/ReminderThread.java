@@ -1,8 +1,14 @@
 
 package stickymemories.loop;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import stickymemories.core.Constants;
+import stickymemories.core.Controller;
 import stickymemories.core.DataNotes;
 import stickymemories.core.Note;
 import stickymemories.core.Reminder;
@@ -46,7 +52,14 @@ public class ReminderThread extends Thread {
                                 Reminder r = n.getLatestReminder();
                                 n.removeReminder(r);
                                 new NotificationPopUp(n.getImagePath());
-                                checkReminders.updateComparator();
+                                DataNotes.updateNote(n.getID(), n);
+                                try {
+                                    Controller.saveData();
+                                    checkReminders.updateReminders();
+                                } catch (IOException | ClassNotFoundException ex) {
+                                    Logger.getLogger(ReminderThread.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                
                                 System.out.println("d");
                             } else {
                                 SystemNotifications sNotification = new SystemNotifications();
@@ -55,7 +68,12 @@ public class ReminderThread extends Thread {
                                 System.out.println(r.getAno() + ":" + r.getMes() + ":" + r.getDia() + ":" + r.getHora() + ":" + r.getMinuto());
                                 n.removeReminder(r);
                                 DataNotes.updateNote(n.getID(), n);
-                                checkReminders.updateComparator();
+                                try {
+                                    Controller.saveData();
+                                    checkReminders.updateReminders();
+                                } catch (IOException | ClassNotFoundException ex) {
+                                    Logger.getLogger(ReminderThread.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 System.out.println("e");
                             }
                         }

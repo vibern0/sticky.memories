@@ -2,6 +2,8 @@
 package stickymemories.frames;
 
 import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
@@ -67,6 +69,32 @@ public class MainFrame extends javax.swing.JFrame {
         this.setVisible(true);
                 
         initNotesList();
+        
+        notesList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    ListSelectionModel selmodel = notesList.getSelectionModel();
+                    int index = selmodel.getMinSelectionIndex();
+                    if (index >= 0){
+                        int pos = 0;
+                        Iterator it = DataNotes.notes.iterator();
+                        while(pos++ < index)
+                        {
+                            it.next();
+                        }
+                        Note note = (Note)it.next();
+
+                        System.out.println(note.getID());
+
+                        LastSelectedEdit = note.getID();
+                        setContentPane(editNotePanel);
+                        invalidate();
+                        validate();
+                    }
+                }
+            }
+        });
     }
     
     public void updateRemindes() throws IOException, FileNotFoundException, ClassNotFoundException{
