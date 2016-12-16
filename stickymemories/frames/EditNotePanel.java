@@ -8,10 +8,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import stickymemories.core.*;
 /**
@@ -183,7 +185,10 @@ public class EditNotePanel extends javax.swing.JPanel {
     
     public void setupComponents(){
         Note note = DataNotes.getNote(MainFrame.LastSelectedEdit);
-		outer_p.setVisible(true);
+        
+        outer_p.removeAll();
+	outer_p.setVisible(true);
+        
         if(note == null){ 
             System.out.println("ERRO");
             return;
@@ -204,7 +209,7 @@ public class EditNotePanel extends javax.swing.JPanel {
             remindersList = new ArrayList<>();
             for(Reminder rm : note.getReminders()) {
                 ReminderPanel rp = new ReminderPanel(this, remindersList.size());
-                rp.setTime(rm.getAno(), rm.getMes(), rm.getMinuto(), rm.getHora(), rm.getMinuto());
+                rp.setTime(rm.getAno(), rm.getMes(), rm.getDia(), rm.getHora(), rm.getMinuto());
                 System.out.println(rm.getAno() + ":" + rm.getMes() + ":" + rm.getDia() + ":" + rm.getHora() + ":" + rm.getMinuto());
                 outer_p.add(rp);
                 remindersList.add(rp);
@@ -235,7 +240,38 @@ public class EditNotePanel extends javax.swing.JPanel {
         if(imagePath == null)
             return;
         String newPath = Constants.copyImage(imagePath);
-        DataNotes.getNote(MainFrame.LastSelectedEdit).setImagePath(newPath);
+        Note note = DataNotes.getNote(MainFrame.LastSelectedEdit);
+        note.setImagePath(newPath);
+        List<Reminder> reminders = null;
+        if(reminderState){
+            reminders = new ArrayList<>();
+            int i = 0;
+            for(ReminderPanel rm : this.remindersList){
+                if(rm.jDateChoser.getDate() == null){
+                    JOptionPane.showMessageDialog(this,
+                        "There are reminders with no date!",
+                        "Create note warning",
+                        JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                Date date = rm.jDateChoser.getDate();
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+                Reminder reminder = new Reminder(year, month,
+                        day, rm.getHour(), rm.getMinute());
+                System.out.println(year + ":" + month + ":" + day + ":" + rm.getHour() + ":" + rm.getMinute());
+                reminders.add(reminder);
+            }
+            if(reminders.isEmpty())
+                reminders = null;
+            if(reminders != null)
+                System.out.println("Adicionei uma nota com PATH:"+imagePath+",REMINDERS:"+reminders.size());
+        }
+        note.setReminders(reminders);
+        DataNotes.updateNote(MainFrame.LastSelectedEdit, note);
         try{
             Controller.saveData();
         } catch (IOException ex) {

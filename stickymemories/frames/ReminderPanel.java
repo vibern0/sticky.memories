@@ -1,7 +1,12 @@
 
 package stickymemories.frames;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import stickymemories.core.Constants;
 
@@ -137,10 +142,21 @@ public class ReminderPanel extends javax.swing.JPanel {
     }
     
     public void setTime(int year, int month, int day, int hour, int minute){
-        jDateChoser.setDate(new Date(year, month-1, day));
-        System.out.println("Setei o jDateChoser "+(year)+"y:");
-        JSpinHour.setValue(hour);
-        JSpinMinute.setValue(minute);
+        
+        
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = dateFormat.parse(day + "/" + month + "/" + year);
+            
+            jDateChoser.setDate(date);
+            System.out.println("Setei o jDateChoser "+(year)+"y:");
+            JSpinHour.setValue(hour);
+            JSpinMinute.setValue(minute);
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(ReminderPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
