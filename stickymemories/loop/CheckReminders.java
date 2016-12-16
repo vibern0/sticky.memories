@@ -10,9 +10,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.PriorityQueue;
 import stickymemories.core.Controller;
+import stickymemories.core.DataNotes;
 import stickymemories.core.Note;
 import stickymemories.core.OptionsModel;
 import stickymemories.core.order.ByCreationOrderAsc;
+import stickymemories.core.order.ByReminderOrderAsc;
 
 /**
  *
@@ -24,7 +26,7 @@ public class CheckReminders {
     boolean notificationMode = false; //falso - passivo    true - ativo
     
     public CheckReminders(){
-        noteByReminder = new PriorityQueue<>(new ByCreationOrderAsc());
+        noteByReminder = new PriorityQueue<>(new ByReminderOrderAsc());
         OptionsModel options = OptionsModel.loadOptions();
         if(options != null)
             notificationMode = options.getNotificationsMode();
@@ -35,12 +37,21 @@ public class CheckReminders {
         return noteByReminder;
     }
     
+    public void doShit()
+    {
+        List<Note> temp = DataNotes.notes;
+        noteByReminder.clear();
+        for (Note n : temp) {
+            noteByReminder.add(n);
+        }
+    }
+    
     public Note getLatestReminderNote(){
         return noteByReminder.peek();
     }
     
     public void updateComparator(){
-        Note n = noteByReminder.poll();
+        Note n = noteByReminder.remove();
         noteByReminder.add(n);
     }
     

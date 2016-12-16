@@ -82,4 +82,18 @@ public class DataNotes implements Serializable {
                 return note;
         return null;
     }
+    
+    public static void updateNote(long noteID, Note n)
+    {
+        int p = 0;
+        for(Note note : notes)
+        {
+            if(note.getID() == noteID)
+            {
+                break;
+            }
+            p ++;
+        }
+        notes.set(p, n);
+    }
 }

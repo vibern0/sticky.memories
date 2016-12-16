@@ -1,8 +1,15 @@
 
 package stickymemories.loop;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import stickymemories.core.Constants;
+import stickymemories.core.Controller;
+import stickymemories.core.DataNotes;
 import stickymemories.core.Note;
 import stickymemories.core.Reminder;
 import stickymemories.core.os.OsCheck;
@@ -29,6 +36,9 @@ public class ReminderThread extends Thread {
                 Note n = checkReminders.getLatestReminderNote();
                 System.out.println("a");
                 if(n != null){
+                    if(n.getReminders() == null)
+                        continue;
+                    
                     if(!n.getReminders().isEmpty()){
                         System.out.println("b");
                         Date dt = new Date();
@@ -42,14 +52,28 @@ public class ReminderThread extends Thread {
                                 Reminder r = n.getLatestReminder();
                                 n.removeReminder(r);
                                 new NotificationPopUp(n.getImagePath());
-                                checkReminders.updateComparator();
+                                DataNotes.updateNote(n.getID(), n);
+                                try {
+                                    Controller.saveData();
+                                    checkReminders.updateReminders();
+                                } catch (IOException | ClassNotFoundException ex) {
+                                    Logger.getLogger(ReminderThread.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                
                                 System.out.println("d");
                             } else {
                                 SystemNotifications sNotification = new SystemNotifications();
                                 sNotification.showTextNotification("Sticky Memories", n.getImagePath());
                                 Reminder r = n.getLatestReminder();
+                                System.out.println(r.getAno() + ":" + r.getMes() + ":" + r.getDia() + ":" + r.getHora() + ":" + r.getMinuto());
                                 n.removeReminder(r);
-                                checkReminders.updateComparator();
+                                DataNotes.updateNote(n.getID(), n);
+                                try {
+                                    Controller.saveData();
+                                    checkReminders.updateReminders();
+                                } catch (IOException | ClassNotFoundException ex) {
+                                    Logger.getLogger(ReminderThread.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 System.out.println("e");
                             }
                         }
