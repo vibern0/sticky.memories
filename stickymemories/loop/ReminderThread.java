@@ -48,6 +48,7 @@ public class ReminderThread extends Thread {
                                 SystemNotifications sNotification = new SystemNotifications();
                                 sNotification.showTextNotification("Sticky Memories", n.getImagePath());
                                 Reminder r = n.getLatestReminder();
+                                System.out.println(r.getAno() + ":" + r.getMes() + ":" + r.getDia() + ":" + r.getHora() + ":" + r.getMinuto());
                                 n.removeReminder(r);
                                 checkReminders.updateComparator();
                                 System.out.println("e");

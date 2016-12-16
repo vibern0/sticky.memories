@@ -203,6 +203,7 @@ public class EditNotePanel extends javax.swing.JPanel {
             for(Reminder rm : note.getReminders()) {
                 ReminderPanel rp = new ReminderPanel(this, remindersList.size());
                 rp.setTime(rm.getAno(), rm.getMes(), rm.getMinuto(), rm.getHora(), rm.getMinuto());
+                System.out.println(rm.getAno() + ":" + rm.getMes() + ":" + rm.getDia() + ":" + rm.getHora() + ":" + rm.getMinuto());
                 remindersPanel.add(rp);
                 remindersList.add(rp);
             }
@@ -224,7 +225,7 @@ public class EditNotePanel extends javax.swing.JPanel {
         if(imagePath == null)
             return;
         String newPath = Constants.copyImage(imagePath);
-        DataNotes.getNote(MainFrame.LastSelectedEdit).setImagePath("images/"+newPath);
+        DataNotes.getNote(MainFrame.LastSelectedEdit).setImagePath(newPath);
         try{
             Controller.saveData();
         } catch (IOException ex) {
