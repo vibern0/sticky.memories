@@ -27,23 +27,30 @@ public class ReminderThread extends Thread {
             try {
                 Thread.sleep(1000);
                 Note n = checkReminders.getLatestReminderNote();
+                System.out.println("a");
                 if(n != null){
                     if(!n.getReminders().isEmpty()){
+                        System.out.println("b");
                         Date dt = new Date();
                         Calendar cal = Calendar.getInstance();
                         cal.setTime(dt);
                         //System.out.println("now time: " + cal.getTimeInMillis());
                         //System.out.println("Reminder: " + n.getLatestReminder().getReminderTime());
                         if(n.getLatestReminder().getReminderTime() <= cal.getTimeInMillis()){
+                            System.out.println("c");
                             if(checkReminders.isNotificationMode()){
                                 Reminder r = n.getLatestReminder();
                                 n.removeReminder(r);
                                 new NotificationPopUp(n.getImagePath());
                                 checkReminders.updateComparator();
+                                System.out.println("d");
                             } else {
-                                SystemNotifications sNotification = new SystemNotifications(OsCheck.getOperatingSystemType());
+                                SystemNotifications sNotification = new SystemNotifications();
                                 sNotification.showTextNotification("Sticky Memories", n.getImagePath());
+                                Reminder r = n.getLatestReminder();
+                                n.removeReminder(r);
                                 checkReminders.updateComparator();
+                                System.out.println("e");
                             }
                         }
                     }else{

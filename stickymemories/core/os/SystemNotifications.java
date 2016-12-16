@@ -16,16 +16,13 @@ import javax.swing.ImageIcon;
  */
 public class SystemNotifications
 {
-    private final OsCheck.OSType ostype;
     
-    public SystemNotifications(OsCheck.OSType ostype)
-    {
-        this.ostype = ostype;
-    }
+    public SystemNotifications()
+    { }
     
-    public void showTextNotification(String text, String image)
+    public static void showTextNotification(String text, String image)
     {
-        switch (ostype) 
+        switch (OsCheck.getOperatingSystemType()) 
         {
             case Windows:
                 if (SystemTray.isSupported()) 
@@ -60,7 +57,7 @@ public class SystemNotifications
                 try
                 {
                     ProcessBuilder pb = new ProcessBuilder("osascript",
-                            "notification.scpt", "Sticky Memories", text);
+                            Constants.MAC_NOTIFICATION_PATH, "Sticky Memories", text);
                     Process p = pb.start();
                 }
                 catch (IOException ex)
