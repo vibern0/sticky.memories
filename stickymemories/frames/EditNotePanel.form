@@ -23,8 +23,20 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="backButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="364" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="backButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="352" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="reminders_scroll" alignment="1" min="-2" pref="210" max="-2" attributes="0"/>
+                          <Component id="switch_reminders" alignment="1" min="-2" pref="93" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
@@ -44,15 +56,10 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                   <Component id="remindersTextLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="reminderSwitcher" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jScrollPane1" alignment="1" pref="0" max="32767" attributes="0"/>
-                                      <Component id="button_add_reminders" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="button_add_reminders" min="-2" pref="210" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -67,7 +74,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="backButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="307" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+              <Component id="switch_reminders" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="reminders_scroll" min="-2" pref="169" max="-2" attributes="0"/>
+              <EmptySpace pref="87" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
@@ -76,14 +87,9 @@
                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="reminderSwitcher" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="remindersTextLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="155" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="remindersTextLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="186" max="-2" attributes="0"/>
                           <Component id="button_add_reminders" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="createNoteButton" min="-2" max="-2" attributes="0"/>
@@ -175,17 +181,6 @@
         <Property name="text" type="java.lang.String" value="Reminders:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="reminderSwitcher">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Off"/>
-      </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reminderSwitcherOnReminderStateClick"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="button_add_reminders">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add new reminder"/>
@@ -195,35 +190,17 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_add_remindersActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-      <Properties>
-        <Property name="horizontalScrollBar" type="javax.swing.JScrollBar" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="null"/>
-        </Property>
-      </Properties>
+    <Container class="javax.swing.JScrollPane" name="reminders_scroll">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Container class="javax.swing.JPanel" name="remindersPanel">
-          <Properties>
-            <Property name="autoscrolls" type="boolean" value="true"/>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[210, 185]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[210, 185]"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[210, 185]"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="AddNotePanel_remindersPanel"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
-        </Container>
-      </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="switch_reminders">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jButton1"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="switch_remindersActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

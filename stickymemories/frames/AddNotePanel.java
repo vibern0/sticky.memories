@@ -288,6 +288,8 @@ public class AddNotePanel extends javax.swing.JPanel {
         remindersList.add(rp);
         outer_p.invalidate();
         outer_p.validate();
+        outer_p.setVisible(false);
+        outer_p.setVisible(true);
     }//GEN-LAST:event_button_add_remindersActionPerformed
     
     class ImagePanel extends JPanel{
